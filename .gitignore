@@ -43,6 +43,7 @@ junit*.properties
 *.keys
 *.names
 graph.db/
+oneWordTermFrequency.txt
 
 
 
