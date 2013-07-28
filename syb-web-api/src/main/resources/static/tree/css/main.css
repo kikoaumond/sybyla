@@ -1,0 +1,257 @@
+/* SYBYLA MAIN STYLE SHEET */
+/* Designed by JENNALEX    */
+
+/* reset css */
+html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote {
+ padding: 0;
+ margin: 0;
+ font-size: 100%;
+ font-weight: normal;
+}
+table { border-collapse: collapse; border-spacing: 0; }
+td, th, caption { font-weight: normal; text-align: left; }
+img, fieldset { border: 0; }
+ol { padding-left: 1.4em; list-style: decimal; }
+ul { padding-left: 1.4em; list-style:square; }
+q:before, q:after { content:''; }
+/* end reset */
+
+body {
+ color: black;
+ font: 12px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+ background: url(../images/blueBg.jpg) no-repeat fixed left top;
+ background-color: #2713a0;
+}
+
+#bigBox { 
+width: 978px;
+}
+
+#logo {
+ margin: -20px 10px 0px 20px;
+}
+
+#tagline {
+float: right;
+color: white;
+font: 20px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+margin: 42px 10px 0px 20px;
+}
+
+#mainWrapper{
+clear:both;
+width: 877px;
+height:100%;
+font: 20px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+margin: 10px 10px 0px 20px;
+padding: 0px 0px 0px 82px;
+}
+
+#copyBoxHP {
+clear:both;
+width: 876px;
+height:100%;
+background: url(../images/ltBlueBg.jpg) no-repeat fixed left top;
+background-color: #e7e8fd;
+font: 14px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: black;
+overflow: hidden;
+padding-bottom: 20px;
+}
+
+
+#copyBox {
+clear:both;
+width: 836px;
+height:100%;
+background: url(../images/ltBlueBg.jpg) no-repeat fixed left top;
+background-color: #e7e8fd;
+font: 14px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: black;
+overflow: hidden;
+padding: 20px;
+}
+
+#copyBox p {
+font: 14px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: black;
+padding: 10px 10px 10px 0;
+}
+
+#copyBox h2 {
+font: 24px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: black;
+padding: 6px 0 10px 0;
+}
+
+#copyBox h3 {
+font: 16px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: black;
+padding: 10px 0 10px 0;
+}
+
+#form {
+float: left;
+width: 450px;
+font: 14px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: black;
+padding: 10px 10px 10px 0;
+}
+
+#form textarea {
+background: #fff;
+}
+
+#infovis {
+    position:relative;
+    width:600px;
+    height:600px;
+    margin:auto;
+    overflow:hidden;
+    color:black;
+}
+
+#graphBox{
+    height:600px;
+    position:absolute;
+    top:0;
+}
+
+#classifyResults{
+float: left;
+width: 360px;
+font: 14px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: black;
+padding: 10px 10px 10px 0;
+}
+
+#classifyResults h2{
+font: 21px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: #2713a0;
+padding: 10px 10px 6px 0px;
+border-bottom: 0px solid  #2713a0;
+}
+
+#classifyResults p{
+padding: 5px;
+background: #fff;
+margin: 0px 0px 5px 0px;
+border: 1px solid #abb3f1;
+}
+
+
+#intro{
+clear: both;
+width: 824px;
+background-color: black;
+font: 18px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: white;
+padding: 28px 30px 34px 22px;
+}
+
+#pageHead{
+clear: both;
+width: 824px;
+background-color: black;
+font: 18px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: white;
+padding: 12px 30px 12px 22px;
+text-transform: uppercase;
+}
+
+
+.hpSubBox {
+float: left;
+width: 287px;
+font: 14px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: black;
+padding: 0px;
+}
+
+.hpSubBox p {
+font: 14px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: black;
+padding: 8px;
+}
+
+
+.hpSubBox H2 {
+width: 287px;
+background: url(../images/goldGradient.gif);
+background-color: #735b08;
+border: 1px white solid;
+font: 16px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: white;
+padding: 6px 6px 6px 6px;
+}
+
+.copyright {
+clear: both;
+font: 12px Calibri, Arial, Helvetica, Verdana, sans-serif; 
+font-weight: normal;
+color: #8585ee;
+padding: 6px 6px 6px 6px;
+}
+
+
+ul.button {
+	margin: 10px 0 10px 0px;
+	padding-left: 0px;
+	float: left;
+	width: auto;
+}
+
+.button li {
+	list-style: none;
+	background: url(../images/buttonRight.png) no-repeat right top;
+	margin-right:  5px;
+}
+
+.button a {
+	display: block;
+	padding: 5px 14px 8px 14px;
+	background-image: url(../images/buttonLeft.png);
+	background-repeat: no-repeat;
+	background-position: left top;
+	text-align: center;
+	text-decoration: none;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.button a:hover {
+	color: white; 
+	text-decoration: underline; 
+}
+
+.buttonBox {
+	border:0; 
+	height: 30px; 
+	width: 152px;
+	display: block;
+	font: 9pt  Arial, Verdana, Helvetica, sans-serif; 
+	font-weight:bold;
+	color: white;
+	background: url(../images/button.png) no-repeat center;
+	background-color: white;
+	padding:8px 8px 8px 8px; }
+
+.buttonBox:hover { 
+	color: white; 
+	text-decoration: underline;
+}
+

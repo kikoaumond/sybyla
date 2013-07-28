@@ -1,0 +1,8 @@
+delim_pre	preço
+delim_pre	preco
+delim_pre	valor
+delim_pre	preço total
+delim_pre	preco total
+delim_pre	valor total
+delim_pre	quantia
+

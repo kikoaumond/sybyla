@@ -1,0 +1,1 @@
+java -server -Xmx4G -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -cp ../../target/syb-graph-0.0.1-SNAPSHOT-jar-with-dependencies.jar sybyla.app.Neo4jLoader -batch -in /mnt/data/current/term-correlation/ -out /mnt/data/current/graph/neo4j/

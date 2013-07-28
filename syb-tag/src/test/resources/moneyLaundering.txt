@@ -1,0 +1,37 @@
+Company Aided in Laundering $6 Billion, Says Indictment
+By MARC SANTORA, WILLIAM K. RASHBAUM and NICOLE PERLROTH
+
+The operators of what the authorities described as one of the world’s largest online money laundering organizations, a central hub for criminals trafficking in everything from stolen identities to child pornography, were charged in an indictment unsealed by federal prosecutors on Tuesday.
+DOCUMENT: Indictment of Liberty Reserve S.A. on Charges of Money Laundering
+
+The organization, Liberty Reserve, was responsible for laundering over $6 billion over the last seven years, with millions of customers around the world, according to the indictment. Prosecutors said that the company “facilitated global criminal conduct” and that the case, which involved law enforcement agencies in 17 countries, is believed to be the largest international money laundering prosecution in history.
+
+The charges detailed a complicated system designed to allow people to move sums of money both large and small around the world with virtual anonymity, according to a three-count indictment announced by the United States attorney’s office in Manhattan.
+
+“This was really PayPal for criminals,” a senior law enforcement official said, calling the company and a system of related businesses “a shadow banking system for criminal conduct” that was “able to facilitate all sorts of criminal conduct that would not otherwise happen.”
+
+The indictment charges seven of the company’s principals and employees. Five of them were arrested Friday in Spain, Costa Rica and Brooklyn.
+
+“Liberty Reserve was in fact used extensively for illegal purposes, functioning in effect as the bank of choice for the criminal underworld,” the indictment states.
+
+Liberty Reserve, an online currency exchange, has surfaced as a preferred vehicle to transfer money between parties in a number of recent high-profile cybercrimes, including the indictment of eight New Yorkers for their role in looting $45 million from bank machines in 27 countries.
+
+Liberty Reserve was incorporated in Costa Rica in 2006 by Arthur Budovsky, who renounced his United States citizenship in 2011, and was arrested in Spain on Friday.
+
+Preet Bharara, the United State attorney in Manhattan, was expected to announce the charges at a Tuesday afternoon news conference along with officials from the Justice Department, the Secret Service, the Internal Revenue Service and the Department of Homeland Security.
+
+In addition to the criminal charges, five domain names were seized, including the one used by Liberty Reserve, and officials seized or restricted the activity of 45 bank accounts.
+
+The charges outlined how the money transfer system operated, offering a glimpse into the murky world of online financial transactions that bounces money between far-flung accounts from Cyprus to New York in the blink of an eye.
+
+In order to transfer money using Liberty Reserve, a user needed to provide a name, address and date of birth. But they were not required to validate their identity.
+
+“Accounts could therefore be opened easily using fictitious or anonymous identities,” the indictment states. Prosecutors cited “blatantly criminal monikers” used by Liberty Reserve clients like “Russia Hackers.”
+
+Essentially, all a customer needed to open an account was an e-mail address.
+
+The senior law enforcement official, who spoke on the condition of anonymity because the charges had not yet been announced, said that one undercover agent was able to register accounts under names like “Joe Bogus” and describe the purpose of the account as “for cocaine” without questioning. That no-questions-asked verification system made Liberty Reserve the premier bank for cybercriminals, facilitating a broad range of illegal online activity.
+
+The senior law enforcement official said the case was significant because it attacked the financial infrastructure utilized by many cyber criminals in much the same way that drug money laundering prosecutions have sought to target the financial underpinnings of the narcotics trade.
+
+“They’re not going to have this kind of fluid system that allows them to work globally in the same way,” the official said, noting that federal authorities were unaware of any other such system that operates on a similar scale. “It’s not the end of it,” the official said, referring generically to such cyber money laundering schemes, “but it’s a big deal.”

@@ -1,0 +1,80 @@
+Ms
+Ms.
+Miss
+Mrs
+Mrs.
+Mr
+Mr.
+Master
+Reverend
+Rev.
+Rev
+Prime Minister
+Father
+Doctor
+Dr.
+Dr
+Professor
+Prof.
+President
+Governor
+Gov
+Gov.
+Coach
+Sen.
+Sen
+Senator
+Pope
+Cardinal
+His Holiness
+General
+Gen
+Gen.
+Major
+Maj
+Maj.
+Staff Sergeant
+SSgt
+Ssgt.
+Sergeant
+Sgt
+Sgt.
+Captain
+Cpt
+Cpt.
+Capt
+Capt.
+Colonel
+Col
+Col.
+Rep
+Rep.
+Representative
+Pvt
+Pvt.
+Private
+Cpl
+Cpl.
+Corporal
+Sec
+Sec.
+Secretary
+Cmdr
+Cmdr.
+Commander
+Lieutenant
+Lt
+Lt.
+Ambassador
+Amb
+Amb.
+Mayor
+Lt Col
+Lt. Col.
+Lieutenant Colonel
+Admiral
+Adm.
+Adm
+Rear Admiral
+
+

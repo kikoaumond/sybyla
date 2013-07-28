@@ -1,0 +1,1 @@
+sudo java -Dfile.encoding=UTF-8 -Xmx4096m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=1044 -jar ../../target/syb-web-api-0.0.1-SNAPSHOT-jar-with-dependencies.jar -graph -tag -category -why

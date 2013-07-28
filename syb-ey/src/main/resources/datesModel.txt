@@ -1,0 +1,46 @@
+delim_pre	prazo
+delim_pre	vigencia
+delim_pre	vigência
+delim_pre	vigancia
+contract_date_marker	firmado em 
+begin_date_marker	inicio
+begin_date_marker	início
+begin_date_marker	período entre
+begin_date_marker	a partir de
+begin_date_marker	iniciando em
+begin_date_marker	vigencia
+begin_date_marker	vigência
+begin_date_marker	em vigor na data
+end_date_marker	em vigor na data
+end_date_marker	terminando em
+end_date_marker	vigorara ate
+end_date_marker	vigorará até
+end_date_marker	vigencia
+end_date_marker	vigência
+end_date_marker	término
+delim_pre	validade
+end_date_marker	valido até
+end_date_marker	valido ate
+end_date_marker	válido ate
+end_date_marker	válido até
+end_date_marker	prorrogado
+end_date_marker	prorrogada
+delim_pre	válido de
+delim_pre	valido de
+delim_pre	firmado em
+month	janeiro
+month	fevereiro
+month	março
+month	marco
+month	abril
+month	maio
+month	junho
+month	julho
+month	agosto
+month	setembro
+month	outubro
+month	novembro
+month	dezembro
+frag	anos
+frag	aios
+frag	meses

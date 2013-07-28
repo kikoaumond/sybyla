@@ -1,0 +1,259 @@
+Contrato n°.
+
+© Contrato de Uso DCPC-ES-0028-2013 OScelS° do Sistema de Distribuiçäo Estrutura Tarifária - Reserva de Capacidade - CARGA LIVRE QUADRO A QUADRO B UNIDADE CONSUMIDORA TITULAR DO CONTRATO 1. Designaçäo 1. Razäo Social 9500211 / Unid. Arcel QUISQUE CURSUS S/A 2. Endereço 2. Endereço Rod. Aracruz X Barra do Riacho Km 25 Alameda Santos, n° 1357, 6° andar 3. Bairro 4. Município/ Estado 3. Bairro 4. Município/ Estado Barra do Riacho Aracruz/ ES Jardim Paulista Säo Paulo/SP 5. CEP 6. Código de Atividade 5. CEP 6. CNPJ/MF 29.197-900 17.10-9-00 01419-100 60.643.228/0471-95 7. Classe/ Tarifa 8. Horário de Ponta 7. Inscriçäo Estadual 8. Inscriçäo Rural T_LIVRE 18:00 às 21:00 horas 080.441.26-2 ISENTO QUADRO C 1. Montante de Uso da Reserva de Capacidade Contratada - kW Período Seco Período Úmido Período de Contrataçao Ponta Fora de Ponta Ponta Fora de Ponta A partir do ciclo de faturamento ref.
+
+FEVEREIRO 10.000 kW 10.000 kW 10.000 kW 10.000 kW (20/01 a 01/02/2013) A partir do ciclo de faturamento ref.
+
+MARÇO 10.000 kW 10.000 kW 10.000 kW 10.000 kW (01/02 a 10/02/2013) A partir do ciclo de faturamento ref.
+
+MAIO/JUNHO 10.000 kW 10.000 kW 10.000 kW 10.000 kW (01/05 a 01/07/2013) 2. Tensäo Nominal 3. Tensäo Contratada 4. Tensäo de Mediçäo 5. Vigência do Contrato 138.000 Volts 138.000 Volts 138.000 Volts 01/01/2013 a 31/12/2013 Pelo presente instrumento particular que entre si fazem de um lado a ARCU SCELERISQUE S.A. - ESCELSA, Concessionária de Serviços Públicos de Energia Elétrica, inscrita no Cadastro Nacional de Pessoa Jurídica do Ministério da Fazenda sob on ° 28.152.650/0001-71, com sede à Praça Costa Pereira n°. 210 - 3° andar, Município de Vitória, Estado do Espírito Santo, doravante denominada CONCESSIONÁRIA, e de outro lado a pessoa jurídica ou física identificado no campo Titular do Contrato deste documento, doravante denominada CLIENTE, ambas neste ato representadas nas formas de seus respectivos estatutos/contratos sociais, têm entre si justo e acordado o que segue, mediante as seguintes cláusulas e condições:
+
+TÍTULO I DA NOMENCLATURA TÉCNICA CLÁUSULA PRIMEIRA - Para o perfeito entendimento da terminologia técnica usada neste instrumento, fica desde já acertado entre as PARTES o conceito dos seguintes vocábulos e expressões:
+
+a) Acordo Operativo - acordo celebrado entre as PARTES, descrevendo e definindo as atribuições e responsabilidades, bem como estabelecendo os procedimentos necessários ao relacionamento técnico-operacional.
+
+b) Contrato de Conexão ao Sistema de Distribuição (CCD) - instrumento contratual que estabelece os termos e condições para a interligação das instalações do CLIENTE ao Sistema de Distribuição e os correspondentes direitos e obrigações de cada uma das PARTES.
+
+Página 1 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 c) Consumo - quantidade de Energia Elétrica Ativa acumulada durante o período de faturamento, verificada por mediçäo, expressa em quilowatt x hora (kWh).
+
+d) Demanda - média das potências ativas e reativas, solicitadas ao Sistema de Distribuiçäo pela parcela da carga instalada, e em operaçäo, nas instalações elétricas do CLIENTE, integralizada em intervalos de 15 (quinze) minutos, durante um determinado período de tempo especificado.
+
+e) Encargo de Uso da Reserva de Capacidade - importância mensal devida pelo CLIENTE à CONCESSIONÁRIA, pelo uso de seu sistema de distribuiçäo e pelo uso da Rede Básica, apurada em conformidade com a regulamentaçäo específica da Agência Nacional de Energia Elétrica - ANEEL.
+
+f) Energia Elétrica Ativa - quantidade de energia elétrica que pode ser convertida em outra forma de energia, durante qualquer período de tempo, expressa em quilowatt-hora (kWh) e seus múltiplos.
+
+g) Energia Elétrica Reativa - quantidade de energia elétrica que circula continuamente entre os diversos campos elétricos e magnéticos de um sistema de corrente alternada, sem produzir trabalho, expressa em quilovolt-ampère-reativo-hora (kVArh) e seus múltiplos.
+
+h) Fator de Potência - é a razäo entre a energia ativa e a raiz quadrada da soma dos quadrados das energias elétrica ativa e reativa, apuradas num mesmo período específico, calculado em base horária.
+
+i) Mês de Referência - é qualquer mês do período de vigência do contrato, relacionado ao calendário de medição e faturamento das instalações elétricas do CLIENTE.
+
+j) Montante de Uso da Reserva de Capacidade Contratada - demanda de utilizaçäo da reserva da capacidade do sistema de distribuiçäo firmada em Contrato e que deverá ser integralmente paga, NO CASO DA SUA UTILIZAÇÃO durante o período de faturamento, expressa em quilowatts (kW).
+
+k) Montante de Uso Medido - maior demanda de potência ativa, verificada por mediçäo, durante o período de faturamento, expressos em quilowatts (kW).
+
+I) Modalidade Tarifória - é a característica da tarifa aplicável ao serviço prestado com base na sua estrutura de preço homologada pela ANEEL.
+
+m) Padrões Técnicos - säo os documentos elaborados pela CONCESSIONÁRIA, que estabelecem os requisitos técnicos para acesso ao Sistema de Distribuiçäo, bem como para a sua utilização, fazendo parte integrante deste.
+
+n) Ponto de Conexäo - é o equipamento ou conjunto de equipamentos, de responsabilidade de cada uma das Partes, que se destinam à interligaçäo das instalações elétricas do CLIENTE, ou de sua responsabilidade, ao sistema elétrico da CONCESSIONÁRIA, conforme definido no Contrato de Conexão ao Sistema de Distribuição - CCD.
+
+o) Reserva de Capacidade - é o montante de uso, expresso em quilowatts (kW), requerido dos sistemas elétricos de distribuiçäo para atendimento às instalações do CLIENTE discriminadas no Quadro A, quando da ocorrëncia de interrupções ou reduções temporárias na geraçäo de energia elétrica no local, adicionalmente ao montante de uso já contratado de forma permanente para atendimento às referidas instalações.
+
+p) Segmentos Horo-Sazonais - modalidade tarifória, estruturada para aplicaçäo de preços diferenciados de demanda de potëncia e consumo de energia elétrica, de acordo com as horas de distribuiçäo do dia e os períodos do ano, a saber:
+
+Horário de Ponta - intervalo de 3 (trës) horas consecutivas, exceçäo feita aos sábados, domingos, terça-feira de Carnaval, Sexta-feira da Paixäo, Dia de Finados, Corpus Christi e os demais feriados definidos por Lei Federal, considerando as características do sistema elétrico.
+
+Página 2 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 Horário Fora de Ponta - período composto pelo conjunto das horas diárias consecutivas e complementares àquelas definidas no horário de ponta.
+
+Período Seco - período de 7 (sete) meses consecutivos, compreendendo os fornecimentos abrangidos pelas leituras dos meses de maio a novembro de cada ano.
+
+Período Úmido - período de 5 (cinco) meses compreendendo os fornecimentos abrangidos pelas leituras dos meses de dezembro de um ano a abril do ano seguinte.
+
+q) Sistema de Distribuiçäo - säo as instalações e equipamentos necessários ao transporte de energia elétrica, näo pertencente à Rede Bósica, localizados na área de concessäo da CONCESSIONÁRIA e por ela explorados.
+
+r) Tarifa de Uso do Sistema de Distribuiçäo (TUSD) - tarifa homologada pela ANEEL para o faturamento do Encargo de Uso do Sistema de Distribuiçäo, acrescida da tarifa de uso das instalações de transmissäo - TUST vinculada ao respectivo Estado da Federaçäo.
+
+s) Tensäo Contratada - valor eficaz de tensäo que deverá ser informado ao CLIENTE por escrito ou estabelecido em contrato, expresso em volts (V) ou quilo volts (kV).
+
+t) Tensäo de Mediçäo - nível de tensäo no qual estäo localizados os equipamentos de mediçäo para faturamento.
+
+u) Tensäo Nominal - é a tensäo disponibilizada para o atendimento às instalações elétricas do CLIENTE, expressa em volts (V) ou quilovolts (kV).
+
+TÍTULO II DO OBJETO E DO PRAZO DE VIGÊNCIA CLÁUSULA SEGUNDA - O objeto deste instrumento é a prestaçäo do serviço público de distribuição de energia elétrica, regulando os direitos e obrigações das PARTES quanto ao uso de reserva de capacidade do sistema de distribuiçäo pelo CLIENTE para o transporte de energia elétrica ativa até o Ponto de Conexäo das instalações elétricas identificadas no campo "Unidade Consumidora" (Quadro A).
+
+CLÁUSULA TERCEIRA - O presente contrato vigerá exclusivamente no período estabelecido no campo "Vigência do Contrato" (Quadro C.5), porém a RESERVA DE CAPACIDADE só estará disponível para os meses estabelecidos no campo "Período de Contrataçäo" (Quadro C.1).
+
+TÍTULO III DO USO DO SISTEMA DE DISTRIBUIÇÃO CLÁUSULA QUARTA - A CONCESSIONÁRIA disponibilizará no Ponto de Conexão do CLIENTE a utilizaçäo dos valores indicados no campo "MONTANTE DE USO DE RESERVA DE CAPACIDADE CONTRATADO", a partir do início do "Período de Contrataçäo" estabelecido no Quadro C.
+
+Parágrafo único - O cumprimento das obrigações e dos compromissos oriundos deste contrato está condicionado à situaçäo de adimplëncia contratual das PARTES com relaçäo ao Contrato de Conexão ao Sistema de Distribuição - CCD e ao Acordo Operativo, formalizados entre as mesmas.
+
+CLÁUSULA QUINTA - O CLIENTE poderá solicitar a alteraçäo dos valores do Montante de Uso de Reserva de Capacidade Contratada a qualquer tempo, sendo que, para tanto, deverá manifestar-se, formalmente, via correspondëncia protocolada à CONCESSIONÁRIA.
+
+Parágrafo Primeiro - Para solicitações de aumento nos valores do Montante de Uso de Reserva de Capacidade Contratado, o CLIENTE deverá manifestar-se com antecedência mínima de 60 (sessenta) dias em relaçäo à data de término de cada vigëncia, para atendimento pela CONCESSIONÁRIA a partir da data de início do próximo período contratual, este condicionado à existëncia de capacidade remanescente do sistema de distribuiçäo.
+
+Página 3 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 Parágrafo Segundo - A CONCESSIONÁRIA deverá, no prazo de até 30 (trinta) dias, contados a partir da data de protocolo da solicitaçäo, comunicar ao CLIENTE as condições necessárias para o seu atendimento.
+
+Parágrafo Terceiro - Havendo a necessidade de reforços no sistema de distribuiçäo para o atendimento de sua solicitaçäo de aumento nos valores do Montante de Uso de Reserva de Capacidade Contratado, o prazo de que trata o parágrafo anterior será de até 120 (cento e vinte) dias, para que a CONCESSIONÁRIA elabore os estudos, orçamentos, projetos e comunique formalmente ao CLIENTE o prazo para conclusäo das obras de distribuiçäo destinadas ao atendimento de seu pedido, bem como a necessidade de investimento de sua parte, se houver, e demais condições técnicas e comerciais necessárias.
+
+Parágrafo Quarto - As solicitações de reduçäo no Montante de Uso de Reserva de Capacidade Contratado seräo aceitas, desde que formalizadas com antecedência mínima de 180 (cento e oitenta) dias em relaçäo à data de término de cada vigência, para implementaçäo no período de vigência subseqÜente.
+
+TÍTULO IV DAS CARACTERÍSTICAS E CONDIÇÖES TÉCNICAS CLÁUSULA SEXTA - A energia elétrica transportada pelo Sistema de Distribuição, e disponibilizada no Ponto de Conexäo, será em corrente alternada trifósica equilibrada, na freqüëncia de 60 Hz (sessenta Hertz) e na tensäo indicada no campo "Tensäo Contratada", respeitados os limites de tolerância estabelecidos pela legislação vigente.
+
+Parágrafo Único - O CLIENTE deverá utilizar a energia elétrica trifásica de tal maneira que a corrente seja fornecida igualmente pelas 03 (três) fases, näo devendo a diferença entre 02 (duas) fases quaisquer, ser superior a 5% (cinco por cento) da média das correntes das 03 (trës) fases.
+
+CLÁUSULA SÉTIMA - A responsabilidade da CONCESSIONÁRIA no tocante à continuidade, conformidade e qualidade da energia elétrica fornecida, limita-se ao Ponto de Conexäo.
+
+TÍTULO V DAS CONDIÇÕES OPERATIVAS CLÁUSULA OITAVA - As PARTES comprometem-se a seguir e respeitar as exigëncias estabelecidas pelas Normas e pelos Padrões Técnicos da CONCESSIONÁRIA e pelas regulamentações da Agência Nacional de Energia Elétrica - ANEEL, que estabeleçam procedimentos operacionais cabíveis a este instrumento, bem como qualquer outra norma, legislaçäo ou ato do Poder Concedente ou Autoridade Competente pertinente ao seu objeto.
+
+CLÁUSULA NONA - A RESERVA DE CAPACIDADE somente poderá ser utilizada quando ocorrer interrupções ou reduções temporárias na geraçäo em caráter emergencial ou devido a manutenções programadas, desde que, comprovadas, as quais deveräo ser encaminhadas a CONCESSIONARIA no último dia útil do mês de apuração, sendo vedada sua utilizaçäo para qualquer outro propósito.
+
+CLÁUSULA DÉCIMA - O CLIENTE deverá operar as suas instalações elétricas de maneira a assegurar que o fator de potëncia esteja o mais próximo possível do valor unitário.
+
+Parágrafo Primeiro - Ressalvadas alterações na legislaçäo vigente, o fator de potência mínimo aceitável, em base horária, será de 0,92 (zero vírgula noventa e dois), em cada segmento horo-sazonal, limite abaixo do qual haverá a cobrança pela utilizaçäo da demanda e consumo reativos excedentes.
+
+Parágrafo Segundo - Durante o período de 6 (seis) horas consecutivas, compreendido entre 00:00 horas e 06:00 horas, a cobrança pela utilização da demanda e consumo reativos Página 4 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 excedentes observará apenas os fatores de potência "capacitivos", verificados em cada intervalo de 1 (uma) hora, inferiores à referência estabelecida no Parágrafo Primeiro. No período diário complementar, a cobrança pela utilizaçäo da demanda e consumo reativos excedentes observará apenas os fatores de potência horários "indutivos".
+
+Parágrafo Terceiro - Caberá ao CLIENTE instalar, por sua conta, os equipamentos corretivos de que necessitar visando à correçäo do fator de potência.
+
+CLÁUSULA DÉCIMA PRIMEIRA - Fica estabelecido como Horário de Ponta, o intervalo de 03 (três) horas consecutivas indicadas no campo "Horário de Ponta", podendo ser modificado pela CONCESSIONÁRIA a qualquer momento em funçäo da ponta de carga do Sistema de Distribuiçäo ou do sistema elétrico interligado, mediante comunicaçäo formal ao CLIENTE com antecedência mínima de 05 (cinco) dias úteis.
+
+CLÁUSULA DÉCIMA SEGUNDA - Nenhuma responsabilidade caberá à CONCESSIONÁRIA, sobretudo no que se referir ao ressarcimento por lucros cessantes e/ou perdas e danos eventualmente reclamados pelo CLIENTE, em funçäo da suspensäo e/ou interrupçäo total ou parcial do serviço de distribuiçäo de energia elétrica às suas instalações, ou das alterações em suas características técnicas, quando causadas por motivos de caso fortuito ou de força maior, dentre os quais se incluem: greves, secas, guerras, revoluções, inundações, incêndios, explosões, fenômenos meteorológicos imprevisíveis ou fenômenos irresistíveis, acidentes nas instalações da CONCESSIONÁRIA ou de suas supridoras, inclusive interrupções por ordem ou determinaçäo do Poder Público, por impedimentos legais ou outras razões alheias à sua vontade.
+
+Parágrafo Primeiro - A CONCESSIONÁRIA diligenciar-se-á para manter no mínimo possível as interrupções, variações e perturbações em seu sistema elétrico, sendo que as interrupções programadas seräo comunicadas por intermédio da imprensa com antecedëncia mínima de 05 (cinco) dias úteis e também, sempre que possível, individualmente ao CLIENTE.
+
+Parágrafo Segundo - É reconhecido pelas PARTES contratantes que o Sistema de Distribuiçäo está sujeito a perturbações e interrupções de serviço fora de controle, sendo que, na hipótese da interrupçäo do serviço de distribuiçäo de energia elétrica por motivo de emergëncia, a CONCESSIONÁRIA agirá da maneira mais eficiente e rápida possível para o restabelecimento de seu Sistema de Distribuiçäo, porém näo lhe poderá ser imputada qualquer responsabilidade pelos eventuais prejuízos sofridos pelo CLIENTE, seja a que título for, posto que as suas instalações elétricas deveräo ser dotadas dos dispositivos de proteção requeridos e de geraçäo de emergëncia, à critério do CLIENTE, necessários à prevençäo e/ou mitigaçäo de tais eventos.
+
+CLÁUSULA DÉCIMA TERCEIRA - O CLIENTE consentirá, em qualquer tempo, que representantes da CONCESSIONÁRIA, devidamente credenciados, tenham acesso às instalações elétricas de sua propriedade, especialmente ao local da mediçäo e ao posto de transformação, e fornecerá aos mesmos os dados e informações que solicitarem quanto ao funcionamento dos seus aparelhos e instalações elétricas.
+
+Parágrafo Único - A qualquer momento, a CONCESSIONÁRIA poderá realizar medições específicas no Ponto de Conexão do CLIENTE, objetivando identificar o impacto da operaçäo de suas cargas no Sistema de Distribuição.
+
+CLÁUSULA DÉCIMA QUARTA - A CONCESSIONÁRIA exime-se de qualquer responsabilidade por prejuízos e/ou acidentes conseqüentes do mau estado de conservaçäo ou funcionamento inadequado das instalações elétricas do CLIENTE, posto que este é o responsável por manter a adequação técnica e a segurança das suas instalações internas, após o Ponto de Conexão.
+
+CLÁUSULA DÉCIMA QUINTA - A ligação de equipamentos geradores de energia ativa nas instalações elétricas do CLIENTE dependerá de autorizaçäo prévia da CONCESSIONÁRIA, mediante a aprovaçäo do projeto pertinente, objetivando a análise eo cumprimento das normas técnicas vigentes e dos Padrões Técnicos da CONCESSIONÁRIA, bem como das condições operativas e de proteção.
+
+Página 5 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 TÍTULO VI DA QUALIDADE DA ENERGIA ELÉTRICA CLÁUSULA DÉCIMA SEXTA - O CLIENTE declara ter ciência e pleno conhecimento de que a CONCESSIONÁRIA observará as disposições relativas à continuidade da distribuiçäo de energia elétrica à unidade consumidora do CLIENTE, bem como aquelas relativas à conformidade dos níveis de tensäo de energia elétrica em regime permanente estabelecidas pela Resoluçäo Normativa ANEEL n° 506, de 04 de setembro de 2012, ou outras que vierem a complementá-las ou substituí-las, e por conseqüência aceita e concorda que a presente prestaçäo de serviço se dê dentro desses níveis.
+
+Parágrafo Primeiro - Na hipótese do CLIENTE conectar ao sistema de distribuiçäo, à revelia da CONCESSIONÁRIA, carga susceptível de causar perturbaçäo ou danos, esta estará desobrigada quanto à garantia da continuidade e conformidade de seu serviço, conforme estabelecido no "caput" desta cláusula, podendo, inclusive, suspender o uso do Sistema de Distribuiçäo pelas instalações do CLIENTE.
+
+Parágrafo Segundo - O CLIENTE declara-se ciente de que deverá dotar as instalações de sua unidade consumidora dos dispositivos de proteçäo e de manutençäo da alimentaçäo necessários ao correto funcionamento de suas cargas eletroeletrônicas, sobretudo na hipótese destas cargas serem constituídas por equipamentos médicos de suporte à vida ou vier a ser constatada a sua sensibilidade às variações nas características do serviço ora contratado dentro dos limites legais estabelecidos.
+
+TÍTULO VII DA MEDIÇÃO CLÁUSULA DÉCIMA SÉTIMA - O sistema de medição utilizado para a apuraçäo do montante de uso, e demais componentes de faturamento, tais como: energia elétrica ativa consumida e energia e demanda reativa excedentes será constituída por aparelhos integradores, alimentados por transformadores de corrente e de potencial, se necessários, conforme Padräo Técnico aprovado pela CONCESSIONÁRIA, devendo a mediçäo ser realizada, preferencialmente, no Ponto de Conexão.
+
+Parágrafo Primeiro - Caberá a CONCESSIONÁRIA a responsabilidade pelo comissionamento, aferiçäo, operação e coleta dos registros do sistema de mediçäo, o qual será conservado sempre lacrado, cabendo-lhe, ainda, exclusivamente, a responsabilidade pela realizaçäo de manutenções e/ou de alterações/ substituições dos equipamentos constituintes do mesmo, sendo permitido ao CLIENTE o seu acompanhamento quando da realizaçäo de tais atividades.
+
+Parágrafo Segundo - O CLIENTE, por este ato e na melhor forma de direito será o responsável, na qualidade de fiel depositário, à título gratuito, pela custódia dos equipamentos e medidores, mencionados no "caput" desta Cláusula.
+
+Parágrafo terceiro - O CLIENTE será responsável pela instalaçäo ou adequaçäo do sistema de medição necessário à comprovaçäo da utilizaçäo da RESERVA DE CAPACIDADE quando de interrupções, reduções temporárias ou manutenções programadas.
+
+CLÁUSULA DÉCIMA OITAVA - A CONCESSIONÁRIA efetuará a leitura dos medidores, preferencialmente, às 00h00min do 1° (primeiro) dia de cada mës, cabendo ao CLIENTE ou seu representante proceder ao registro das grandezas medidas junto à Câmara de Comercialização de Energia Elétrica - CCEE, nos prazos por ela estabelecidos.
+
+Página 6 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 TÍTULO VIII DAS CONDIÇÕES FINANCEIRAS E DO FATURAMENTO CLÁUSULA DÉCIMA NONA - À título de contraprestaçäo pelo serviço público de distribuiçäo de energia elétrica ajustado na clausula Segunda, o CLIENTE obriga-se a pagar, nas respectivas datas de vencimento, as notas fiscais/faturas que seräo emitidas pela CONCESSIONÁRIA, cujas grandezas estabelecidas neste contrato seräo faturadas em intervalos de, aproximadamente, 30 (trinta) dias, discriminando o valor da operaçäo em questäo, correspondente este à somatória das parcelas relativas à cobrança do Encargo de Uso da Reserva de Capacidade e da demanda e do consumo de energia reativa excedentes, obtidas pela aplicaçäo das tarifas vigentes homologadas pelo Poder Concedente, na data de sua emissäo, inclusos, ainda, todos os tributos e encargos incidentes na operaçäo, na forma da legislaçäo vigente.
+
+CLÁUSULA VIGÉSIMA - O encargo de uso da reserva de capacidade será calculado a partir da aplicaçäo da Tarifa de Uso do Sistema de Distribuiçäo - TUSD, homologada pela ANEEL, às componentes demanda e encargo, observadas as regras abaixo:
+
+a) Para o faturamento da componente demanda, expressa em quilowatt (kW), considerar-se- á o maior valor dentre o Montante de Uso da Reserva de Capacidade Contratado eo Montante de Uso Medido, verificado no período de faturamento associado ao mês de referëncia, conforme expressäo a seguir:
+
+ERC¯pp fpfp n Onde:
+
+ERc : Encargo mensal pelo uso da reserva de capacidade, em Reais (R$); nu : número de dias em que houve utilizaçäo da reserva de capacidade no mês de referência; nm: número de dias do mês de referência; Tp : componente "Demanda" da tarifa de uso do sistema de distribuiçäo no horário de ponta para unidades consumidoras; Tip : componente "Demanda" da tarifa de uso do sistema de distribuiçäo no horário fora de ponta para unidades consumidoras; Mp : montante de uso da reserva de capacidade para o horário de ponta, em quilowatts (kW); Mtp : montante de uso da reserva de capacidade para o horário fora de ponta, em quilowatts (kW).
+
+b) Para o faturamento da componente encargo, considerar-se-á o consumo, expresso em quilowatt x hora (kWh), efetivamente apurado através de medição, acumulado em cada segmento horo-sazonal, no período de faturamento associado ao mês de referência.
+
+Parágrafo Primeiro - Será aplicada à parcela do uso da reserva de capacidade do sistema de distribuiçäo, pertinente à sua máxima demanda de utilizaçäo, superior ao montante de uso da reserva de capacidade contratado, a Tarifa de Ultrapassagem de valor igual a 2 (duas) vezes a tarifa de uso do sistema de distribuiçäo homologada para o segmento horo-sazonal, quando for verificada uma ultrapassagem superior a 5% (cinco por cento) do montante de uso da reserva de capacidade contratado, considerando-se, neste caso, na = nm na expressão da alínea "a".
+
+Parágrafo Segundo - Na hipótese que, no determinado ciclo de vigëncia contratual, o número acumulado de dias em que houve utilização da reserva de capacidade ultrapassar 60 (sessenta) dias, as tarifas aplicáveis ao cálculo do encargo mensal pelo uso da reserva de capacidade relativo aos dias excedentes serão de 2 (duas) vezes o valor da TUSD, para número acumulado de dias em que ocorreu a utilizaçäo da reserva de capacidade entre 61 (sessenta e um) e 120 (cento e vinte) dias. E 4 (quatro) vezes o valor da TUSD, para número Página 7 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 acumulado de dias em que ocorreu a utilizaçäo da reserva de capacidade acima de 120 (cento e vinte) dias.
+
+CLÁUSULA VIGÉSIMA PRIMEIRA - O faturamento da demanda e energia reativas excedentes, associadas ao uso do sistema Contrato de Uso do Sistema de Distribuiçäo - CUSD DCEG-ES- 0495/2011, observaräo o disposto naquele contrato.
+
+Parágrafo Único - Sobre os montantes de energia e demanda de potência reativa excedentes, seräo aplicadas as tarifas de fornecimento fixadas pela ANEEL para as componentes de consumo e demanda na modalidade Tarifória Horo-Sazonal Azul.
+
+CLÁUSULA VIGÉSIMA SEGUNDA - O faturamento do Encargo de Uso, e demais grandezas estabelecidas neste contrato, será realizado conforme estabelecido nas Cláusulas Décima Oitava e Décima Nona, sendo, a critério da CONCESSIONÁRIA, objeto de uma única nota fiscal/ fatura, juntamente com os demais serviços por ela prestados ao CLIENTE, com vencimento em 5 (cinco) dias úteis contados a partir da sua apresentaçäo, o que ocorrerá em até 3 (três) dias úteis após a data da leitura.
+
+Parágrafo Primeiro - O CLIENTE aceitará o envio de cópia do documento original de cobrança através de fac-símile ou qualquer meio eletrônico seguro acordado entre as PARTES, para providenciar o processo de pagamento, devendo a CONCESSIONÁRIA encaminhar o documento original de cobrança até a data do vencimento.
+
+Parágrafo Segundo - O pagamento da importância devida deverá ser realizado em qualquer unidade da rede bancária credenciada, por meio da autenticaçäo bancária do documento de cobrança apresentado junto à nota fiscal/ fatura de energia elétrica.
+
+Parágrafo Terceiro - Resta estabelecido entre as partes que, nos termos da Lei n° 5474/1968, a CONCESSIONÁRIA poderá, à seu critério, extrair duplicatas das notas fiscais/ faturas de energia elétrica mensalmente emitidas contra o CLIENTE.
+
+CLÁUSULA VIGÉSIMA TERCEIRA - As divergências eventualmente apontadas no faturamento näo deveräo afetar os prazos para pagamento das notas fiscais/ faturas de energia elétrica mensalmente emitidas contra o CLIENTE, devendo qualquer diferença (à maior ou à menor) que, eventualmente, seja verificada, ser compensada no faturamento mensal subseqüente.
+
+CLÁUSULA VIGÉSIMA QUARTA - Quando os equipamentos de mediçäo forem instalados no lado de saída dos transformadores, os valores medidos de demanda e consumo, tanto ativos, quanto reativos excedentes, a título de compensaçäo pelas perdas de transformação, para fins de faturamento, seräo acrescidos do percentual:
+
+a) De 2,5% (dois e meio por cento), quando a tensäo for inferior a 44 kV; b) De 1% (um por cento), quando a tensäo for igual ou superior a 44 kV.
+
+CLÁUSULA VIGÉSIMA QUINTA - É de exclusiva responsabilidade do CLIENTE, conforme legislaçäo vigente, o pagamento de quaisquer tributos, tais como: impostos, taxas e contribuições, bem como os encargos tarifórios ou demais emolumentos que incidam ou venham a incidir sobre os valores oriundos deste contrato.
+
+Parágrafo Único - Sempre que determinado pela legislaçäo, a CONCESSIONÁRIA promoverá a cobrança dos valores pertinentes às obrigações supra discriminadas na nota fiscal/ fatura de energia pertinente.
+
+TÍTULO IX DO VALOR DESTE CONTRATO CLÁUSULA VIGÉSIMA SEXTA - Para todos os efeitos legais é atribuído a este contrato o valor obtido a partir da expressäo abaixo indicada:
+
+VL = (Mp x Tp + Mtp x Tip) xNx 60/365 Onde:
+
+Página 8 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 VL = Valor do contrato; Mp = Montante de uso da reserva de capacidade contratado para o horário de ponta; Mtp = Montante de uso da reserva de capacidade contratado para o horário fora de ponta; Tp = Tarifa de uso do sistema de distribuiçäo vigente, aplicável à demanda no horário de ponta; Typ = Tarifa de uso do sistema de distribuiçäo vigente, aplicável à demanda no horário fora de ponta; N = Número de meses de vigência deste contrato.
+
+TÍTULO X DA INADIMPLÊNCIA CONTRATUAL CLÁUSULA VIGÉSIMA SÉTIMA - A inadimplência contratual é verificada sempre que ocorra um dos fatos abaixo relacionados:
+
+a) O näo cumprimento ou o cumprimento irregular de quaisquer das Cláusulas ou condições deste contrato, bem como do CUSD e do CCD a ele associado; b) A rescisäo unilateral, em separado ou em conjunto, do contrato associado a este instrumento, a saber: o CUSD eo CCD; c) O näo atendimento ou o atendimento irregular às exigëncias da CCEE e da ANEEL; d) A ocorrência dos fatos enquadrados no artigo 172 da Resoluçäo Normativa ANEEL n° 414, de 09 de setembro de 2010, ou outra que vier a substituí-la; e) A dissoluçäo judicial, a insolvência civil, ou qualquer alteração social ou profissional de uma das PARTES que prejudique a sua capacidade de cumprir fielmente suas obrigações contratuais; f) Os demais motivos previstos em lei ou regulamento aplicáveis.
+
+CLÁUSULA VIGÉSIMA OITAVA - A ocorrência de quaisquer dos motivos descritos na Cláusula anterior ensejará as seguintes providências pela PARTE prejudicada:
+
+a) Os fatos, ações ou omissões caracterizadores da inadimplência contratual serão comunicados à PARTE infratora por escrito, ao mesmo tempo em que seräo solicitados os esclarecimentos e justificativas pertinentes, que deveräo ser encaminhadas à outra PARTE, no prazo máximo de 15 (quinze) dias corridos; b) Sanadas as irregularidades ou aceitas as justificativas apresentadas, considerar-se-á como cessado o motivo da inadimplência contratual; c) Permanecendo desatendida a condiçäo contratual infringida, ficará plenamente caracterizada a inadimplëncia da PARTE infratora.
+
+CLÁUSULA VIGÉSIMA NONA - A ocorrëncia de quaisquer dos motivos descritos na Cláusula Vigésima Sexta, uma vez caracterizada a inadimplência contratual, nos termos da Cláusula Vigésima Sétima, conferiró à PARTE inocente o direito de rescindir o presente contrato.
+
+CLÁUSULA TRIGÉSIMA - Quando a inadimplëncia contratual for caracterizada pela mora no pagamento de quaisquer das notas fiscais/ faturas oriundas do presente contrato, sobre os montantes em atraso incidiräo, cumulativamente, os acréscimos abaixo discriminados:
+
+a) Multa por atraso de pagamento no percentual de 2% (dois por cento), a ser acrescida dos juros de mora discriminados na alínea "b"; b) Juros de mora de 12% (doze por cento) ao ano, calculados "pro-rata-die", a partir do vencimento até a data do efetivo pagamento; c) Correçäo monetária do saldo devedor calculada pela variaçäo positiva acumulada do IGP-M (FGV) apurada no período.
+
+Página 9 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 TÍTULO XI DA SUSPENSÃO DO USO DO SISTEMA DE DISTRIBUIÇÃO CLÁUSULA TRIGÉSIMA PRIMEIRA - A CONCESSIONÁRIA poderá suspender a prestaçäo do serviço de distribuiçäo ao CLIENTE quando caracterizada a inadimplência contratual, conforme Cláusulas Vigésima Sexta e Vigésima Sétima, findo o prazo estabelecido na alínea "a" da Cláusula Vigésima Sétima.
+
+Parágrafo Primeiro - Na hipótese do CLIENTE deixar de cumprir as normas técnicas, homologadas pela Associaçäo Brasileira de Normas Técnicas - ABNT, pertinentes à adequaçäo técnica e à segurança das instalações internas de sua unidade consumidora, o prazo de que trata a Cláusula Vigésima Sétima será de 30 (trinta) dias para a regularizaçäo das condições técnicas necessárias ao atendimento de suas instalações.
+
+Parágrafo Segundo - Quando do impedimento ao acesso dos empregados e prepostos da CONCESSIONÁRIA às instalações da unidade consumidora para fins de leitura e inspeções necessárias, o prazo de que trata a Cláusula Vigésima Sétima será de 03 (trës) dias.
+
+Parágrafo Terceiro - A suspensäo estabelecida no "caput" desta Cláusula efetivar-se-á, independentemente da situaçäo de adimplência do CLIENTE com relaçäo aos demais contratos e/ou acordos comerciais que tenha formalizado com a CONCESSIONÁRIA.
+
+Parágrafo Quarto - O CLIENTE näo poderá imputar à CONCESSIONÁRIA quaisquer ônus advindos do Contrato de Compra de Energia Elétrica - CCE celebrado junto a terceiros, em funçäo do näo-consumo do montante de energia elétrica contratado em razão da suspensäo de que trata o "caput" desta Cláusula.
+
+CLÁUSULA TRIGÉSIMA SEGUNDA - A CONCESSIONÁRIA poderá suspender, ainda, a prestação do serviço de distribuiçäo de energia elétrica ao CLIENTE na hipótese de inadimplemento que determine o desligamento do consumidor livre da Câmara de Comercializaçäo de Energia Elétrica - CCEE, conforme regulamentaçäo especifica.
+
+TÍTULO XII DA RESCISÃO CLÁUSULA TRIGÉSIMA TERCEIRA - Ressalvado o que estabelece o §8°, art. 15, da Lei n°. 9.074, de 07 de julho de 1995, o presente contrato poderá ser rescindido por mútuo consentimento dos contratantes ou, unilateralmente, nas hipóteses estabelecidas neste contrato, em lei ou demais regulamentos emanados pelo Poder Concedente.
+
+Parágrafo Primeiro - Respeitado o prazo de vigência contratual estabelecido, a rescisäo unilateral näo motivada por inadimplëncia contratual, conforme estabelecido na Cláusula Vigésima Oitava, deverá ser precedida de aviso formal com antecedëncia mínima de 180 (cento e oitenta) dias em relaçäo à data de término de cada vigëncia.
+
+Parágrafo Segundo - A rescisão unilateral antecipada ou motivada por inadimplência contratual sujeitará à PARTE culpada o pagamento de multa rescisória no valor de 10% (dez por cento) do valor do contrato, devidamente reajustado, estabelecido na Cláusula Vigésima Quinta, ressalvado, ainda, o pagamento de qualquer outra importância oriunda de direito estabelecido ao longo deste contrato, bem como de eventuais compromissos assumidos pela CONCESSIONÁRIA junto a terceiros em função de suas obrigações estabelecidas neste instrumento.
+
+Parágrafo Terceiro - Independentemente da causa da rescisäo, o pagamento das indenizações correspondentes aos custos remanescentes pertinentes aos investimentos Página 10 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 realizados no Sistema de Distribuiçäo e aos compromissos assumidos pela CONCESSIONÁRIA junto a seus fornecedores, em razäo do atendimento às instalações do CLIENTE, näo deverà ser prejudicado.
+
+TÍTULO XIII DOS CASOS FORTUITOS E FORÇA MAIOR CLÁUSULA TRIGÉSIMA QUARTA - Caso uma das PARTES näo possa cumprir quaisquer de suas obrigações por motivo de força maior ou caso fortuito, nos termos do Art. 393 do novo Código Civil Brasileiro, instituído pela Lei 10.406/2002, o presente contrato permanecerá válido e em pleno vigor, ficando a obrigaçäo afetada suspensa por tempo igual ao da duraçäo do evento, sendo, posteriormente, sua vigência prorrogada proporcionalmente ao período de suspensäo.
+
+TÍTULO XIV DAS CONDIÇÕES GERAIS CLÁUSULA TRIGÉSIMA QUINTA - É vedada a cessäo de direitos ou obrigações oriundos deste contrato sem o prévio consentimento formal da outra PARTE, sendo que os mesmos transmitem-se, automaticamente, aos sucessores legais das PARTES contratantes.
+
+CLÁUSULA TRIGÉSIMA SEXTA - Este contrato näo poderá ser alterado, nem poderá haver renúncia às suas disposições, exceto por meio de aditamento formal, reconhecido pelas PARTES, observado o disposto na legislaçäo aplicável.
+
+CLÁUSULA TRIGÉSIMA SÉTIMA - As PARTES reconhecem este contrato como título executivo, na forma do artigo 585, inciso ll, do Código de Processo Civil, para efeito da cobrança de todos os valores apurados mediante simples cálculo aritmético especialmente os relativos ao Encargo de Uso da Distribuiçäo e/ou demanda e/ou energia reativa excedente.
+
+CLÁUSULA TRIGÉSIMA OITAVA - Nenhuma tolerância, concessäo ou atraso relativo ao exercício de qualquer direito, poder, privilégio ou recurso pertinente a uma das PARTES, oriundos do exercício das disposições contratuais, devem ser considerados como novaçäo ou renúncia dos mesmos.
+
+CLÁUSULA TRIGÉSIMA NONA - Qualquer aviso ou comunicaçäo de uma PARTE à outra, com relaçäo a este contrato, deverá ser realizado por escrito, podendo ser entregues ou enviados via correio registrado, e-mail ou fac-símile, em qualquer caso com a prova de seu recebimento.
+
+CLÁUSULA QUADRAGÉSIMA - Se, por qualquer motivo, quaisquer das disposições deste contrato venha a tornar-se, ou seja, declarada, inválida, ilegal ou inexeqüível por qualquer tribunal competente, as PARTES negociaräo de boa fé para acordar sobre disposições que as substituam e que näo sejam inválidas, ilegais ou inexeqÜíveis e que mantenham, tanto quanto possível, em todas as circunstâncias, o equilíbrio dos interesses comerciais e financeiros das PARTES.
+
+CLÁUSULA QUADRAGÉSIMA PRIMEIRA - Este contrato será regido e interpretado, em todos os seus aspectos, de acordo com as leis brasileiras, e estará sujeito a toda legislaçäo e regulamentaçäo superveniente que afetar o objeto do mesmo, devendo ser interpretado, sempre, concomitantemente ao Contrato de Conexão ao Sistema de Distribuição - CCD e ao Contrato de Uso de Sistema de Distribuição - CUSD associado para o pleno entendimento de suas cláusulas.
+
+Parágrafo Único - As PARTES desde já acordam que, na hipótese de publicaçäo de legislaçäo e/ou regulamentaçäo superveniente que modifique as condições contratuais ora estabelecidas irá incorporá-las imediatamente ao contrato, promovendo as alterações necessárias através de aditamento, sem prejuízo, porém, do cumprimento imediato da nova Página 11 de 12
+
+Contrato de Uso do Sistema de Distribuição n° DCPC-ES-0028/2013 determinaçäo legal, täo logo esta vigore.
+
+CLÁUSULA QUADRAGÉSIMA SEGUNDA - As PARTES signatórias do presente instrumento reconhecem o prazo prescricional quinquenal previsto no artigo 2° do Decreto-lei n° 4.597, de 19 de março de 1942, que ampliou os limites do Decreto n° 20.910/32, para reger o lapso prescricional das obrigações aqui estabelecidas.
+
+CLÁUSULA QUADRAGÉSIMA TERCEIRA - As PARTES elegem o Foro da Comarca de Vitória, Estado do Espírito Santo, para dirimir quaisquer dúvidas ou divergências relacionadas a este contrato que näo tenham sido solucionadas mediante negociações entre as mesmas, com a expressa renúncia de qualquer outro, por mais privilegiado que seja.
+
+E por assim haverem ajustado, assinam as partes o presente instrumento em duas vias de igual teor e forma, para uma mesma finalidade, perante as testemunhas presentes.
+
+Vitória, 16 de janeiro de 2013.
+
+Pelo ACESSANTE Pela DISTRIBUIDORA Nome: Paulo Ricardo P. da Silveira Nome: Michel Nunes Itkes Cargo: Gerente Geral Industrial Cargo: Diretor Comercial CPF n°.347.892.940-72 CPF n°: 650.937.986-49 RG n°. 501.482.585-4 SSP/RS RG n°: M 2.354.296 SSP/MG Nome: Carlos Alberto Nassur Nome: Vilmar Teixeira de Abreu Cargo: Gerente Geral Florestal Cargo: Gestor Executivo de Poder Público e Grandes Clientes CPF n°.873.323.107-91 CPF n°: 776.840.607-91 RG n°. 587.028 SPTC-ES RG n°: 597.417 SSP/ES TESTEMUNHAS:
+
+Nome: Wanderlei David Pereira Nome: Luciano Gonçalves CPF n°.183.883.288-24 CPF n°: 084.703.177-25 RG n°. 22.737.305-4 SSP/SP RG n°: 1.741.006 SSP/ES Página 12 de 12

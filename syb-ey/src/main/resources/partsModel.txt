@@ -1,0 +1,155 @@
+delim_pre	contratante
+delim_pre	contratada
+delim_pre	devedor :
+delim_pre	devedora :
+delim_pre	devedores :
+delim_pre	devedoras :
+delim_pre	contratante :
+delim_pre	contratantes :
+delim_pre	contratado :
+delim_pre	contratados :
+delim_pre	credores :
+delim_pre	credor :
+delim_pre	credora	:
+delim_pre	credoras :
+delim_pre	de um lado
+delim_pre	de outro lado
+delim_pre	do outro lado
+delim_pre	de outro
+delim_pre	comodante :
+delim_pre	comodatário :
+delim_pre	comodatario :
+delim_pre	partes abaixo
+delim_pre	termo de condições gerais
+delim_pre	termo de condicoes gerais
+delim_pre	; e
+delim_pre	entre as partes
+delim_pre	pelo presente instrumento
+delim_pre	pelo presente
+delim_pre	documentos constitutivos
+delim_pre	razão social
+delim_pre	razao social
+delim_pre	razäo social
+-----------------------------
+delim_post	, situada 
+delim_post	, situado 
+delim_post	, brasileiro  
+delim_post	; brasileira  
+delim_post	; brasileiro  
+delim_post	, brasileira 
+delim_post	, estabelecido 
+delim_post	, estabelecida 
+delim_post	, inscrita no 
+delim_post	, inscrito no 
+delim_post	, pessoa jurídica 
+delim_post	, pessoa juridica 
+delim_post	, portador 
+delim_post	, portadora 
+delim_post	, com sede
+delim_post	, corn sede
+delim_post	, com matriz
+delim_post	, doravante denonominado
+delim_post	, doravante denominada
+delim_post	designados apenas como
+delim_post	designado apenas como
+delim_post	designada apenas como
+delim_post	designadas apenas como
+delim_post	daqui em diante referida
+delim_post	daqui em diante referido
+delim_post	, com endereço
+delim_post	, corn endereço
+delim_post	, com endereco
+delim_post	, corn endereco
+delim_post	, casado
+delim_post	, casada
+delim_post	, solteiro
+delim_post	, solteira
+delim_post	, viúvo
+delim_post	, viúva
+delim_post	, viuvo
+delim_post	, viuva
+delim_post	, domiciliado
+delim_post	, domiciliada
+delim_post	, divorciado
+delim_post	, divorciadaß
+delim_post	, residente
+delim_post	, sucessora
+delim_post	cnpj/mf
+delim_post	rg
+delim_post	cpf
+delim_post	endereço
+delim_post	endereco
+-----------------------------
+delim_pre_2	:
+delim_pre_2	-
+delim_pre_2	,
+delim_post_2	,
+delim_pre_2	;
+delim_post_2	;
+delim_post_2	-
+-----------------------------
+frag_begin	 Sr. 
+frag_begin	 Sr
+frag_begin	 Senhor 
+frag_begin	 Senhora 
+frag_begin	 Sra. 
+frag_begin	 Sra
+frag_begin	 Dr.
+frag_begin	 Bdr.
+-----------------------------
+frag_end	S.A.
+frag_end	SIA
+frag_end	SIA.
+frag_end	SA
+frag_end	S/A
+frag_end	S.A
+frag_end	LTDA
+frag_end	LTDA.
+frag_end	ME
+------------------------------
+marker	 cliente
+marker	 credor
+marker	 devedor
+marker	 locadora
+marker	 locadoras
+marker	 locador
+marker	 locadores
+marker	 locatário
+marker	 locatario
+marker	 locatária
+marker	 locatarios
+marker	 locatárias
+marker	 locataria
+marker	 contratado 
+marker	 contratada 
+marker	 contratante 
+marker	 partes abaixo 
+marker	 comprador
+marker	 vendedor
+marker	 comodante
+marker	 comodatário
+marker	 comodatario
+marker	 arrendante
+marker	 arrendantes
+marker	 arrendatário
+marker	 arrendatario
+marker	 arrendataria
+marker	 arrendatária
+marker	 arrendatários
+marker	 arrendatarios
+marker	 arrendatarias
+marker	 arrendatárias
+marker	 aderente
+marker	 aderentes 
+marker	cedente - 
+marker	cedente
+marker	cedentes 
+marker	cessionária
+marker	cessionárias
+marker	cessionaria
+marker	cessionarias
+marker	cessionária - 
+marker	cessionário - 
+marker	cessionario
+marker	cessionaria
+marker	co.10dante

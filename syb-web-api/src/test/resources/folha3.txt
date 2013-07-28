@@ -1,0 +1,6 @@
+Este é um arquivo UTF-8 com caracteres especiais como
+à
+São Paulo
+Palácio
+SÃO PAULO
+Aéreo

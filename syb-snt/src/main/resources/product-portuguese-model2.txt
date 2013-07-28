@@ -1,0 +1,354 @@
+PHRASE_NEG	ainda nao
+PHRASE_NEG	ainda não
+PHRASE_NEG	assistencia tecnica
+PHRASE_NEG	assistencia técnica
+PHRASE_NEG	assistência tecnica
+PHRASE_NEG	assistência técnica
+PHRASE_NEG	diversas vezes
+PHRASE_NEG	fora do ar
+PHRASE_NEG	minha cara
+PHRASE_NEG	minha cara
+PHRASE_NEG	muitas vezes
+PHRASE_NEG	no máximo
+PHRASE_NEG	nossa cara
+PHRASE_NEG	para tras
+PHRASE_NEG	para trás
+PHRASE_NEG	praticamente nada
+PHRASE_NEG	praticamente nenhum
+PHRASE_NEG	é brincadeira
+PHRASE_NEG	é brincadeira
+PHRASE_POS	dá para
+PHRASE_POS	vale a pena
+PHRASE_POS	vamos compr*
+PHRASE_POS	vou compr*
+PHRASE_POS	é só
+PHRASE_STR_NEG	a justica
+PHRASE_STR_NEG	a justiça
+PHRASE_STR_NEG	aham ta
+PHRASE_STR_NEG	aham tá
+PHRASE_STR_NEG	ate agora nada
+PHRASE_STR_NEG	até agora nada
+PHRASE_STR_NEG	bonito hein
+PHRASE_STR_NEG	bonito hem
+PHRASE_STR_NEG	da a minima
+PHRASE_STR_NEG	da a mínima
+PHRASE_STR_NEG	danos morais
+PHRASE_STR_NEG	dor de cabeca
+PHRASE_STR_NEG	dor de cabeça
+PHRASE_STR_NEG	dá a minima
+PHRASE_STR_NEG	dá a mínima
+PHRASE_STR_NEG	entao ta
+PHRASE_STR_NEG	então tá
+PHRASE_STR_NEG	na justica
+PHRASE_STR_NEG	na justiça
+PHRASE_STR_NEG	nao adianta
+PHRASE_STR_NEG	nem ai
+PHRASE_STR_NEG	nem aí
+PHRASE_STR_NEG	nem fodendo
+PHRASE_STR_NEG	nem fudendo
+PHRASE_STR_NEG	nem pensa
+PHRASE_STR_NEG	nem pense
+PHRASE_STR_NEG	ninguem merece
+PHRASE_STR_NEG	ninguém merece
+PHRASE_STR_NEG	nunca mais
+PHRASE_STR_NEG	não adianta
+PHRASE_STR_NEG	o pior e
+PHRASE_STR_NEG	o pior é
+PHRASE_STR_NEG	pequenas causas
+PHRASE_STR_NEG	que beleza
+PHRASE_STR_NEG	que beleza hein
+PHRASE_STR_NEG	que beleza hem
+PHRASE_STR_NEG	que bonito
+PHRASE_STR_NEG	que bonito hein
+PHRASE_STR_NEG	que bonito hem
+PHRASE_STR_NEG	que maravilha
+PHRASE_STR_NEG	retorno imediato
+PHRASE_STR_NEG	so que nao
+PHRASE_STR_NEG	so que não
+PHRASE_STR_NEG	só que nao
+PHRASE_STR_NEG	só que não
+PHRASE_STR_NEG	à justica
+PHRASE_STR_NEG	à justiça
+QUAL_NEG	amarrot*
+QUAL_NEG	atras*
+QUAL_NEG	cara*
+QUAL_NEG	carissim*
+QUAL_NEG	caro*
+QUAL_NEG	caríssim*
+QUAL_NEG	cobra*
+QUAL_NEG	cobra*
+QUAL_NEG	complica*
+QUAL_NEG	contrar*
+QUAL_NEG	decepc*
+QUAL_NEG	decepção
+QUAL_NEG	defeit*
+QUAL_NEG	depend*
+QUAL_NEG	desapont*
+QUAL_NEG	desatenc*
+QUAL_NEG	desatenç*
+QUAL_NEG	descaso
+QUAL_NEG	desconfort*
+QUAL_NEG	devolução
+QUAL_NEG	devolv*
+QUAL_NEG	distorc*
+QUAL_NEG	distorcao
+QUAL_NEG	distorção
+QUAL_NEG	enferruj*
+QUAL_NEG	engan*
+QUAL_NEG	excludente*
+QUAL_NEG	exigi*
+QUAL_NEG	exijo
+QUAL_NEG	falha*
+QUAL_NEG	fals*
+QUAL_NEG	falta*
+QUAL_NEG	feia*
+QUAL_NEG	feio*
+QUAL_NEG	gross*
+QUAL_NEG	impossi*
+QUAL_NEG	impossível
+QUAL_NEG	inferior*
+QUAL_NEG	inut*
+QUAL_NEG	inút*
+QUAL_NEG	lambanca
+QUAL_NEG	lambança
+QUAL_NEG	limita*
+QUAL_NEG	ma
+QUAL_NEG	mal
+QUAL_NEG	mau
+QUAL_NEG	má
+QUAL_NEG	pesad*
+QUAL_NEG	pessim*
+QUAL_NEG	pirotecnia
+QUAL_NEG	pobre
+QUAL_NEG	porra
+QUAL_NEG	prejuiso
+QUAL_NEG	prejuizo
+QUAL_NEG	prejuíso
+QUAL_NEG	prejuízo
+QUAL_NEG	péssim*
+QUAL_NEG	quebr*
+QUAL_NEG	reclam*
+QUAL_NEG	reconhec*
+QUAL_NEG	reembolso
+QUAL_NEG	ruim
+QUAL_NEG	ruin*
+QUAL_NEG	sacana*
+QUAL_NEG	safad*
+QUAL_NEG	sofr*
+QUAL_NEG	suj*
+QUAL_NEG	trinca*
+QUAL_NEG	troca*
+QUAL_NEG	troquei
+QUAL_NEG	zoad*
+QUAL_NEG	zuad*
+QUAL_POS	acess*
+QUAL_POS	ador*
+QUAL_POS	agrad*
+QUAL_POS	ajuda*
+QUAL_POS	arrojad*
+QUAL_POS	atencio*
+QUAL_POS	atend*
+QUAL_POS	atraente*
+QUAL_POS	automatic*
+QUAL_POS	automátic*
+QUAL_POS	auxili*
+QUAL_POS	auxílio
+QUAL_POS	avancad*
+QUAL_POS	avançad*
+QUAL_POS	bacana
+QUAL_POS	barat*
+QUAL_POS	basta
+QUAL_POS	bem
+QUAL_POS	boa
+QUAL_POS	boas
+QUAL_POS	bom
+QUAL_POS	bons
+QUAL_POS	competitiv*
+QUAL_POS	confia*
+QUAL_POS	confiável
+QUAL_POS	confort*
+QUAL_POS	cortes*
+QUAL_POS	cortês
+QUAL_POS	decente*
+QUAL_POS	diferencia*
+QUAL_POS	disponib*
+QUAL_POS	disponive*
+QUAL_POS	disponíve*
+QUAL_POS	economia
+QUAL_POS	economic*
+QUAL_POS	econômic*
+QUAL_POS	educad*
+QUAL_POS	efic*
+QUAL_POS	elog*
+QUAL_POS	excel*
+QUAL_POS	exclusiv*
+QUAL_POS	fã
+QUAL_POS	fãs
+QUAL_POS	gentil*
+QUAL_POS	gratis
+QUAL_POS	gratis
+QUAL_POS	gratuitamente
+QUAL_POS	gratuito
+QUAL_POS	gratuito
+QUAL_POS	grátis
+QUAL_POS	grátis
+QUAL_POS	ideal
+QUAL_POS	inedit*
+QUAL_POS	inovador*
+QUAL_POS	inédit*
+QUAL_POS	justa
+QUAL_POS	justas
+QUAL_POS	justo
+QUAL_POS	justos
+QUAL_POS	legal
+QUAL_POS	leve
+QUAL_POS	lucr*
+QUAL_POS	melhor*
+QUAL_POS	novidade
+QUAL_POS	novo
+QUAL_POS	opcao
+QUAL_POS	opcion*
+QUAL_POS	opcoes
+QUAL_POS	opções
+QUAL_POS	opção
+QUAL_POS	otimo
+QUAL_POS	performance
+QUAL_POS	permit*
+QUAL_POS	permit*
+QUAL_POS	possib*
+QUAL_POS	possivel
+QUAL_POS	possuem
+QUAL_POS	possui
+QUAL_POS	possível
+QUAL_POS	produto
+QUAL_POS	propicia*
+QUAL_POS	qualidade*
+QUAL_POS	qualit*
+QUAL_POS	recepcao
+QUAL_POS	recepção
+QUAL_POS	recomend*
+QUAL_POS	repar*
+QUAL_POS	resolv*
+QUAL_POS	respons*
+QUAL_POS	retorn*
+QUAL_POS	satisf*
+QUAL_POS	segura
+QUAL_POS	seguranca
+QUAL_POS	segurança
+QUAL_POS	seguras
+QUAL_POS	seguro
+QUAL_POS	seguros
+QUAL_POS	sofistica*
+QUAL_POS	soluc*
+QUAL_POS	soluç*
+QUAL_POS	super*
+QUAL_POS	superior
+QUAL_POS	surpreend*
+QUAL_POS	tem
+QUAL_POS	têm
+QUAL_POS	uteis
+QUAL_POS	util
+QUAL_POS	ótimo
+QUAL_POS	úteis
+QUAL_POS	útil
+QUAL_POS 	aceitavel
+QUANT_NEG	baixa
+QUANT_NEG	baixo
+QUANT_NEG	demasiad*
+QUANT_NEG	diminu*
+QUANT_NEG	inaceitavel
+QUANT_NEG	inaceitável
+QUANT_NEG	menor
+QUANT_NEG	menos
+QUANT_NEG	nada
+QUANT_NEG	nenhum*
+QUANT_NEG	ninguem
+QUANT_NEG	ninguém
+QUANT_NEG	pouc*
+QUANT_POS	aceitável
+QUANT_POS	alta*
+QUANT_POS	altamente
+QUANT_POS	alto*
+QUANT_POS	aument*
+QUANT_POS	demais
+QUANT_POS	hiper
+QUANT_POS	infinitamente
+QUANT_POS	inumer*
+QUANT_POS	inúmer*
+QUANT_POS	maior
+QUANT_POS	mais
+QUANT_POS	mega
+QUANT_POS	muit*
+QUANT_POS	no talo
+QUANT_POS	rico
+QUANT_POS	super
+QUANT_POS	tanta*
+QUANT_POS	tanto*
+QUANT_POS	varias
+QUANT_POS	varios
+QUANT_POS	vári*
+REV	foge
+REV	fugir*
+REV	jamais
+REV	mal
+REV	nao
+REV	nem
+REV	num
+REV	nunca
+REV	não
+REVsem
+SIG_NEG	custo
+SIG_NEG	gasta*
+SIG_NEG	gasto*
+SIG_NEG	preco*
+SIG_NEG	preço*
+SIG_NEG	problema*
+SIG_POS	aparelho
+SIG_POS	aplicativo
+SIG_POS	celular
+SIG_POS	consert*
+SIG_POS	desconto
+SIG_POS	desempenho
+SIG_POS	design
+SIG_POS	funcao
+SIG_POS	funcionalidade
+SIG_POS	funcoes
+SIG_POS	funções
+SIG_POS	função
+SIG_POS	ganh*
+SIG_POS	gost*
+SIG_POS	interface
+SIG_POS	multiplataforma
+SIG_POS	recurso*
+SIG_POS	rendimento
+SIG_POS	resoluc*
+SIG_POS	resoluç*
+SIG_POS	sistema
+SIG_POS	smartphone
+SIG_POS	suport*
+SIG_POS	tela
+SIG_POS 	acabamento
+STR_NEG	aham
+STR_NEG	ahem
+STR_NEG	ahã
+STR_NEG	arrã
+STR_NEG	bosta
+STR_NEG	engan*
+STR_NEG	escrot*
+STR_NEG	ferrad*
+STR_NEG	fode*
+STR_NEG	fodid*
+STR_NEG	fudid*
+STR_NEG	indec*
+STR_NEG	indign*
+STR_NEG	menti*
+STR_NEG	merda
+STR_NEG	not
+STR_NEG	not
+STR_NEG	otari*
+STR_NEG	otári*
+STR_NEG	palhac*
+STR_NEG	palhaç*
+STR_NEG	porcaria
+STR_NEG	procom
+STR_NEG	procon

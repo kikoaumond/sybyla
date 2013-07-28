@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	                                                 
+	<xs:schema targetNamespace="http://sybyla.com/schema/sybyla.xsd"
+			   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		       xmlns:sybyla="http://sybyla.com/schema/sybyla.xsd"
+		       attributeFormDefault="unqualified" 
+		       elementFormDefault="unqualified">
+	
+	<xs:element name="apiResponse">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="requestURL" type="xs:string" />
+			<xs:element name="requestTime" type="xs:string"/>
+			<xs:choice >
+				<xs:element name="tree" type="sybyla:treeResult"/>
+				<xs:element name="categories" type="sybyla:categoryResult" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="tags" type="sybyla:tagResult" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="sentiment" type="sybyla:sentimentResult"/>
+				<xs:element name="why" type="sybyla:whyResult"/>	
+				<xs:element name="ey" type="sybyla:contractResult" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="sybyla:error" />
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="error">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="sybyla:errorType" />
+				<xs:element name="errorMessage" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="errorType">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="InternalError" />
+				<xs:enumeration value="IllegalArgumentError" />
+				<xs:enumeration value="UnauthorizedAccessError" />
+				<xs:enumeration value="AboveQuotaError" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:simpleType name="uri">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(https?://.+)?" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:element name="contract" type="sybyla:contractResult"/>
+	<xs:complexType name ="contractResult">
+		<xs:sequence>
+				<xs:element name="part1" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="part2" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="contractDate" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="startDate" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="endDate" type="xs:string" minOccurs="1" maxOccurs="1" />		
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="category" type="sybyla:categoryResult"/>
+		<xs:complexType name ="categoryResult">
+			<xs:sequence>
+				<xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="category" type="xs:string" minOccurs="1" maxOccurs="1" />
+				<xs:element name="categoryDetail" type="xs:string" minOccurs="0" maxOccurs="1" />
+				<xs:element name="geo" type="xs:string" minOccurs="0" maxOccurs="1" />
+				<xs:element name="geoDetail" type="xs:string" minOccurs="0" maxOccurs="1" />
+				<xs:element name="chrono" type="xs:string" minOccurs="0" maxOccurs="1" />
+				<xs:element name="chronoDetail" type="xs:string" minOccurs="0" maxOccurs="1" />
+				<xs:element name="relevance" type="xs:double" minOccurs="1" maxOccurs="1" />		
+			</xs:sequence>
+		</xs:complexType>
+		
+
+		
+	<xs:element name="tagResult" type="sybyla:tagResult"/>
+	<xs:complexType name="tagResult">
+		<xs:sequence>
+			<xs:element name="term" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="relevance" type="xs:double" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="sentimentResult" type="sybyla:sentimentResult"/>
+	<xs:complexType name="sentimentResult">
+		<xs:sequence>
+			<xs:element name="text" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="sentiment" type="xs:double" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+			
+	<xs:element name="treeResult" type="sybyla:treeResult"/>
+	<xs:complexType name="treeResult">
+		<xs:sequence>
+			<xs:element name="id" type="xs:int" minOccurs="1" maxOccurs="1" />
+			<xs:element name="d" type="xs:int" minOccurs="0" maxOccurs="1" />
+			<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="data" type="sybyla:data" minOccurs="1" maxOccurs="1"/> 
+			<xs:element name="url" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      		<xs:element name="children" type="sybyla:treeResult" minOccurs="0" maxOccurs="unbounded"></xs:element>
+    	</xs:sequence>			
+	</xs:complexType>
+	
+	<xs:element name="data" type="sybyla:data"/>
+	<xs:complexType name="data">
+		<xs:sequence>
+			<xs:element name="relevance" type="xs:float" minOccurs="1" maxOccurs="1" />
+			<xs:element name="relation" type="xs:string" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="whyResult" type="sybyla:whyResult"/>
+	<xs:complexType name="whyResult">
+		<xs:sequence>
+			<xs:element name="link" type="xs:string" minOccurs="1" maxOccurs="1" />		
+		</xs:sequence>
+		</xs:complexType>
+</xs:schema>

@@ -1,0 +1,72 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>Sybyla Tagging API</title>
+
+<!-- jQuery File -->
+<script src="../js/jquery-1.7.1.js" charset="UTF-8"></script>
+
+<script>
+var BASE_URL='http://demo.sybyla.com/tag/';
+
+function classify(text) {
+	$('#result').html('');
+	var dest = BASE_URL;
+	var data={};
+	data.text=text
+	var postRequest = $.post(dest, 
+	                         data, 
+	                         function(responseData) {
+	                             displayResponse(responseData);
+	                         });
+}
+
+function displayResponse(responseData){
+	$('#result').html('');
+	if (responseData.apiResponse.tags){
+		var tagArray  = responseData.apiResponse.tags;
+		var output='';
+		for ( var i in tagArray) {
+			var tag = tagArray[i];
+			output += 'Term: <b>'+tag.term+'</b> ';
+			output += 'Relevance: <b>'+tag.relevance+'</b> ';
+			output +='<br>';
+
+		}
+		$('#result').html(output);
+	}
+}
+</script>
+</head>
+
+<body>
+	Enter some text in the form below.  The Sybyla Tag API will extract the most important concepts in the text and return them with a numerical relevance ranking.
+	<div id="form">
+    	<form>
+    		Text:<textarea id="text" rows="20" cols="80"></textarea>
+    				
+    		<input type="button" id="class_button" value="Get the tags from this text"/>
+    	</form>
+    	<script>
+    		$(document).ready(function() {
+    			$("#text").keydown(function() {
+        			if (event.keyCode == 13) {
+            			$("form").submit();
+         			}
+    			});
+			});
+    		$("#class_button").click( function() {
+    			 $('#form').submit();
+            });
+            $('#form').submit(function() {
+  				var text = $("#text").val();
+  				classify(text);
+  				return false;
+			});
+    	</script>
+    </div>
+    <div id="result"></div>
+</body>
+</html>

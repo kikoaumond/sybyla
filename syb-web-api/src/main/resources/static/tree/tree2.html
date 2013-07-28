@@ -1,0 +1,82 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tree of Everything</title>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-38256128-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- CSS Files -->
+<link type="text/css" href="./css/main.css" rel="stylesheet" />
+<!-- <link type="text/css" href="./css/base.css" rel="stylesheet" /> -->
+<link type="text/css" href="./css/RGraph.css" rel="stylesheet" />
+
+<!--[if IE]><script language="javascript" type="text/javascript" src="../../Extras/excanvas.js"></script><![endif]-->
+
+<!-- JIT Library File -->
+<script language="javascript" type="text/javascript" src="./js/jit-yc.js" charset="UTF-8"></script>
+
+<!-- Example File -->
+<script language="javascript" type="text/javascript" src="./js/tree.js" charset="UTF-8"></script>
+
+<!-- jQuery File -->
+<script src="./js/jquery-1.7.2.min.js" charset="UTF-8"></script>
+</head>
+
+<body>
+	<div id="navWrap"></div>
+	<script>
+		$("#navWrap").load("nav.html");
+	</script>
+	<img width="219" height="112" alt="logo" id="logo" src="images/logo.png">
+
+	<div id="tagline"> BEYOND ANALYSIS. UNDERSTANDING.</div>
+    	<div id="infovis"></div> 
+    	<div id="term_form">
+    		<form>
+    			Term:<input type="text" id="term" size="64" />
+    			<!-- Number of related concepts:<input type="text" id="nTerms"/> -->
+    			<input type="button" id="term_button" value="Find Related Things"/>
+    		</form>
+    		<script>
+    			$(document).ready(function() {
+    				$("#text").keydown(function() {
+        				if (event.keyCode == 13) {
+            				$("term_form").submit();
+         					}
+    				});
+				});
+    			$("#term_button").click( function() {
+    				       	    var term = $("#term").val();
+    				       	    var nTerms = $("#nTerms").val();
+    				       	    if (nTerms==null || nTerms=="") {
+    				       	    	nTerms = 8;
+    				       	    }
+    				       		getRelatedTerms(term, nTerms);
+            	            });
+            	 $('#term_form').submit(function() {
+  								var term = $("#term").val();
+  								var nTerms = $("#nTerms").val();
+  								if (nTerms==null || nTerms=="") {
+    				       	    	nTerms = 8;
+    				       	    }
+    				       		getRelatedTerms(term,nTerms);
+  								return false;
+							});
+    		</script>
+    	</div>
+	</div>
+</body>
+</html>

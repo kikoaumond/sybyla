@@ -1,0 +1,211 @@
+classical
+crunk
+rock
+hip hop
+alternative country
+alternative metal
+alternative rock
+ambient
+christian
+new wave
+southern rock
+alternative electronic rock
+blugrass
+blues
+country rock
+dance
+disco
+drum and bass
+electro
+electronic
+electropop
+experimental
+folk
+folk rock
+funk
+garage house
+heavy metal
+house
+hip hop
+indie pop
+indie rock
+industrial
+jazz
+pop
+punk rock
+punk
+reggae
+rhythm and blues
+rock
+ska
+soft rock
+soul
+techno
+trance
+tango
+art rock
+bachata
+bambuco
+soca
+baroque
+bebop jazz
+bhangra
+big beat
+black metal
+boogie-woogie
+bossa nova
+cajun
+boogie
+carnatic
+celtic
+chicano rock
+chill-out
+choro
+christian metal
+chutney
+cool jazz
+cuban jazz
+cumbia
+dancehall
+dark wave
+dark ambient
+dark cabaret
+death metal
+death rock
+delta blues
+desi
+detroit blues
+dirty blues
+dixieland jazz
+dub
+dubstep
+tribal tech trance
+east coast blues
+electro house
+electric folk
+new age
+gamelan
+trip hop
+enka
+gospel
+eurobeat
+eurodance
+eurodisco
+flamenco
+folk jazz
+folk punk
+folk rock
+free jazz
+psychedelic trance
+funk carioca
+funktronica
+highlife
+glam metal
+goa trance
+gothic rock
+grunge
+guajira
+gypsy jazz
+haoopy hardcore
+hard bop
+harcore techno
+hi-nrg
+homo hop
+idm
+ska
+jazz fusion
+jazz-rock
+k-pop
+kabuki
+jug band
+kamrupi
+klezmer
+latin jazz
+latin pop
+latin
+mambo
+manila sound
+manx
+mariachi
+maskanda
+merengue
+metal
+microtonal
+mpb
+música popular brasileira
+maori
+noise
+nueva canción
+okinawan folk
+pagan folk
+palm wine
+polka
+psychedelic rock
+psychobilly
+queercore
+ragtime
+rap metal
+rapso
+raï
+rebetiko
+reggaeton
+rock en español
+rockabilly
+rocksteady
+romani
+salsa
+samba
+shoegazing
+soukous
+surf
+synthpop
+tejano
+garage
+yoruba
+zouk
+zydeco
+a capella
+afro-beat
+emo
+experimental
+grindcore
+hard rock
+hardcore
+nu metal
+pop punk
+power metal
+progressive metal
+swing
+thrash metal
+art rock
+calypso
+cantopop
+first nations
+goa trance
+go-go
+mandopop
+mathcore
+medieval
+norteño
+no wave
+fado
+psychedelic
+rumba
+tropipop
+visual kei
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,8 @@
+ <mediawiki xmlns="http://www.mediawiki.org/xml/export-0.8/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.8/ http://www.mediawiki.org/xml/export-0.8.xsd" version="0.8" xml:lang="en">
+  <page>
+    <title>Löts øf ÜTF-8 çharàctêrs</title>
+     <text xml:space="preserve">
+     	Thïs ís sømë têxt wîth lóts of ÚTF-8 chärâcters
+     </text>
+  </page>
+ </mediawiki>

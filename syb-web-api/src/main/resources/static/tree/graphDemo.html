@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Sybyla | Graph Demo</title>
+	<meta name="generator" content="BBEdit 10.5" />
+	<meta name="description" content="Sybyla is a provider of API's and professional services for Web Text Analytics, including text classification, tag generation, content recommendation, summarization, sentiment analysis, serendipitous discovery and exploratory search">
+	<meta name="google-site-verification" content="v9nd2jpefvrW2jd_utMFETOlsfmZBtlq0vYp25O5TxU" />
+	<meta name="keywords" content="text analytics, text analysis, text analytics API, classification API, web analytics, big data, serendipitous discovery, blog tagging tool, graph API, machine learning API, web API, exploratory search, API, expoloratory search API, text classification API, IAB text classification API, sentiment analysis API, summarization API, sentiment analysis, summarization, content recommendation">
+
+<link rel="stylesheet" type="text/css" href="css/print.css" media="print">
+
+	
+<link rel="icon" type="png" href="images/sybylaBrowserIcon.png">
+	
+<!-- jQuery File -->
+<script src="js/jquery-1.7.1.js"></script>
+
+<!-- JIT Library File -->
+<script language="javascript" type="text/javascript" src="./js/jit-yc.js" charset="UTF-8"></script>
+
+<!-- Example File -->
+<script language="javascript" type="text/javascript" src="./js/tree.js" charset="UTF-8"></script>
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+  	_gaq.push(['_setAccount', 'UA-38256128-1']);
+	_gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script>
+	$(document).ready(function() {
+    				$("#text").keydown(function() {
+        				if (event.keyCode == 13) {
+            				$("term_form").submit();
+         					}
+    				});
+				});
+    $("#term_button").click( function() {
+    				var term = $("#term").val();
+    				var nTerms = $("#nTerms").val();
+    				if (nTerms==null || nTerms=="") {
+    					nTerms = 8;
+    				}
+    				getRelatedTerms(term, nTerms);
+            	});
+    $('#term_form').submit(function() {
+  					var term = $("#term").val();
+  					var nTerms = $("#nTerms").val();
+  					if (nTerms==null || nTerms=="") {
+    					nTerms = 8;
+    				}
+    				getRelatedTerms(term,nTerms);
+  						return false;
+				});
+</script>
+
+</head>
+<body>
+
+<div id="navWrap"></div>
+<script>
+<!--$("#navWrap").load("nav.html");-->
+</script>
+
+
+<div id="bigBox">
+
+<img width="219" height="112" alt="logo" id="logo" src="images/logo.png">
+
+<div id="tagline"> BEYOND ANALYSIS. UNDERSTANDING.</div>
+
+<div id="mainWrapper">
+<div id="pageHead">Graph Demo</div>
+
+<div id="copyBox">
+<h2>What Else Is Out There?</h2>
+<p>Sybyla's Big Data platform is able sifted through tens of millions of documents to create a graph of related concepts.   These concepts are related because Sybyla's technology is able to infer factual relationships between them from text data.  For instance, if a piece of text says that "John Lennon and Paul McCartney were members of the Beatles", Sybyla can infer relationships between the concepts "Paul McCartney", "John Lennon" and "Beatles".  The Sybyla graph currently has one hundred million concepts and continues to grow.  Type a concept ( a name of a person, a location, an abstract concept) in the form below and see what related concepts are returned by Sybyla's Graph API.  To avoid clutter, this particular demo returns only the top 10 concepts that are most related to the central concept in the first degree and the top 4 concepts in the second degree. </p>
+					<p>This is an invaluable tool for serendipitous discovery and exploratory search.  To navigate the graph, click on any node to center it.  Double click on the center node to look up its related concepts. Left-drag the mouse to move the graph; right-drag to zoom in and out. 
+</p>
+<h2>What other things are related to what you are looking at?</h2>
+
+    <div id="result"></div>
+
+
+</div><!--end copyBox-->
+<div id="graphBox">
+	
+	<div id="term_form">
+    	<form>
+    		Term:<input type="text" id="term" size="64" />
+    		<!-- Number of related concepts:<input type="text" id="nTerms"/> -->
+    		<input type="button" id="term_button" value="Find Related Things"/>
+    	</form>
+
+
+    	<script>
+    			$(document).ready(function() {
+    				$("#text").keydown(function() {
+        				if (event.keyCode == 13) {
+            				$("term_form").submit();
+         					}
+    				});
+				});
+    			$("#term_button").click( function() {
+    				       	    var term = $("#term").val();
+    				       	    var nTerms = $("#nTerms").val();
+    				       	    if (nTerms==null || nTerms=="") {
+    				       	    	nTerms = 8;
+    				       	    }
+    				       		getRelatedTerms(term, nTerms);
+            	            });
+            	 $('#term_form').submit(function() {
+  								var term = $("#term").val();
+  								var nTerms = $("#nTerms").val();
+  								if (nTerms==null || nTerms=="") {
+    				       	    	nTerms = 8;
+    				       	    }
+    				       		getRelatedTerms(term,nTerms);
+  								return false;
+							});
+    			</script>
+    	
+    </div>
+    <div id="infovis"></div>
+</div><!-- end graphBox -->
+<p class="copyright">
+© Copyright Sybyla 2013. All rights reserved. </p>
+</div><!--end mainWrapper-->
+
+</div> <!--end bigBox -->
+
+
+
+</body>
+</html>

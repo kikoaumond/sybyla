@@ -1,0 +1,1 @@
+java -server -Xss4096k -Xmx512m  -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -Dfile.encoding=UTF-8 -cp ../../target/syb-stax-0.0.1-SNAPSHOT-jar-with-dependencies.jar sybyla.wikipedia.CategoryMapper /Users/kiko/sybyla/data/Wikipedia/enwiki-latest-pages-articles.xml.xml /mnt/data/current/categoryMapWikipedia.txt /mnt/data/current/synonyms.txt
