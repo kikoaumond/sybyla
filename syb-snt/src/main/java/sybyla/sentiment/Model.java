@@ -50,7 +50,7 @@ public class Model {
 	public static final Pattern MULTIPLE_SPACES_PATTERN =  Pattern.compile("([\\s]+)");
 	public static final Pattern PUNCTUATION =  Pattern.compile("[,.;:!?-]");
 	public static final Pattern PARENTHESES =  Pattern.compile("[()]");
-    private static final Pattern QUOTES = Pattern.compile( "[\"“”'’‘]");
+    public static final Pattern QUOTES = Pattern.compile( "[\"“”'’‘]");
 
 	public static final String PRODUCT_MODEL_PORTUGUESE="/product-portuguese-model.txt";
 	public static final String FINANCIAL_MODEL_PORTUGUESE="/financial-portuguese-model.txt";
@@ -105,7 +105,9 @@ public class Model {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		String line = null;
 		while((line=reader.readLine())!=null){
-                               
+            if (line.trim().startsWith("#")){
+            	continue;
+            }
 			String[] tokens = line.split("\\t");
 			String label = tokens[0].trim();
                 
@@ -174,6 +176,16 @@ public class Model {
 		ScanResult spn = scanPhrases(PHRASE_STR_NEG,tokens);	
 		if (spn.size()>0){
 			return 4*NEGATIVE;
+		}
+		
+		ScanResult pn = scanPhrases(PHRASE_NEG,tokens);	
+		if (pn.size()>0){
+			return 1*NEGATIVE;
+		}
+		
+		ScanResult pp = scanPhrases(PHRASE_POS,tokens);	
+		if (pp.size()>0){
+			return 1*POSITIVE;
 		}
 		
 		Set<String> positiveSignifiers = modelTerms.get(SIG_POS);
@@ -312,7 +324,7 @@ public class Model {
 		double s = 0;
 		for(int i=0; i< reverserPositions.size(); i++){
 			int p = reverserPositions.get(i);
-			for(int j = p-3; j<=p+3;j++){
+			for(int j = p; j<=p+4;j++){
 				if (j<0||j>=scores.length){
 					continue;
 				}

@@ -4008,12 +4008,12 @@ Drinks							Food & Drink
 Food							Food & Drink	
 Religion	Religion							
 Family & Parenting							Family & Parenting	
-Celebrities							Arts & Entertainment	Celebrity Fan/Gossip
+Celebrities	Celebrities						Arts & Entertainment	Celebrity Fan/Gossip
 Movies							Arts & Entertainment	Movies
 Career Planning							Business	Career Planning
 Technology							Technology	
 Política							Law, Government & Politics	Politics
-Política							Política	
+Política	Política							
 Music	Music						Arts & Entertainment	Music
 Casa e Jardim	Casa e Jardim						Home & Garden	
 Filmes	Films						Arts & Entertainment	Movies
@@ -4024,3 +4024,6 @@ Finance	News
 Religion	News							
 Technology	News							
 Health							Health & Fitness	
+Moda	Moda							
+Viagens e Turismo	Viagens e Turismo							
+Automóveis	Automóveis							

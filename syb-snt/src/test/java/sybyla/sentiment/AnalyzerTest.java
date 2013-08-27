@@ -87,6 +87,7 @@ public class AnalyzerTest {
 		assertTrue(score < 0);
 	}
 	
+	
 	@Test
 	public void testAnalyze6() throws Exception{
 		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
@@ -98,7 +99,38 @@ public class AnalyzerTest {
 		assertTrue(score < 0);
 	}
 	
+	@Test
+	public void testAnalyze7() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "	Mas, vc não acha que esse \"tratamento\" deveria ser muito mais rápido? Desde de maio estou com problemas e não recebo respostas... Estou decepcionada, sou cliente da tecla há quase 10 anos, e nunca tive problemas...Agora a Mandic está deixando a desejar, os telefone de contato da cobrança não atendem, no chat, não atendem, faço registro não respondem... ";
+		
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
 	
+	@Test
+	public void testAnalyze8() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "O produto não funcionou.";
+		
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze9() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "	Mas, vc não acha que esse \"tratamento\" deveria ser muito mais rápido? Desde de maio estou com problemas e não recebo respostas... Estou decepcionada, sou cliente da tecla há quase 10 anos, e nunca tive problemas...Agora a Mandic está deixando a desejar, os telefone de contato da cobrança não atendem, no chat, não atendem, faço registro não respondem... ";
+		
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
 	private String loadFile(String file) throws IOException{
 		
 		FastFileReader fileReader =  new FastFileReader(file);
@@ -109,5 +141,216 @@ public class AnalyzerTest {
 		}
 		return sb.toString();
 		
+	}
+
+	@Test
+	public void testAnalyze10() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "To precisando de uns dias na praia. Nao agüento mais esse tempo maluco de Sp.";
+		
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze11() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Sabia que seu Facebook tem pastas e mensagens escondidas? Veja aqui como acessar e ver se tem algo lá que preste ";
+		
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score == 0);
+	}
+	
+	@Test
+	public void testAnalyze12() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Demetrius Brasil ‏@demetriusbrasil 15 abr @MandicSA sempre disponível #só_QUE_não ";
+		
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze13() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "	Gente, não sei pq tanta celeuma em relação ao Jeff Bezos comprar o The Washington Post... " +
+				"Todo mundo sabe que ele é...o DEMÔNIO! " +
+				"Claramente comprou o \"Post\" somente para destruir toda a categoria dos jornais, mesma coisa que fez com as livrarias! " +
+				"E gastar US$ 250 milhões do próprio bolso para ajudar a destruir o jornalismo vai até que sair barato, certo? " +
+				"Dinheiro de pinga...Tb não entendi a repercussão disso hoje na Folha, no Estadão etc... " +
+				"É claro que as famílias Frias, Mesquita, Civita, Marinho, JAMAIS usaram suas propriedades para obter benefícios políticos. " +
+				"NUNCA, BLASFÊMIA!!! Nem a família Graham, coitada da Katherine! Uma tiazinha sem malícia! " +
+				"Imaginar que essas famílias utilizam ou utilizavam os títulos para obter vantagens comerciais e políticas é um absurdo!!! " +
+				"Enfim, vamos erguer um protesto contra o Jeff Tinhoso, pq ele se tornou literalmente o emissário das más notícias!";
+
+		
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze14() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Muito bom! Nossa meta é dobrar o número de associados até o final do ano.";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score > 0);
+	}
+	
+	@Test
+	public void testAnalyze15() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Excelente vídeo sobre finanças pessoais, com o querido Ricardo Amorim";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score > 0);
+	}
+	
+	@Test
+	public void testAnalyze16() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Sandro J. S. Souza ‏@xkurts 1 ago Ate agora, decepcao total esse email marketing da XXXX";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze17() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Gustavo Henrique ‏@gugahb 1 ago Trabalhar com as PIORES empresas não tem preço para todas as outras existe a @MandicSA com ela sempre tem como piorar.";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze18() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "	meu site http://www.amandacosta.com.br  fora do ar frequentemente e hoje direto, " +
+				"solicitei  @MandicSA @MandicSuporte  desde ontem e até agora nada";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze19() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Infolinux BR ‏@infolinux 8 maio NÃO RECOMENDO! RT @MandicSA: Vai contratar um serviço de cloud? " +
+				"Alguns pontos devem ser levados em consideração: http://bit.ly/11Tv43o ";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze20() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Adler Medrado ‏@adlermedrado 7 maio Depois que a @MandicSA absorveu a tecla, " +
+				"ocorreram instabilidades e agora não encontro o suporte on line e nem emititr boletos pelo painel.";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze21() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Adler Medrado ‏@adlermedrado 7 maio Depois que a @MandicSA absorveu a tecla, " +
+				"ocorreram instabilidades e agora não encontro o suporte on line e nem emititr boletos pelo painel.";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze22() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "	Amo o atendimento dessa merda de FIAT";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze23() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "Que final de domingo é esse, amigos da rede globo?!";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze24() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = 	"Testemunho do ex-bruxo da rede globo - completo:o pior que nenhum citado se manifesta, porque será?     via youtube.";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze25() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = 	"	Reclame aqui > sky - atendente sky promete e empresa não cumpre acordo     #reclameaqui.";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score < 0);
+	}
+	
+	@Test
+	public void testAnalyze26() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = 	"tem boiller? tem sky nos quartos? caitolm.";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score == 0);
+	}
+	
+	@Test
+	public void testAnalyze27() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = 	"No telecine pipoca quando eu olhei mais cedo ia passar espantalho um filmaco de terror.";
+
+		double score = analyzer.analyze(text);
+		System.out.println("Score: "+score);
+		assertTrue(score > 0);
 	}
 }

@@ -87,4 +87,62 @@ public class ClassifierTestPortuguese {
 		assertTrue(expectedCategories.size()==0);
 	
 	}
+
+	@Test
+	public void test4() throws Exception {
+		String text =  loadFile("src/test/resources/politica.txt");
+		Set<String> expectedCategories = new HashSet<String>();
+	
+		expectedCategories.add("Política");
+	
+	
+		Classifier classifier = new Classifier();
+		List<Category> categories = classifier.classify(text);
+		for(int i=0;i<categories.size();i++){
+			Category scoredCategory =  categories.get(i);
+			String category = scoredCategory.getName();
+			System.out.println(category+" => score: "+scoredCategory.getScore());
+			Set<CategoryMapEntry>  entries= CategoryMap.getCategoryEntry(category);
+			for (CategoryMapEntry entry: entries){
+				System.out.println(entry.toJSON());
+				String cat = entry.getDisplayCategory();
+				String iab =  entry.getIab();
+				expectedCategories.remove(cat);
+				expectedCategories.remove(iab);
+			}
+		}
+		System.out.println("#######################################");
+		assertTrue(expectedCategories.size()==0);
+	
+	}
+
+	@Test
+	public void test3() throws Exception {
+		String text =  loadFile("src/test/resources/toyotaRAV4.txt");
+		Set<String> expectedCategories = new HashSet<String>();
+	
+		expectedCategories.add("Automóveis");
+	
+	
+		Classifier classifier = new Classifier();
+		List<Category> categories = classifier.classify(text);
+		for(int i=0;i<categories.size();i++){
+			Category scoredCategory =  categories.get(i);
+			String category = scoredCategory.getName();
+			System.out.println(category+" => score: "+scoredCategory.getScore());
+			Set<CategoryMapEntry>  entries= CategoryMap.getCategoryEntry(category);
+			for (CategoryMapEntry entry: entries){
+				System.out.println(entry.toJSON());
+				String cat = entry.getDisplayCategory();
+				String iab =  entry.getIab();
+				expectedCategories.remove(cat);
+				expectedCategories.remove(iab);
+			}
+		}
+		System.out.println("#######################################");
+		assertTrue(expectedCategories.size()==0);
+	
+	}
+	
+	
 }

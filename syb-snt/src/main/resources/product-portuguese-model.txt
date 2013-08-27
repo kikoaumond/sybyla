@@ -2,28 +2,84 @@ PHRASE_NEG	ainda nao
 PHRASE_NEG	ainda não
 PHRASE_NEG	diversas vezes
 PHRASE_NEG	fora do ar
-PHRASE_NEG	minha cara
-PHRASE_NEG	minha cara
-PHRASE_NEG	muitas vezes
-PHRASE_NEG	no máximo
+PHRASE_NEG	acabar com
+PHRASE_NEG	acabou com
+PHRASE_NEG	não quero mais
+PHRASE_NEG	acabaram com
 PHRASE_NEG	nossa cara
 PHRASE_NEG	para tras
 PHRASE_NEG	para trás
+PHRASE_NEG	to bolado
+PHRASE_NEG	to bolada
+PHRASE_NEG	ta bolado
+PHRASE_NEG	ta bolada
+PHRASE_NEG	tá bolada
+PHRASE_NEG	faz horas
+PHRASE_NEG	a horas
+PHRASE_NEG	à horas
+PHRASE_NEG	a dias
+PHRASE_NEG	faz dias
+PHRASE_NEG	à dias
+PHRASE_NEG	parou de funcionar
+PHRASE_NEG	pararam de funcionar
+PHRASE_NEG	deixou de funcionar
+PHRASE_NEG	deixaram de funcionar
 PHRASE_NEG	praticamente nada
 PHRASE_NEG	praticamente nenhum
 PHRASE_NEG	é brincadeira
 PHRASE_NEG	é brincadeira
+PHRASE_NEG	deixa a desejar
+PHRASE_NEG	deixam a desejar
+PHRASE_NEG	deixando a desejar
+PHRASE_NEG	deixou a desejar
+PHRASE_NEG	deixaram a desejar
+PHRASE_NEG	é isso
+PHRASE_NEG	é nisso que dá
+PHRASE_NEG	e nisso que da
+PHRASE_NEG	é esse
+PHRASE_NEG	é essa
+PHRASE_NEG	fui obrigado
+PHRASE_NEG	fui obrigada
+PHRASE_NEG	fomos obrigados
+PHRASE_NEG	fomos obrigadas
+PHRASE_NEG	sou obrigado
+PHRASE_NEG 	sou obrigada
+PHRASE_NEG	somos obrigados
+PHRASE_NEG	somos obrigadas
+PHRASE_NEG	não pode piorar
+PHRASE_NEG	não dá para piorar
+PHRASE_NEG	nao pode piorar
+PHRASE_NEG	nao da para piorar
+PHRASE_NEG	ainda dá para piorar
+PHRASE_NEG	ainda da para piorar
+PHRASE_NEG	é foda
+PHRASE_NEG	e foda
+PHRASE_POS	muito foda
+PHRASE_POS	tao foda
+PHRASE_POS	muito legal
+PHRASE_POS	muito bacana
+PHRASE_STR_NEG	filho da puta
+PHRASE_STR_NEG	filhos da puta
+PHRASE_STR_NEG	filha da puta
+PHRASE_STR_NEG	filhas da puta
+PHRASE_POS	é o máximo
+PHRASE_POS	e o maximo
 PHRASE_POS	dá para
 PHRASE_POS	vale a pena
 PHRASE_POS	vamos compr*
 PHRASE_POS	vou compr*
-PHRASE_POS	é só
+PHRASE_POS	bem sucedido
+PHRASE_POS	muito louco
+PHRASE_POS	muit foda
+PHRASE_POS	muito loko
 PHRASE_STR_NEG	a justica
-PHRASE_STR_NEG	a justiça
+PHRASE_STR_NEG	à justiça
 PHRASE_STR_NEG	aham ta
 PHRASE_STR_NEG	aham tá
 PHRASE_STR_NEG	ate agora nada
 PHRASE_STR_NEG	até agora nada
+PHRASE_STR_NEG	ate agora não
+PHRASE_STR_NEG	até agora nao
 PHRASE_STR_NEG	bonito hein
 PHRASE_STR_NEG	bonito hem
 PHRASE_STR_NEG	da a minima
@@ -50,6 +106,8 @@ PHRASE_STR_NEG	nunca mais
 PHRASE_STR_NEG	não adianta
 PHRASE_STR_NEG	o pior e
 PHRASE_STR_NEG	o pior é
+PHRASE_STR_NEG	cada vez pior
+PHRASE_STR_NEG	cada vez mais ruim
 PHRASE_STR_NEG	pequenas causas
 PHRASE_STR_NEG	que beleza hein
 PHRASE_STR_NEG	que beleza hem
@@ -64,14 +122,35 @@ PHRASE_STR_NEG	so que nao
 PHRASE_STR_NEG	so que não
 PHRASE_STR_NEG	só que nao
 PHRASE_STR_NEG	só que não
+PHRASE_STR_NEG	só_que_não
+PHRASE_STR_NEG	so_que_nao
+PHRASE_STR_NEG	soquenao
+PHRASE_STR_NEG	sóquenão
+PHRASE_STR_NEG	#soquenao
+PHRASE_STR_NEG	#so_que_nao
+PHRASE_STR_NEG	#só_que_não
 PHRASE_STR_NEG	vergonha na cara
 PHRASE_STR_NEG	à justica
 PHRASE_STR_NEG	à justiça
+PHRASE_STR_NEG	porra nenhuma
+QUAL_NEG	estrag*
+QUAL_NEG	desesp*
+QUAL_NEG	destru*
+QUAL_NEG	manip*
+QUAL_NEG	celeuma*
+QUAL_NEG	polemica*
+QUAL_NEG	polêmica*
+QUAL_NEG	controversia*
+QUAL_NEG	controvérsia*
+QUAL_NEG	escândalo*
+QUAL_NEG	escandalo*
 QUAL_NEG	amarrot*
 QUAL_NEG	atras*
-QUAL_NEG	cara*
+QUAL_NEG	cara
 QUAL_NEG	carissim*
-QUAL_NEG	caro*
+QUAL_NEG	caro
+QUAL_NEG	caras
+QUAL_NEG	caríssim*
 QUAL_NEG	caríssim*
 QUAL_NEG	chato
 QUAL_NEG	cobra*
@@ -87,6 +166,8 @@ QUAL_NEG	desatenc*
 QUAL_NEG	desatenç*
 QUAL_NEG	descaso
 QUAL_NEG	desconfort*
+QUAL_NEG	câncer
+QUAL_NEG	cancer
 QUAL_NEG	devolução
 QUAL_NEG	devolv*
 QUAL_NEG	distorc*
@@ -98,9 +179,10 @@ QUAL_NEG	engan*
 QUAL_NEG	excludente*
 QUAL_NEG	exigi*
 QUAL_NEG	exijo
+QUAL_NEG	apelativ*
+QUAL_NEG	apelação
 QUAL_NEG	falha*
 QUAL_NEG	fals*
-QUAL_NEG	falta*
 QUAL_NEG	feia*
 QUAL_NEG	feio*
 QUAL_NEG	gross*
@@ -119,23 +201,37 @@ QUAL_NEG	mal
 QUAL_NEG	mau
 QUAL_NEG	má
 QUAL_NEG	pesad*
+QUAL_NEG	caga*
 QUAL_NEG	pessim*
+QUAL_NEG	dific*
+QUAL_NEG	difíc*
+QUAL_NEG	pior
 QUAL_NEG	pior*
 QUAL_NEG	pirotecnia
+QUAL_NEG	infeliz
+QUAL_NEG	infelizes
+QUAL_NEG	infelic*
 QUAL_NEG	pobreza
 QUAL_NEG	porra
 QUAL_NEG	prejuiso
 QUAL_NEG	prejuizo
+QUAL_NEG	podr*
 QUAL_NEG	prejuíso
+QUAL_NEG	explod*
 QUAL_NEG	prejuízo
 QUAL_NEG	péssim*
 QUAL_NEG	pessim*
 QUAL_NEG	quebr*
 QUAL_NEG	reclam*
+QUAL_NEG	impos*
+QUAL_NEG	impôs
+QUAL_NEG	impos
 QUAL_NEG	reconhec*
 QUAL_NEG	reembolso
 QUAL_NEG	respons*
+QUAL_NEG	esperteza
 QUAL_NEG	ruim
+QUAL_NEG	chat*
 QUAL_NEG	ruin*
 QUAL_NEG	sacana*
 QUAL_NEG	safad*
@@ -144,9 +240,35 @@ QUAL_NEG	suj*
 QUAL_NEG	trinca*
 QUAL_NEG	troca*
 QUAL_NEG	troquei
+QUAL_NEG	vomit*
+QUAL_NEG	vômit
 QUAL_NEG	zoad*
 QUAL_NEG	zuad*
-QUAL_POS	acess*
+QUAL_NEG	zoando
+QUAL_NEG	zuando
+QUAL_NEG	mata*
+QUAL_NEG	zoa
+QUAL_NEG	zua
+QUAL_NEG	denunc*
+QUAL_NEG	denúnc*
+QUAL_NEG	incôm*
+QUAL_NEG	incom*
+QUAL_NEG	targédia
+QUAL_NEG	brincadeira
+QUAL_NEG	burr*
+QUAL_NEG	problema*
+QUAL_NEG	problematic*
+QUAL_NEG	problemátic*
+QUAL_NEG	cai
+QUAL_NEG	trav*
+QUAL_NEG	caiu
+QUAL_NEG	caindo
+QUAL_NEG	caid*
+QUAL_NEG	caíd*
+QUAL_NEG	fuler*
+QUAL_NEG	fuleir*
+QUAL_POS	acessív*
+QUAL_POS	acessiv*
 QUAL_POS	ador*
 QUAL_POS	agrad*
 QUAL_POS	ajud*
@@ -168,6 +290,16 @@ QUAL_POS	bacana
 QUAL_POS	barat*
 QUAL_POS	basta
 QUAL_POS	beleza
+QUAL_POS	filmaço
+QUAL_POS	filmaco
+QUAL_POS	filmão
+QUAL_POS	filmao
+QUAL_POS	jogaco
+QUAL_POS	jogaço
+QUAL_POS	jogao
+QUAL_POS	jogão
+QUAL_POS	programaço
+QUAL_POS	programaco
 QUAL_POS	belo
 QUAL_POS	bem
 QUAL_POS	boa
@@ -175,10 +307,28 @@ QUAL_POS	boas
 QUAL_POS	bom
 QUAL_POS	bons
 QUAL_POS	cobr*
+QUAL_POS	certo
+QUAL_POS	certa
+QUAL_POS	certos
+QUAL_POS	certas
+QUAL_POS	correto
+QUAL_POS	correta
+QUAL_POS	corretos
+QUAL_POS	corretas
+QUAL_POS	direito
+QUAL_POS	direitinho
+QUAL_POS	corretamente
 QUAL_POS	competitiv*
+QUAL_POS	orgulh*
 QUAL_POS	confia*
 QUAL_POS	confiável
+QUAL_POS	conceituad*
 QUAL_POS	confort*
+QUAL_POS	sério
+QUAL_POS	sérios
+QUAL_POS	séria
+QUAL_POS	sérias
+QUAL_POS	seriamente
 QUAL_POS	cortes*
 QUAL_POS	cortês
 QUAL_POS	decente*
@@ -188,6 +338,10 @@ QUAL_POS	disponíve*
 QUAL_POS	economia
 QUAL_POS	economic*
 QUAL_POS	econômic*
+QUAL_POS	emocio*
+QUAL_POS	emoç*
+QUAL_POS	curti
+QUAL_POS	curti*
 QUAL_POS	encant*
 QUAL_POS	educad*
 QUAL_POS	efic*
@@ -195,16 +349,18 @@ QUAL_POS	elog*
 QUAL_POS	excel*
 QUAL_POS	exclusiv*
 QUAL_POS	excitante*
+QUAL_POS	rápid*
+QUAL_POS	rapid*
 QUAL_POS	fã
 QUAL_POS	fãs
 QUAL_POS	gentil*
 QUAL_POS	gost*
+QUAL_POS	aguent*
+QUAL_POS	agüent*
 QUAL_POS	grande*
 QUAL_POS	gratis
 QUAL_POS	gratis
-QUAL_POS	gratuitamente
-QUAL_POS	gratuito
-QUAL_POS	gratuito
+QUAL_POS	gratuit*
 QUAL_POS	grátis
 QUAL_POS	grátis
 QUAL_POS	ideal
@@ -228,7 +384,11 @@ QUAL_POS	opcoes
 QUAL_POS	opções
 QUAL_POS	opção
 QUAL_POS	otimo
+QUAL_POS	lux
 QUAL_POS	performance
+QUAL_POS	perfeit*
+QUAL_POS	perfeicao
+QUAL_POS	prefeição
 QUAL_POS	permit*
 QUAL_POS	permit*
 QUAL_POS	possib*
@@ -239,13 +399,15 @@ QUAL_POS	possível
 QUAL_POS	propicia*
 QUAL_POS	qualidade*
 QUAL_POS	qualit*
+QUAL_POS	feliz
+QUAL_POS	felizes
+QUAL_POS	felic*
 QUAL_POS	recepcao
 QUAL_POS	recepção
 QUAL_POS	recomend*
 QUAL_POS	repar*
 QUAL_POS	resolv*
 QUAL_POS	respons*
-QUAL_POS	retorn*
 QUAL_POS	riqueza
 QUAL_POS	satisf*
 QUAL_POS	segura
@@ -255,19 +417,26 @@ QUAL_POS	seguras
 QUAL_POS	seguro
 QUAL_POS	seguros
 QUAL_POS	sofistica*
+QUAL_POS	requint*
 QUAL_POS	soluc*
 QUAL_POS	soluç*
 QUAL_POS	super*
 QUAL_POS	superior
 QUAL_POS	surpreend*
-QUAL_POS	tem
-QUAL_POS	têm
 QUAL_POS	uteis
 QUAL_POS	util
 QUAL_POS	ótimo
 QUAL_POS	úteis
 QUAL_POS	útil
+QUAL_POS	interess*
 QUAL_POS 	aceitavel
+QUAL_POS	incríve*
+QUAL_POS	incrive*
+QUAL_POS	paraben*
+QUAL_POS	praze*
+QUAL_POS	parabéns
+QUAL_POS	esperto
+QUAL_POS	esperta
 QUANT_NEG	baixa
 QUANT_NEG	baixo
 QUANT_NEG	demasiad*
@@ -277,11 +446,13 @@ QUANT_NEG	inaceitável
 QUANT_NEG	menor
 QUANT_NEG	menos
 QUANT_NEG	nada
-QUANT_NEG	nenhum*
+#QUANT_NEG	nenhum*
+QUANT_NEG	falta*
 QUANT_NEG	ninguem
 QUANT_NEG	ninguém
 QUANT_NEG	pobre
 QUANT_NEG	pouc*
+QUANT_POS	total*
 QUANT_POS	aceitável
 QUANT_POS	alta*
 QUANT_POS	altamente
@@ -305,6 +476,10 @@ QUANT_POS	tanto*
 QUANT_POS	varias
 QUANT_POS	varios
 QUANT_POS	vári*
+QUANT_POS	bastante
+QUANT_POS	bastentes
+QUANT_POS	tão
+QUANT_POS	tao
 REV	apesar
 REV	foge
 REV	fugir*
@@ -312,42 +487,62 @@ REV	jamais
 REV	nao
 REV	nem
 REV	num
+REV	naum
 REV	nunca
 REV	não
 REV	sem
+SIG_NEG	esper*
 SIG_NEG	custo
 SIG_NEG	gasta*
 SIG_NEG	gasto*
 SIG_NEG	preco*
 SIG_NEG	preço*
-SIG_NEG	problema*
+SIG_NEG	preço
+SIG_NEG	lament*
+SIG_NEG	instabilidade*
+SIG_NEG	instáve*
+SIG_NEG	instave*
 SIG_POS	cobert*
+SIG_POS	programa*
 SIG_POS	aparelho
 SIG_POS	aplicativo
 SIG_POS	assistencia
 SIG_POS	assistência
+SIG_POS	sinal
 SIG_POS	atend*
+SIG_POS	certos
+SIG_POS	certas
 SIG_POS	celular
 SIG_POS	consert*
 SIG_POS	conseg*
 SIG_POS	consigo
 SIG_POS	desconto
-SIG_POS	desempenho
+SIG_POS	desempenh*
 SIG_POS	disponib*
 SIG_POS	design
+SIG_POS	estabilidade
+SIG_POS	estável
+SIG_POS	estavel
 SIG_POS	funcao
 SIG_POS	funcion*
+SIG_POS	oferec*
 SIG_POS	funcoes
+SIG_POS	mostr*
 SIG_POS	funções
 SIG_POS	função
 SIG_POS	ganh*
 SIG_POS	garant*
 SIG_POS	interface
 SIG_POS	livro
+SIG_POS	moral
 SIG_POS	musica
 SIG_POS	música
 SIG_POS	obra
+SIG_POS	cumpr*
 SIG_POS	ofer*
+SIG_POS	pega*
+SIG_POS	conex*
+SIG_POS	conect*
 SIG_POS	produto
 SIG_POS	recurso*
 SIG_POS	rendimento
@@ -359,6 +554,14 @@ SIG_POS	software
 SIG_POS	suport*
 SIG_POS	tela
 SIG_POS	acabamento
+SIG_POS	receb*
+SIG_POS	retorn*
+SIG_POS	resposta*
+SIG_POS	respond*
+SIG_POS	atend*
+SIG_POS	trata*
+SIG_POS	sucesso*
+SIG_POS	bem-sucedid*
 STR_NEG	aham
 STR_NEG	ahem
 STR_NEG	ahã
@@ -368,11 +571,14 @@ STR_NEG	engan*
 STR_NEG	escrot*
 STR_NEG	ferrad*
 STR_NEG	fode*
+STR_NEG	fude*
 STR_NEG	fodid*
 STR_NEG	fudid*
 STR_NEG	indec*
 STR_NEG	indign*
 STR_NEG	menti*
+STR_NEG	mente
+STR_NEG	mentem
 STR_NEG	merda
 STR_NEG	not
 STR_NEG	not
@@ -380,7 +586,41 @@ STR_NEG	otari*
 STR_NEG	otári*
 STR_NEG	palhac*
 STR_NEG	palhaç*
+STR_NEG	marmelada
+STR_NEG	ladr*
+STR_NEG	roub*
 STR_NEG	porcaria
+STR_NEG	porcarias
 STR_NEG	procom
 STR_NEG	procon
 STR_NEG	vergonh*
+STR_NEG	demonio*
+STR_NEG	demônio*
+STR_NEG	diabo*
+STR_NEG	inferno*
+STR_NEG	calvario
+STR_NEG	calvário*
+STR_NEG	tortura*
+STR_NEG	medíocre*
+STR_NEG	mediocr*
+STR_NEG	viad*
+STR_NEG	vead*
+STR_NEG	caralho
+STR_NEG	puto
+STR_NEG	puta
+STR_NEG	putos
+STR_NEG	putas
+STR_NEG	lixo
+STR_NEG	cu
+STR_NEG	cú
+STR_NEG	pqp
+STR_NEG	bicha*
+STR_NEG	travec*
+STR_NEG	travest*
+STR_NEG	bund*
+STR_NEG	enfia
+STR_NEG	enfia*
+STR_NEG	chupa
+EXCLUDE	bom dia
+EXCLUDE	boa noite
+EXCLUDE	boa tarde

@@ -1381,4 +1381,52 @@ public class PartsModelTest {
 		}
 	}
 
+	@Test
+	public void test29() {
+		String text;
+		try {
+			System.out.println("###########################################################################");
+			System.out.println("\nCONTRATO:\n\n");
+			text = loadFile("src/test/resources/CCER_34977953___SITREL.txt");
+			System.out.println(text);
+			
+			String value = CurrencyModel.getMaxValue(text);
+			
+			List<String> patterns =  PartsModel.evaluate(text);
+			
+			List<Tag> dates = DateModel.findDates(text);
+			String t =  PartsModel.normalize(text);
+	
+			String contractDate = DateModel.findContractDate(dates,t);
+			String expected = "10 de abril de 2012";
+			//assertEquals(expected, contractDate);
+			String[] beginEndDates=DateModel.findBeginEndDates(dates, text);
+			
+			
+			System.out.println("\nPARTE 1:"+patterns.get(0)+"\n");
+			System.out.println("\nPARTE 2:"+patterns.get(1)+"\n");
+			System.out.println("\nVALOR: "+value+"\n");
+			System.out.println("\nDATA DO CONTRATO: "+contractDate+"\n");
+			System.out.println("\nINÍCIO DA VIGÊNCIA: "+beginEndDates[0]+"\n");
+			System.out.println("\nTÉRMINO DA VIGÊNCIA: "+beginEndDates[1]+"\n");
+			
+			assertEquals("01/01/2012",beginEndDates[0]);
+			assertEquals("31/12/2012",beginEndDates[1]);
+			
+			assertEquals("R$ 2.572,20", value);
+	
+			assertNotNull(patterns);
+			assertTrue(patterns.size()>0);
+			assertTrue(patterns.contains("ARCU SCELERISQUE."));
+			assertTrue(patterns.contains("AENEAN FELIS DAPIBUS S.A."));
+			
+			
+			System.out.println("###########################################################################");
+	
+		} catch (IOException e) {
+			LOGGER.error("Error running test", e);
+			fail();
+		}
+	}
+
 }

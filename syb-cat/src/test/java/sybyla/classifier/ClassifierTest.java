@@ -341,6 +341,7 @@ public class ClassifierTest {
 		Set<String> expectedCategories = new HashSet<String>();
 		expectedCategories.add("Family & Parenting");
 		expectedCategories.add("Arts & Entertainment");
+		expectedCategories.add("Celebrities");
 		expectedCategories.add("Law, Government & Politics");
 
 
@@ -592,7 +593,7 @@ public class ClassifierTest {
 		String text =  loadFile("src/test/resources/smoking.txt");
 		Set<String> expectedCategories = new HashSet<String>();
 	
-		expectedCategories.add("Law, Government & Politics");
+		expectedCategories.add("Health & Fitness");
 	
 	
 		Classifier classifier = new Classifier();
