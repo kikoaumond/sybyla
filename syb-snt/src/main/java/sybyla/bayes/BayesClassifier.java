@@ -1,6 +1,5 @@
 package sybyla.bayes;
 
-import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import sybyla.nlp.NLPAnalyzer;
 import sybyla.nlp.OpenNLPAnalyzer3;
 import sybyla.nlp.PortugueseOpenNLPAnalyzer;
@@ -23,6 +24,7 @@ import sybyla.sentiment.Language;
 
 public class BayesClassifier {
 	
+	private static final Logger LOGGER = Logger.getLogger(BayesClassifier.class);
 	private int n=0;
 	
 	private Map<String, Integer> positive= new HashMap<String,Integer>();
@@ -48,6 +50,11 @@ public class BayesClassifier {
 	private BayesModel negativeModel = new BayesModel("negative");
 	private BayesModel neutralModel = new BayesModel("neutral");
 	
+	private static final String POSITIVE="Positiva";
+	private static final String NEGATIVE="Negativa";
+	private static final String NEUTRAL="Neutra";
+	private static final String EXCLUDED="Excluído";
+	
 	
 	public BayesClassifier(Language language) throws Exception{
 
@@ -67,7 +74,55 @@ public class BayesClassifier {
 	
 	}
 	
-	public void train(String file) throws IOException{
+	public static class Result{
+		
+		private double positive=0;
+		private double negative=0;
+		private double neutral=0;
+		private double result=0;
+		private double certainty=0;
+		
+		public Result(double positive, double negative, double neutral){
+			
+			this.positive = positive;
+			this.negative = negative;
+			this.neutral =  neutral;
+			
+			result = (positive > negative)?positive:negative;
+			result = (result > neutral)?result:neutral;
+			
+			if (result == 0){
+				certainty = 0;
+			} else {
+				double pp = 0;
+				if (positive !=0){
+					pp = Math.exp(pp);
+				}
+				double np = 0;
+				if (negative !=0){
+					np = Math.exp(pp);
+				}
+				double ntp = 0;
+				if (neutral != 0){
+					ntp =  Math.exp(np);
+				}
+				if (result ==  positive){
+					result = 1;
+					certainty =  pp/(np+ntp);
+				} else if (result ==  negative){
+					result = -1;
+					certainty =  np/(pp+ntp);
+
+				} else {
+					result = 0;
+					certainty =  ntp/(pp+np);
+				}
+				
+			}
+		}
+	}
+	
+	public void train(String file) throws Exception{
 		List<TestElement> train = read(file);
 		for(TestElement te: train){
 			String text = te.getText();
@@ -80,6 +135,26 @@ public class BayesClassifier {
 		}
 		
 		computeEntropies();
+		buildModels();
+	}
+	
+	public void train(String[] files) throws Exception{
+		
+		for(String f: files){
+			List<TestElement> train = read(f);
+			for(TestElement te: train){
+				String text = te.getText();
+				double sentiment = te.getSentiment();
+				String[] sentences = nlp.detectSentences(text);
+				for(String sentence: sentences){
+					List<String> features =  FeatureExtractor.extractFeatures(sentence);
+					addToModel(features,sentiment);
+				}
+			}
+		}
+		
+		computeEntropies();
+		buildModels();
 	}
 	
 	private void computeEntropies(){
@@ -131,8 +206,37 @@ public class BayesClassifier {
 		}
 	}
 	
+	private void buildModels(){
+
+		buildModel(positiveModel,positive, positiveTermEntropies);
+		buildModel(negativeModel,negative, negativeTermEntropies);
+		buildModel(neutralModel,neutral, neutralTermEntropies);
+
+	}
+	
+	private void buildModel(BayesModel model, Map<String,Integer> counts,Map<String,Double> entropies){
+		int n = 0;
+		for(String term: counts.keySet()){
+			Integer count = counts.get(term);
+			if (count == null) count=0;
+			n+=count;
+		}
+		
+		for (String term: counts.keySet()){
+			Integer count = counts.get(term);
+			
+			if (count == null) continue;
+			
+			double probability = (double) count/(double) n;
+			double entropy = entropies.get(term);
+			model.add(term, probability, entropy);
+		}
+	}
+	
 	private double pLogp(double p){
+		
 		if (p == 0) return 0;
+		
 		return p*Math.log(p);
 	}
 	
@@ -153,7 +257,7 @@ public class BayesClassifier {
 			if (count ==  null){
 				count=0;
 			}
-			map.put(feature, count++);
+			map.put(feature, ++count);
 		}
 		
 		if( sentiment >0) {
@@ -165,7 +269,7 @@ public class BayesClassifier {
 		}
 	}
 	
-	private static class TestElement{
+	public static class TestElement{
 		
 		private String text;
 		private double sentiment;
@@ -184,36 +288,92 @@ public class BayesClassifier {
 		}
 	}
 	
-	private List<TestElement> read(String file) throws IOException{
+	List<TestElement> read(String file) throws Exception{
 		
 		List<TestElement> elements = new ArrayList<TestElement>();
-		BufferedReader reader =  new BufferedReader(new InputStreamReader(new FileInputStream(new File(file)),"UTF-16"));
+		BufferedReader reader =  new BufferedReader(new InputStreamReader(new FileInputStream(new File(file)),"UTF-8"));
+		LOGGER.info("Opening file "+ file + " for reading");
 		String line;
 		while((line = reader.readLine())!=null){
+			
+			if (line.trim().length()==0) continue;
 			String[] tokens = line.split("\t");
 			int sentiment = 0;
 			if ( line.trim().startsWith("#") || tokens.length<4){
 				continue;
 			}
 			String s = tokens[1];
-			if (s.equals("Excluído")){
+			
+			if (s.equals(EXCLUDED)){
 				continue;
 			}
-			if (s.equals("Positiva")){
+			if (s.equals(POSITIVE)){
 				sentiment = 1;
 			}
-			else if (s.equals("Negativa")){
+			else if (s.equals(NEGATIVE)){
 				sentiment =-1;
-			} else if (s.equals("Neutra")){
+			} else if (s.trim().equals(NEUTRAL)){
 				sentiment =0;
 			} else{
-				fail("Unknown label in test file: "+s);
+				throw new Exception("Unknown label in test file: "+s+ " line: "+line);
 			}
 					
 			String text =  tokens[3];
 			TestElement t =  new TestElement(text, sentiment);
 			elements.add(t);
 		}
+		LOGGER.info("Read "+elements.size()+ " elements from file "+ file);
 		return elements;
+	}
+	
+	public void saveModels(String filename) throws IOException{
+		
+		LOGGER.info("writing model file "+filename+"_positive");
+		positiveModel.write(filename+"_positive");
+		
+		LOGGER.info("writing model file "+filename+"_negative");
+		negativeModel.write(filename+"_negative");
+		
+		LOGGER.info("writing model file "+filename+"_neutral");
+		neutralModel.write(filename+"_neutral");
+	}
+	
+	public void readModels(String filename) throws Exception{
+		
+		positiveModel = new BayesModel("positive");
+		positiveModel.read(filename+"_positive");
+		
+		negativeModel = new BayesModel("negative");
+		negativeModel.read(filename+"_negative");
+		
+		neutralModel  = new BayesModel("neutral");
+		neutralModel.read(filename+"_neutral");
+	}
+	
+	private Result evaluate(String text){
+		
+		String[]  sentences = nlp.detectSentences(text);
+		double positiveScore = evaluate(sentences, positiveModel);
+		double negativeScore = evaluate(sentences, negativeModel);
+		double neutralScore = evaluate(sentences, neutralModel);
+		Result result  =  new Result(positiveScore, negativeScore, neutralScore);
+		return result;
+	}
+	
+	private double evaluate(String[] sentences, BayesModel model){
+		double score = 0;
+		int n=0;
+		if ((sentences==null) || (sentences.length==0)){
+			for(String s: sentences){
+				List<String> features = FeatureExtractor.extractFeatures(s);
+				double sc =model.evaluate(features);
+				score += sc;
+				n++;
+				
+			}
+		}
+		
+		score =  score/(double) n;
+		return score;
 	}
 }

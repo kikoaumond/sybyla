@@ -1,52 +1,24 @@
 package sybyla.bayes;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BayesModel {
 	
 	String name;
 	Map<String, LikelihoodEntropy> model = new HashMap<String,LikelihoodEntropy>();
-	
-	private static class LikelihoodEntropy implements Comparable<LikelihoodEntropy> {
-		
-		String term;
-		double logLikelihod;
-		double entropy;
-		
-		public LikelihoodEntropy(String term, double probability, double entropy){
-			this.term =  term;
-			this.logLikelihod =  Math.log(probability);
-			this.entropy=entropy;
-		}
-
-		@Override
-		public int compareTo(LikelihoodEntropy le) {
-			if (this.entropy < le.entropy){
-				return -1;
-			} else if (this.entropy > le.entropy){
-				return 1;
-			} else {
-				if (this.logLikelihod > le.logLikelihod){
-					
-				}
-				return 0;
-			}
-		}
-
-		public String getTerm() {
-			return term;
-		}
-
-		public double getLogLikelihod() {
-			return logLikelihod;
-		}
-
-		public double getEntropy() {
-			return entropy;
-		}
-	}
 	
 	public BayesModel(String name){
 		this.name = name;
@@ -67,5 +39,38 @@ public class BayesModel {
 		return result;
 	}
 	
+	public void read(String file) throws Exception{
 	
+		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(file)),"UTF-8") );
+		String line = reader.readLine();
+		if (line ==  null) throw new Exception("Could not read bayes model at"+file);
+		name =  line;
+		while((line=reader.readLine())!=null){
+			String[] tokens = line.split("\t");
+			String term = tokens[0];
+			double probability = Double.parseDouble(tokens[1]);
+			double entropy = Double.parseDouble(tokens[2]);
+			LikelihoodEntropy le = new LikelihoodEntropy(term, probability, entropy);
+			model.put(term, le);
+		}
+		reader.close();
+	}
+	
+	public void write(String file) throws IOException{
+		
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(file)),"UTF-8") );
+		writer.write(name+"\n");
+		List<String> ordered  = new ArrayList<String>();
+		ordered.addAll(model.keySet());
+		Collections.sort(ordered);
+		StringBuilder sb = new StringBuilder();
+		for(String term: ordered){
+			sb.delete(0, sb.length());
+			LikelihoodEntropy le = model.get(term);
+			sb.append(term).append("\t").append(le.getProbability()).append("\t").append(le.getEntropy()).append("\n");
+			
+			writer.write(sb.toString());
+		}
+		writer.close();
+	}
 }
