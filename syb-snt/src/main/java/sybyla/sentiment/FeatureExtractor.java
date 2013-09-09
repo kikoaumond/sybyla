@@ -7,9 +7,13 @@ import java.util.Set;
 
 public class FeatureExtractor {
 	
-	private static final int NEIGHBORHOOD=5;
-
-	public static List<String> extractFeatures(String sentence){
+	private static  int neighborhood=1;
+	
+	public FeatureExtractor(int neighborhood){
+		this.neighborhood =neighborhood;
+	}
+	
+	public  List<String> extractFeatures(String sentence){
 		String n =  Normalizer.normalize(sentence);
 		List<String> features = new ArrayList<String>();
 		String[] tokens = n.split("\\s");
@@ -25,7 +29,7 @@ public class FeatureExtractor {
 			neighbors.append(tokens[i]);
 			int l = neighbors.length();
 			
-			for(int j = 1; (i+j < tokens.length && j <= NEIGHBORHOOD); j++){
+			for(int j = 1; (i+j < tokens.length && j <= neighborhood); j++){
 			
 				continuous.append(" ").append(tokens[i+j]);
 				features.add(continuous.toString());
@@ -47,7 +51,7 @@ public class FeatureExtractor {
 		return features;
 	}
 	
-	public static Set<String> extractUniqueFeatures(String sentence){
+	public  Set<String> extractUniqueFeatures(String sentence){
 		
 		List<String> features = extractFeatures(sentence);
 		Set<String> uniqueFeatures =  new HashSet<String>();

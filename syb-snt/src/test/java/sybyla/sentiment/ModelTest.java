@@ -63,7 +63,8 @@ public class ModelTest {
 	@Test
 	public void testFeatures(){
 		String s =  "O que é isso ?? ?! Nem dá para acreditar, não é? Mas fazer o que: Nem adianta reclamar.  a Globo manda neste país...";
-		List<String> features = FeatureExtractor.extractFeatures(s);
+		FeatureExtractor fe =  new FeatureExtractor(5);
+		List<String> features = fe.extractFeatures(s);
 		System.out.println(features.size()+" Features");
 		for(String feature: features){
 			

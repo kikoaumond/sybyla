@@ -2,10 +2,13 @@ package sybyla.bayes;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,6 +29,7 @@ public class BayesClassifier {
 	
 	private static final Logger LOGGER = Logger.getLogger(BayesClassifier.class);
 	private int n=0;
+	private int vocabulary=0;
 	
 	private Map<String, Integer> positive= new HashMap<String,Integer>();
 	private int nPositiveTerms=0;
@@ -46,9 +50,9 @@ public class BayesClassifier {
 	private Map<String, Double> negativeTermEntropies = new HashMap<String, Double>(); 
 	private Map<String, Double> neutralTermEntropies = new HashMap<String, Double>(); 
 	
-	private BayesModel positiveModel =  new BayesModel("positive");
-	private BayesModel negativeModel = new BayesModel("negative");
-	private BayesModel neutralModel = new BayesModel("neutral");
+	private BayesModel positiveModel =  new BayesModel("positive",1);
+	private BayesModel negativeModel = new BayesModel("negative",-1);
+	private BayesModel neutralModel = new BayesModel("neutral",0);
 	
 	private static final String POSITIVE="Positiva";
 	private static final String NEGATIVE="Negativa";
@@ -79,6 +83,7 @@ public class BayesClassifier {
 		private double positive=0;
 		private double negative=0;
 		private double neutral=0;
+
 		private double result=0;
 		private double certainty=0;
 		
@@ -88,48 +93,57 @@ public class BayesClassifier {
 			this.negative = negative;
 			this.neutral =  neutral;
 			
-			result = (positive > negative)?positive:negative;
-			result = (result > neutral)?result:neutral;
+			double r =  (positive>negative)?positive:negative;
+			r = (r>neutral)?r:neutral;
 			
-			if (result == 0){
-				certainty = 0;
+			if (positive ==  negative){
+				result = 0;
+				certainty = 0.5d;
 			} else {
-				double pp = 0;
-				if (positive !=0){
-					pp = Math.exp(pp);
-				}
-				double np = 0;
-				if (negative !=0){
-					np = Math.exp(pp);
-				}
-				double ntp = 0;
-				if (neutral != 0){
-					ntp =  Math.exp(np);
-				}
-				if (result ==  positive){
+				if (r ==  positive){
+						
 					result = 1;
-					certainty =  pp/(np+ntp);
-				} else if (result ==  negative){
+					certainty =  1/(1 + Math.exp(negative-positive) + Math.exp(neutral - positive));
+					
+				} else if (r ==  negative){
+					
 					result = -1;
-					certainty =  np/(pp+ntp);
+					certainty =  1/(1 + Math.exp(positive-negative) + Math.exp(neutral - negative));
 
-				} else {
+				} else if (r == neutral){
 					result = 0;
-					certainty =  ntp/(pp+np);
+					certainty =  1/(1 + Math.exp(positive-neutral) + Math.exp(negative - neutral));
+
 				}
-				
 			}
+		}
+
+		public double getPositive() {
+			return positive;
+		}
+
+		public double getNegative() {
+			return negative;
+		}
+
+		public double getResult() {
+			return result;
+		}
+
+		public double getCertainty() {
+			return certainty;
 		}
 	}
 	
 	public void train(String file) throws Exception{
 		List<TestElement> train = read(file);
+		FeatureExtractor fe = new FeatureExtractor(4);
 		for(TestElement te: train){
 			String text = te.getText();
 			double sentiment = te.getSentiment();
 			String[] sentences = nlp.detectSentences(text);
 			for(String sentence: sentences){
-				List<String> features =  FeatureExtractor.extractFeatures(sentence);
+				List<String> features =  fe.extractFeatures(sentence);
 				addToModel(features,sentiment);
 			}
 		}
@@ -138,16 +152,20 @@ public class BayesClassifier {
 		buildModels();
 	}
 	
-	public void train(String[] files) throws Exception{
-		
-		for(String f: files){
+	public void train(File[] files) throws Exception{
+		FeatureExtractor fe =  new FeatureExtractor(4);
+		for(File file: files){
+			String f =  file.getAbsolutePath();
+			if (!f.endsWith(".txt")){
+				continue;
+			}
 			List<TestElement> train = read(f);
 			for(TestElement te: train){
 				String text = te.getText();
 				double sentiment = te.getSentiment();
 				String[] sentences = nlp.detectSentences(text);
 				for(String sentence: sentences){
-					List<String> features =  FeatureExtractor.extractFeatures(sentence);
+					List<String> features =  fe.extractFeatures(sentence);
 					addToModel(features,sentiment);
 				}
 			}
@@ -196,25 +214,34 @@ public class BayesClassifier {
 			entropy += pLogp(epos) + pLogp(eneg) + pLogp(entr);
 			positiveEntropy = pLogp(epos) + pLogp(eneg + entr);
 			negativeEntropy = pLogp(eneg) + pLogp(epos + entr);
-			neutralEntropy =  pLogp(entr) + pLogp(epos + eneg);
+			neutralEntropy = pLogp(entr) + pLogp(epos + eneg);
+
 			
 			termEntropies.put(term, entropy);
 			positiveTermEntropies.put(term, positiveEntropy);
 			negativeTermEntropies.put(term, negativeEntropy);
 			neutralTermEntropies.put(term, neutralEntropy);
+
 			
 		}
 	}
 	
 	private void buildModels(){
+		Set<String> allTerms  =  new HashSet<String>();
+		allTerms.addAll(positive.keySet());
+		allTerms.addAll(negative.keySet());
+		allTerms.addAll(neutral.keySet());
 
-		buildModel(positiveModel,positive, positiveTermEntropies);
-		buildModel(negativeModel,negative, negativeTermEntropies);
-		buildModel(neutralModel,neutral, neutralTermEntropies);
+		vocabulary = allTerms.size();
+		
+		buildModel(positiveModel,positive, positiveTermEntropies, vocabulary);
+		buildModel(negativeModel,negative, negativeTermEntropies, vocabulary);
+		buildModel(neutralModel,neutral, neutralTermEntropies, vocabulary);
 
+		
 	}
 	
-	private void buildModel(BayesModel model, Map<String,Integer> counts,Map<String,Double> entropies){
+	private void buildModel(BayesModel model, Map<String,Integer> counts,Map<String,Double> entropies, int vocabulary){
 		int n = 0;
 		for(String term: counts.keySet()){
 			Integer count = counts.get(term);
@@ -227,10 +254,11 @@ public class BayesClassifier {
 			
 			if (count == null) continue;
 			
-			double probability = (double) count/(double) n;
+			double probability = ((double) count+1.d)/((double) n+vocabulary);
 			double entropy = entropies.get(term);
-			model.add(term, probability, entropy);
+			model.add(term, probability, entropy, count);
 		}
+		model.setVocabularySize(vocabulary);
 	}
 	
 	private double pLogp(double p){
@@ -328,52 +356,119 @@ public class BayesClassifier {
 	
 	public void saveModels(String filename) throws IOException{
 		
-		LOGGER.info("writing model file "+filename+"_positive");
-		positiveModel.write(filename+"_positive");
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(filename)),"UTF-8"));
+		LOGGER.info("writing model file "+filename);
+		positiveModel.write(writer);
 		
-		LOGGER.info("writing model file "+filename+"_negative");
-		negativeModel.write(filename+"_negative");
+		negativeModel.write(writer);
 		
-		LOGGER.info("writing model file "+filename+"_neutral");
-		neutralModel.write(filename+"_neutral");
+		neutralModel.write(writer);
+		writer.close();
 	}
 	
-	public void readModels(String filename) throws Exception{
+	public void loadModel(String filename) throws NumberFormatException, IOException{
 		
-		positiveModel = new BayesModel("positive");
-		positiveModel.read(filename+"_positive");
+		BufferedReader reader = new BufferedReader(
+									new InputStreamReader(
+											new FileInputStream
+												(new File(filename)),"UTF-8"));
+
+		String line =null;
+		while((line=reader.readLine())!=null){
+				
+			String[] tokens = line.split("\t");
+			int sentiment = Integer.parseInt(tokens[0]);
+			String term = tokens[1];
+			double probability = Double.parseDouble(tokens[2]);
+			double entropy = Double.parseDouble(tokens[3]);
+			int occurrences  = Integer.parseInt(tokens[4]);
+
+			if (sentiment == -1){
+				positiveModel.add(term, probability, entropy, occurrences);
+			} else if (sentiment == 1){
+				negativeModel.add(term, probability, entropy, occurrences);
+			} else if (sentiment == 0){
+				neutralModel.add(term, probability, entropy, occurrences);
+			}
+		}
 		
-		negativeModel = new BayesModel("negative");
-		negativeModel.read(filename+"_negative");
-		
-		neutralModel  = new BayesModel("neutral");
-		neutralModel.read(filename+"_neutral");
 	}
 	
+	
+	
+	public void evaluateFile(String file) throws Exception{
+		
+		int[][] confusionMatrix =  new int[3][3];
+		List<TestElement> elements  = read(file);
+		for(TestElement element: elements){
+			Result result = evaluate(element.getText());
+			double s = result.getResult();
+			double e = element.getSentiment();
+			int i=1,j=1;
+			if (s < 0){
+				i=0;
+			} else if (s > 0){
+				i=2;
+			}
+			if (e < 0){
+				j=0;
+			} else if (e > 0){
+				j=2;
+			}
+			confusionMatrix[i][j]++;
+			if (i!=j){
+				LOGGER.info("Misclassification: expected "+e+" but was classified as "+s+"\n"+element.getText());
+			}
+		}
+		int correct=0;
+		int incorrect=0;
+		
+		StringBuilder sb =  new StringBuilder("\nCONFUSION MATRIX\n");
+		for (int i=0;i<=2;i++){
+			for (int j=0; j<=2;j++){
+				sb.append(confusionMatrix[i][j]+ "\t");
+				if (i==j){
+					correct+=confusionMatrix[i][j];
+				} else {
+					incorrect+=confusionMatrix[i][j];
+				}
+			}
+			sb.append("\n");
+		}
+		LOGGER.info("\n"+sb.toString()+"\n");
+		LOGGER.info(correct+" correct classifications and "+incorrect+" incorrect classifications");
+		
+	}
+		
 	private Result evaluate(String text){
 		
 		String[]  sentences = nlp.detectSentences(text);
 		double positiveScore = evaluate(sentences, positiveModel);
 		double negativeScore = evaluate(sentences, negativeModel);
 		double neutralScore = evaluate(sentences, neutralModel);
+
 		Result result  =  new Result(positiveScore, negativeScore, neutralScore);
 		return result;
 	}
 	
 	private double evaluate(String[] sentences, BayesModel model){
 		double score = 0;
-		int n=0;
+		FeatureExtractor fe =  new FeatureExtractor(1);
 		if ((sentences==null) || (sentences.length==0)){
-			for(String s: sentences){
-				List<String> features = FeatureExtractor.extractFeatures(s);
-				double sc =model.evaluate(features);
-				score += sc;
-				n++;
-				
-			}
+			return score;
 		}
-		
-		score =  score/(double) n;
+		int n=0;
+		for(String s: sentences){
+			List<String> features = fe.extractFeatures(s);
+			double sc =model.evaluate(features);
+			score += sc;
+			n++;
+				
+		}
+
+		if (n!=0){
+			score =  score/(double) n;
+		}
 		return score;
 	}
 }

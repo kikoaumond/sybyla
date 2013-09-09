@@ -14,8 +14,6 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
-import sybyla.tag.Tagger;
-
 public class Model {
 	
 	private static final Logger LOGGER =  Logger.getLogger(Model.class);

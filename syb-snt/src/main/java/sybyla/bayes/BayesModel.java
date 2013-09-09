@@ -2,12 +2,7 @@ package sybyla.bayes;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,47 +14,54 @@ public class BayesModel {
 	
 	String name;
 	Map<String, LikelihoodEntropy> model = new HashMap<String,LikelihoodEntropy>();
+	private int vocabularySize=0;
+	private int size=0;
+	private int sentiment;
 	
-	public BayesModel(String name){
+	
+	public BayesModel(String name, int sentiment){
 		this.name = name;
+		this.sentiment =  sentiment;
 	}
 	
-	public void add(String term, double probability, double entropy){
-		LikelihoodEntropy me = new LikelihoodEntropy(term, probability, entropy);
+	public void add(String term, double probability, double entropy, int occurrences){
+		LikelihoodEntropy me = new LikelihoodEntropy(term, probability, entropy, occurrences);
 		model.put(term,me);
+		size++;
 	}
 	
 	public double evaluate(Collection<String> features){
 		double result = 0;
 		for(String feature: features){
 			LikelihoodEntropy le = model.get(feature);
-			if (le == null) continue;
-			result +=le.getLogLikelihod();
+			if (le != null) {
+				result +=le.getLogLikelihod();
+			} else {
+				result += Math.log(1.d/((double) (size + vocabularySize) ));
+			}
 		}
 		return result;
 	}
 	
-	public void read(String file) throws Exception{
+	public void read(BufferedReader reader) throws Exception{
 	
-		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(file)),"UTF-8") );
-		String line = reader.readLine();
-		if (line ==  null) throw new Exception("Could not read bayes model at"+file);
-		name =  line;
+		String line =null;
 		while((line=reader.readLine())!=null){
+			
 			String[] tokens = line.split("\t");
-			String term = tokens[0];
-			double probability = Double.parseDouble(tokens[1]);
-			double entropy = Double.parseDouble(tokens[2]);
-			LikelihoodEntropy le = new LikelihoodEntropy(term, probability, entropy);
+			int sentiment = Integer.parseInt(tokens[0]);
+			String term = tokens[1];
+			double probability = Double.parseDouble(tokens[2]);
+			double entropy = Double.parseDouble(tokens[3]);
+			int occurrences  = Integer.parseInt(tokens[4]);
+
+			LikelihoodEntropy le = new LikelihoodEntropy(term, probability, entropy, occurrences);
 			model.put(term, le);
 		}
-		reader.close();
 	}
 	
-	public void write(String file) throws IOException{
+	public void write(BufferedWriter writer) throws IOException{
 		
-		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(file)),"UTF-8") );
-		writer.write(name+"\n");
 		List<String> ordered  = new ArrayList<String>();
 		ordered.addAll(model.keySet());
 		Collections.sort(ordered);
@@ -67,10 +69,20 @@ public class BayesModel {
 		for(String term: ordered){
 			sb.delete(0, sb.length());
 			LikelihoodEntropy le = model.get(term);
-			sb.append(term).append("\t").append(le.getProbability()).append("\t").append(le.getEntropy()).append("\n");
+			sb.append(sentiment).append("\t").append(term).append("\t").append(le.getProbability()).append("\t").append(le.getEntropy()).append("\n");
 			
 			writer.write(sb.toString());
 		}
-		writer.close();
+	}
+
+	public int getSize() {
+		return size;
+	}
+	public int getVocabularySize() {
+		return vocabularySize;
+	}
+
+	public void setVocabularySize(int vocabularySize) {
+		this.vocabularySize = vocabularySize;
 	}
 }

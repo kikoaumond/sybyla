@@ -2,11 +2,13 @@ package sybyla.sentiment;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import org.junit.Test;
-
-import sybyla.io.FastFileReader;
 
 public class AnalyzerTest {
 	@Test
@@ -133,7 +135,7 @@ public class AnalyzerTest {
 	}
 	private String loadFile(String file) throws IOException{
 		
-		FastFileReader fileReader =  new FastFileReader(file);
+		BufferedReader fileReader =  new BufferedReader(new InputStreamReader(new FileInputStream(new File(file))));
 		String line;
 		StringBuilder sb = new StringBuilder();
 		while((line=fileReader.readLine()) != null){

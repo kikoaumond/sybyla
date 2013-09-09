@@ -7,12 +7,14 @@ class LikelihoodEntropy implements Comparable<LikelihoodEntropy> {
 	double logLikelihod;
 	double entropy;
 	double probability;
+	int occurrences;
 	
-	public LikelihoodEntropy(String term, double probability, double entropy){
+	public LikelihoodEntropy(String term, double probability, double entropy, int occurrences){
 		this.term =  term;
 		this.probability =  probability;
 		this.logLikelihod =  Math.log(probability);
 		this.entropy=entropy;
+		this.occurrences = occurrences;
 	}
 
 	@Override

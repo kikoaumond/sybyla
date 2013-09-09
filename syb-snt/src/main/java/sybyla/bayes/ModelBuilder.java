@@ -16,10 +16,15 @@ public class ModelBuilder {
 			BayesClassifier classifier = new BayesClassifier(Language.PORTUGUESE);
 
 			if (file.isDirectory()){
-				String[] files = file.list();
+				File[] files = file.listFiles();
 				classifier.train(files);
+				for (File f: files){
+					classifier.evaluateFile(f.getAbsolutePath());
+				}
+				
 			} else {
 				classifier.train(inputFile);
+				classifier.evaluateFile(inputFile);
 			}
 			classifier.saveModels(outputFileName);
 			

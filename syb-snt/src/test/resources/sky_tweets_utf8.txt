@@ -1,4 +1,3 @@
-#	Avaliação	Contexto	Frase
 1	Positiva	operadora; assinante; sky; rodas; fúria; 	"Se você tem for assinante da sky ou outra operadora que tenha maxp2,vai passar um filme muito bom agora,fúria sobre rodas."
 2	Neutra	bom; sky; madrugada; normal; antena; 	"O bom de ter sky, é que pelo menos tem o que assistir a madrugada toda, agora se fosse antena normal, estaria passando jornal agora aiuehau."
 3	Positiva	chuva; sky; normal; perfeito; 	E minha sky mesmo com a chuva está normal  adoro  q perfeito.

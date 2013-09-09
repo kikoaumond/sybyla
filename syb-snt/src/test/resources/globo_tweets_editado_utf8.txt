@@ -1,4 +1,3 @@
-#	Avaliação	Contexto	Frase
 239	Negativa	burra; audiência; mal; globo; 	"``enquanto record burra perde audiência falando mal do justin, a rede globo sempre esperta coloca ele como trilha sonora das novelas´´ this."
 66	Neutra	pena; vale; 	"``vc me kibou´´ ``não kibei você, apenas estou fazendo seu tweet participar do vale a pena ver de novo´´ aqui não é rede globo, é twitter."
 71	Neutra	convidado; programa; 	: 28/04/2013 – zeca pagodinho é o convidado de honra do programa: divulgação rede globo.
