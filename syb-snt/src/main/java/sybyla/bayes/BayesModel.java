@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class BayesModel {
 	
@@ -57,7 +58,28 @@ public class BayesModel {
 
 			LikelihoodEntropy le = new LikelihoodEntropy(term, probability, entropy, occurrences);
 			model.put(term, le);
+			
 		}
+	}
+	
+	public void write (String term, BufferedWriter writer) throws IOException{
+		
+		StringBuilder sb = new StringBuilder();
+		
+		LikelihoodEntropy le = model.get(term);
+		if (le == null) return;
+		
+		sb.append(sentiment).append("\t").
+			append(term).append("\t").
+			append(le.getProbability()).append("\t").
+			append(le.getEntropy()).append("\t").
+			append(le.getOccurrences()).append("\n");
+		
+		writer.write(sb.toString());
+	}
+	
+	public Set<String> getTerms(){
+		return model.keySet();
 	}
 	
 	public void write(BufferedWriter writer) throws IOException{
@@ -65,13 +87,9 @@ public class BayesModel {
 		List<String> ordered  = new ArrayList<String>();
 		ordered.addAll(model.keySet());
 		Collections.sort(ordered);
-		StringBuilder sb = new StringBuilder();
 		for(String term: ordered){
-			sb.delete(0, sb.length());
-			LikelihoodEntropy le = model.get(term);
-			sb.append(sentiment).append("\t").append(term).append("\t").append(le.getProbability()).append("\t").append(le.getEntropy()).append("\n");
-			
-			writer.write(sb.toString());
+			write(term,writer);
+			writer.write("\n");
 		}
 	}
 

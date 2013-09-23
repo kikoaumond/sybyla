@@ -7,10 +7,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -58,8 +60,21 @@ public class BayesClassifier {
 	private static final String NEGATIVE="Negativa";
 	private static final String NEUTRAL="Neutra";
 	private static final String EXCLUDED="Excluído";
-	
-	
+	private static final String MODEL_FILE="/sentimentModel.txt";
+
+	public static BayesClassifier load() {
+		BayesClassifier classifier=null;
+		try {
+			classifier = new BayesClassifier(Language.PORTUGUESE);
+			InputStream in = BayesClassifier.class.getResourceAsStream(MODEL_FILE);
+			classifier.loadModel(in);
+		} catch (Exception e) {
+			LOGGER.error("Error loading sentiment classifier ", e);
+		}
+		
+		return classifier;
+	}
+
 	public BayesClassifier(Language language) throws Exception{
 
 		if(language==Language.ENGLISH){
@@ -76,6 +91,38 @@ public class BayesClassifier {
 			throw new Exception("Unrecognized language");
 		}
 	
+	}
+	
+	public BayesClassifier(Language language, String filename) throws Exception{
+
+		if(language==Language.ENGLISH){
+			
+			nlp = new OpenNLPAnalyzer3();
+		} 
+		
+		else if(language==Language.PORTUGUESE){
+				
+			nlp = new PortugueseOpenNLPAnalyzer();
+		
+		} else{
+		
+			throw new Exception("Unrecognized language");
+		}
+		
+		loadModel(filename);
+	
+	}
+	
+	public void reset(){
+		termEntropies = new HashMap<String, Double>(); 
+		positiveTermEntropies = new HashMap<String, Double>(); 
+		negativeTermEntropies = new HashMap<String, Double>(); 
+		neutralTermEntropies = new HashMap<String, Double>(); 
+		
+		positiveModel =  new BayesModel("positive",1);
+		negativeModel = new BayesModel("negative",-1);
+		neutralModel = new BayesModel("neutral",0);
+		
 	}
 	
 	public static class Result{
@@ -354,6 +401,38 @@ public class BayesClassifier {
 		return elements;
 	}
 	
+	public void readModel(String filename){
+		
+	}
+	
+	public void writeModel(String filename, int length) throws IOException {
+		
+		List<String> terms  = new ArrayList<String>();
+		
+		terms.addAll(negativeModel.getTerms());
+		terms.addAll(neutralModel.getTerms());
+		terms.addAll(positiveModel.getTerms());
+		
+		Collections.sort(terms);
+		
+		
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(filename)),"UTF-8"));
+		
+		writer.write(terms.size()+"\n");
+		
+		LOGGER.info("writing model file "+filename);
+		
+		for(String term: terms){
+			String[] tt  = term.split("\\s");
+			if (tt.length <= length){
+				negativeModel.write(term,writer);
+				neutralModel.write(term,writer);
+				positiveModel.write(term, writer);
+			}
+		}	
+		writer.flush();
+		writer.close();
+	}
 	public void saveModels(String filename) throws IOException{
 		
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(filename)),"UTF-8"));
@@ -366,16 +445,39 @@ public class BayesClassifier {
 		writer.close();
 	}
 	
+	
 	public void loadModel(String filename) throws NumberFormatException, IOException{
+		FileInputStream in  =  new FileInputStream(new File(filename));
+		loadModel(in);
+	}
+	
+	public void loadModel(InputStream in) throws NumberFormatException, IOException{
 		
+		String line =  null;
+		try{
 		BufferedReader reader = new BufferedReader(
-									new InputStreamReader(
-											new FileInputStream
-												(new File(filename)),"UTF-8"));
+									new InputStreamReader(in,"UTF-8"));
 
-		String line =null;
+		line=reader.readLine();
+		
+		int vocabularySize =  Integer.parseInt(line);
+		
+		negativeModel.setVocabularySize(vocabularySize);
+		neutralModel.setVocabularySize(vocabularySize);
+		positiveModel.setVocabularySize(vocabularySize);
+		
 		while((line=reader.readLine())!=null){
-				
+			/*
+			 * 		
+		sb.append(sentiment).append("\t").
+			append(term).append("\t").
+			append(le.getProbability()).
+			append("\t").
+			append(le.getEntropy()).
+			append(le.getOccurrences()).
+			append("\n");
+			
+			 */
 			String[] tokens = line.split("\t");
 			int sentiment = Integer.parseInt(tokens[0]);
 			String term = tokens[1];
@@ -384,14 +486,19 @@ public class BayesClassifier {
 			int occurrences  = Integer.parseInt(tokens[4]);
 
 			if (sentiment == -1){
-				positiveModel.add(term, probability, entropy, occurrences);
-			} else if (sentiment == 1){
 				negativeModel.add(term, probability, entropy, occurrences);
+			} else if (sentiment == 1){
+				positiveModel.add(term, probability, entropy, occurrences);
 			} else if (sentiment == 0){
 				neutralModel.add(term, probability, entropy, occurrences);
 			}
 		}
-		
+		}catch(Exception e){
+			LOGGER.error("Error reading line \n"+line,e);
+			System.out.println(e);
+		} finally {
+			in.close();
+		}
 	}
 	
 	
@@ -417,7 +524,7 @@ public class BayesClassifier {
 			}
 			confusionMatrix[i][j]++;
 			if (i!=j){
-				LOGGER.info("Misclassification: expected "+e+" but was classified as "+s+"\n"+element.getText());
+				//LOGGER.info("Misclassification: expected "+e+" but was classified as "+s+"\n"+element.getText());
 			}
 		}
 		int correct=0;

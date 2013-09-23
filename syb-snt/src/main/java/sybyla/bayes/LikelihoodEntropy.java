@@ -46,4 +46,8 @@ class LikelihoodEntropy implements Comparable<LikelihoodEntropy> {
 	public double getProbability(){
 		return probability;
 	}
+
+	public int getOccurrences() {
+		return occurrences;
+	}
 }

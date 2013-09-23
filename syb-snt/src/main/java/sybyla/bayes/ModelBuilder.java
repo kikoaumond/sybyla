@@ -26,10 +26,15 @@ public class ModelBuilder {
 				classifier.train(inputFile);
 				classifier.evaluateFile(inputFile);
 			}
-			classifier.saveModels(outputFileName);
+			classifier.writeModel(outputFileName,3);
+			BayesClassifier newClassifier = new BayesClassifier(Language.PORTUGUESE);
+
+			newClassifier.loadModel(outputFileName);
+			newClassifier.evaluateFile(inputFile);
 			
 		} catch (Exception e) {
 			System.out.println(e);
+			e.printStackTrace();
 			System.exit(-1);
 		}
 	}

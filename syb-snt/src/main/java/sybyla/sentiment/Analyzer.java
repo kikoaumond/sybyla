@@ -1,5 +1,6 @@
 package sybyla.sentiment;
 
+import sybyla.bayes.BayesClassifier;
 import sybyla.nlp.NLPAnalyzer;
 import sybyla.nlp.OpenNLPAnalyzer3;
 import sybyla.nlp.PortugueseOpenNLPAnalyzer;
@@ -9,6 +10,7 @@ public class Analyzer {
 	private Model model;
 	private NLPAnalyzer nlp;
 	private static final Model PORTUGUESE_PRODUCT_MODEL=new Model(Model.PRODUCT_MODEL_PORTUGUESE);
+	private static final BayesClassifier classifier = BayesClassifier.load();
 	
 	public  Analyzer(Language language, Type type) throws Exception{
 		
@@ -43,10 +45,10 @@ public class Analyzer {
 		throw new Exception("Unrecognized model or language");
 	}
 	
-	public double analyze(String text){
+	public Result analyze(String text){
 		
 		if (text == null || text.trim().equals("")){
-			return Model.NEUTRAL;
+			return new Result(Model.NEUTRAL,1.0);
 		}
 
 		double nPositive = 0;
@@ -54,7 +56,7 @@ public class Analyzer {
 		
 		String[] sentences = nlp.detectSentences(text);
 		if (sentences == null || sentences.length==0 ){
-			return Model.NEUTRAL;
+			return new Result(Model.NEUTRAL,1.0);		
 		}
 		
 		
@@ -71,7 +73,7 @@ public class Analyzer {
 		
 		if (total == 0) {
 			
-			return Model.NEUTRAL;
+			return new Result(Model.NEUTRAL,1.0);
 		}
 		
 		double score = (nPositive+nNegative)/total;
@@ -81,7 +83,7 @@ public class Analyzer {
 		if (score < 0 && Math.abs(score) > 1){
 			score=-1;
 		}
-		return score;
+		return new Result(score,0.9);
 		
 	}
 }
