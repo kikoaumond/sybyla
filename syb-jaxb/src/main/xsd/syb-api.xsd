@@ -15,7 +15,7 @@
 				<xs:element name="tree" type="sybyla:treeResult"/>
 				<xs:element name="categories" type="sybyla:categoryResult" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element name="tags" type="sybyla:tagResult" minOccurs="0" maxOccurs="unbounded"/>
-				<xs:element name="sentiment" type="sybyla:sentimentResult"/>
+				<xs:element name="sentimentResult" type="sybyla:sentimentResult"/>
 				<xs:element name="why" type="sybyla:whyResult"/>	
 				<xs:element name="ey" type="sybyla:contractResult" minOccurs="0" maxOccurs="1"/>
 				<xs:element ref="sybyla:error" />
@@ -90,7 +90,9 @@
 	<xs:complexType name="sentimentResult">
 		<xs:sequence>
 			<xs:element name="text" type="xs:string" minOccurs="1" maxOccurs="1" />
-			<xs:element name="sentiment" type="xs:double" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="sentiment" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="score" type="xs:double" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="certainty" type="xs:double" minOccurs="1" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 			

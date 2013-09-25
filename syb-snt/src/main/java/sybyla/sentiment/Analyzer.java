@@ -1,6 +1,7 @@
 package sybyla.sentiment;
 
 import sybyla.bayes.BayesClassifier;
+import sybyla.db.DBEngine;
 import sybyla.nlp.NLPAnalyzer;
 import sybyla.nlp.OpenNLPAnalyzer3;
 import sybyla.nlp.PortugueseOpenNLPAnalyzer;
@@ -48,7 +49,7 @@ public class Analyzer {
 	public Result analyze(String text){
 		
 		if (text == null || text.trim().equals("")){
-			return new Result(Model.NEUTRAL,1.0);
+			return new Result(Model.NEUTRAL, 1.0);
 		}
 
 		double nPositive = 0;
@@ -56,7 +57,7 @@ public class Analyzer {
 		
 		String[] sentences = nlp.detectSentences(text);
 		if (sentences == null || sentences.length==0 ){
-			return new Result(Model.NEUTRAL,1.0);		
+			return new Result(Model.NEUTRAL, 1.0);
 		}
 		
 		
@@ -73,7 +74,12 @@ public class Analyzer {
 		
 		if (total == 0) {
 			
-			return new Result(Model.NEUTRAL,1.0);
+			return new Result(Model.NEUTRAL, 1.0);
+		}
+		
+		if (nPositive == 0 && nNegative == 0){
+			Result result  = classifier.evaluate(sentences);
+			return result;
 		}
 		
 		double score = (nPositive+nNegative)/total;
@@ -82,8 +88,12 @@ public class Analyzer {
 		}
 		if (score < 0 && Math.abs(score) > 1){
 			score=-1;
-		}
+		} 
 		return new Result(score,0.9);
 		
+	}
+	
+	public void insert(String customerKey, String text, int sentiment, String context){
+		DBEngine.insertExample(customerKey, text, sentiment, context);
 	}
 }

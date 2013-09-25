@@ -45,6 +45,8 @@ public class Model {
 	public static final String PHRASE_STR_NEG="PHRASE_STR_NEG";
 	public static final String PHRASE_STR_POS="PHRASE_STR_POS";
 	
+	public static final String EXCLUDE="EXCLUDE";
+	
 	public static final Pattern MULTIPLE_SPACES_PATTERN =  Pattern.compile("([\\s]+)");
 	public static final Pattern PUNCTUATION =  Pattern.compile("[,.;:!?-]");
 	public static final Pattern PARENTHESES =  Pattern.compile("[()]");
@@ -91,7 +93,8 @@ public class Model {
 					|| STR_POS.equals(label)
 					|| PHRASE_NEG.equals(label)
 					|| PHRASE_POS.equals(label)
-					|| PHRASE_STR_NEG.equals(label);
+					|| PHRASE_STR_NEG.equals(label)
+					|| EXCLUDE.equals(label);
 		return b;
 	}
 	

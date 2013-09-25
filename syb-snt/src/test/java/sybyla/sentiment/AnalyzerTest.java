@@ -14,7 +14,8 @@ public class AnalyzerTest {
 	@Test
 	public void testNull() throws Exception{
 		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
-		double s =  analyzer.analyze(null);
+		Result r =  analyzer.analyze(null);
+		double s = r.getResult(); 
 		assertTrue(s==0);
 	}
 	
@@ -22,7 +23,8 @@ public class AnalyzerTest {
 	public void test1() throws Exception{
 		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
 		String text = loadFile("src/test/resources/samsung.txt");
-		double s =  analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double s = r.getResult(); 
 		System.out.println("Score: "+s);
 		assertTrue(s>0);
 	}
@@ -32,7 +34,8 @@ public class AnalyzerTest {
 		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
 		String text = "Em termos de hardware os Galaxy S já vem batendo há algum tempo já, mas isso se reflete tbm em um produto com acabamento de menor qualidade, um SO ainda menos confiavel e preços ainda nas alturas!!! " +
 						"Mas sem duvidas que sem uma renovação a Apple vai ficando pra trás em termos de criatividade!!! =/ ";
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+ score);
 		assertTrue(score < 0);
 	}
@@ -49,7 +52,8 @@ public class AnalyzerTest {
 
 		"Seria legal uma observação no post, quanto a disponibilidade do app para Windows Phone.";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -60,7 +64,8 @@ public class AnalyzerTest {
 		
 		String text = "óoooooooodiooooooooooooo!!!! O PIOR É LIGAR PRA LÁ, PRA ASSISTENCIA E SABER Q: \"NÃO SR, PELO VISTO VAI SER CARO O REPARO. NÃO DEVE SER SÓ UM FUSIL NÃO. 1 ano e 3 meses por um produtor de 7.000 mil reais. A GENTE É MUITO ÓTÁRIO MSM.";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -73,7 +78,8 @@ public class AnalyzerTest {
 				"A Samsung atende como deveria todos atenderem, e não foi uma vez, digo porque já liguei lá algumas vezes e em todas fui muito bem atendido.\n"+
 				"Então fica aqui o ELOGIO a essa empresa.";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score > 0);
 	}
@@ -84,7 +90,8 @@ public class AnalyzerTest {
 		
 		String text = "apesar de gostarmos da Samsung, o produt é ruim.";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -96,7 +103,8 @@ public class AnalyzerTest {
 		
 		String text = "O produto funcionou mal";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -107,7 +115,8 @@ public class AnalyzerTest {
 		
 		String text = "	Mas, vc não acha que esse \"tratamento\" deveria ser muito mais rápido? Desde de maio estou com problemas e não recebo respostas... Estou decepcionada, sou cliente da tecla há quase 10 anos, e nunca tive problemas...Agora a Mandic está deixando a desejar, os telefone de contato da cobrança não atendem, no chat, não atendem, faço registro não respondem... ";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -118,7 +127,8 @@ public class AnalyzerTest {
 		
 		String text = "O produto não funcionou.";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -129,7 +139,8 @@ public class AnalyzerTest {
 		
 		String text = "	Mas, vc não acha que esse \"tratamento\" deveria ser muito mais rápido? Desde de maio estou com problemas e não recebo respostas... Estou decepcionada, sou cliente da tecla há quase 10 anos, e nunca tive problemas...Agora a Mandic está deixando a desejar, os telefone de contato da cobrança não atendem, no chat, não atendem, faço registro não respondem... ";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -151,7 +162,8 @@ public class AnalyzerTest {
 		
 		String text = "To precisando de uns dias na praia. Nao agüento mais esse tempo maluco de Sp.";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -162,7 +174,8 @@ public class AnalyzerTest {
 		
 		String text = "Sabia que seu Facebook tem pastas e mensagens escondidas? Veja aqui como acessar e ver se tem algo lá que preste ";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score == 0);
 	}
@@ -173,7 +186,8 @@ public class AnalyzerTest {
 		
 		String text = "Demetrius Brasil ‏@demetriusbrasil 15 abr @MandicSA sempre disponível #só_QUE_não ";
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -193,7 +207,8 @@ public class AnalyzerTest {
 				"Enfim, vamos erguer um protesto contra o Jeff Tinhoso, pq ele se tornou literalmente o emissário das más notícias!";
 
 		
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -204,7 +219,8 @@ public class AnalyzerTest {
 		
 		String text = "Muito bom! Nossa meta é dobrar o número de associados até o final do ano.";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score > 0);
 	}
@@ -215,7 +231,8 @@ public class AnalyzerTest {
 		
 		String text = "Excelente vídeo sobre finanças pessoais, com o querido Ricardo Amorim";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score > 0);
 	}
@@ -226,7 +243,8 @@ public class AnalyzerTest {
 		
 		String text = "Sandro J. S. Souza ‏@xkurts 1 ago Ate agora, decepcao total esse email marketing da XXXX";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -237,7 +255,8 @@ public class AnalyzerTest {
 		
 		String text = "Gustavo Henrique ‏@gugahb 1 ago Trabalhar com as PIORES empresas não tem preço para todas as outras existe a @MandicSA com ela sempre tem como piorar.";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -249,7 +268,8 @@ public class AnalyzerTest {
 		String text = "	meu site http://www.amandacosta.com.br  fora do ar frequentemente e hoje direto, " +
 				"solicitei  @MandicSA @MandicSuporte  desde ontem e até agora nada";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -261,7 +281,8 @@ public class AnalyzerTest {
 		String text = "Infolinux BR ‏@infolinux 8 maio NÃO RECOMENDO! RT @MandicSA: Vai contratar um serviço de cloud? " +
 				"Alguns pontos devem ser levados em consideração: http://bit.ly/11Tv43o ";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -273,7 +294,8 @@ public class AnalyzerTest {
 		String text = "Adler Medrado ‏@adlermedrado 7 maio Depois que a @MandicSA absorveu a tecla, " +
 				"ocorreram instabilidades e agora não encontro o suporte on line e nem emititr boletos pelo painel.";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -285,7 +307,8 @@ public class AnalyzerTest {
 		String text = "Adler Medrado ‏@adlermedrado 7 maio Depois que a @MandicSA absorveu a tecla, " +
 				"ocorreram instabilidades e agora não encontro o suporte on line e nem emititr boletos pelo painel.";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -296,7 +319,8 @@ public class AnalyzerTest {
 		
 		String text = "	Amo o atendimento dessa merda de FIAT";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -307,7 +331,8 @@ public class AnalyzerTest {
 		
 		String text = "Que final de domingo é esse, amigos da rede globo?!";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -318,7 +343,8 @@ public class AnalyzerTest {
 		
 		String text = 	"Testemunho do ex-bruxo da rede globo - completo:o pior que nenhum citado se manifesta, porque será?     via youtube.";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -329,7 +355,8 @@ public class AnalyzerTest {
 		
 		String text = 	"	Reclame aqui > sky - atendente sky promete e empresa não cumpre acordo     #reclameaqui.";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score < 0);
 	}
@@ -340,7 +367,8 @@ public class AnalyzerTest {
 		
 		String text = 	"tem boiller? tem sky nos quartos? caitolm.";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score == 0);
 	}
@@ -351,7 +379,8 @@ public class AnalyzerTest {
 		
 		String text = 	"No telecine pipoca quando eu olhei mais cedo ia passar espantalho um filmaco de terror.";
 
-		double score = analyzer.analyze(text);
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
 		System.out.println("Score: "+score);
 		assertTrue(score > 0);
 	}

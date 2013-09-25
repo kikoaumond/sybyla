@@ -37,7 +37,7 @@ public class AnalyzerBulkTest {
 	private List<TestElement> read(String file) throws IOException{
 		
 		List<TestElement> elements = new ArrayList<TestElement>();
-		BufferedReader reader =  new BufferedReader(new InputStreamReader(new FileInputStream(new File(file)),"UTF-16"));
+		BufferedReader reader =  new BufferedReader(new InputStreamReader(new FileInputStream(new File(file)),"UTF-8"));
 		String line;
 		while((line = reader.readLine())!=null){
 			String[] tokens = line.split("\t");
@@ -71,12 +71,12 @@ public class AnalyzerBulkTest {
 	
 	@Test
 	public void test1(){
-		runTest("src/test/resources/globo_tweets.txt");
+		runTest("src/test/resources/globo_tweets_editado_utf8.txt");
 	}
 	
 	@Test
 	public void test2(){
-		runTest("src/test/resources/sky_tweets.txt");
+		runTest("src/test/resources/sky_tweets_utf8.txt");
 	}
 	
 	public void runTest(String file) {
@@ -89,7 +89,8 @@ public class AnalyzerBulkTest {
 			StringBuilder sb = new StringBuilder("Erros: \n");
 			for (TestElement e: elements){
 				n++;
-				double score = analyzer.analyze(e.getText());
+				Result result = analyzer.analyze(e.getText());
+				double score = result.getResult();
 				double expectedScore =  e.getSentiment();
 				String exp=null;
 				String s=null;;
