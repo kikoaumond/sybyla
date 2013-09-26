@@ -1,5 +1,7 @@
 package sybyla.sentiment;
 
+import org.apache.log4j.Logger;
+
 import sybyla.bayes.BayesClassifier;
 import sybyla.db.DBEngine;
 import sybyla.nlp.NLPAnalyzer;
@@ -7,11 +9,18 @@ import sybyla.nlp.OpenNLPAnalyzer3;
 import sybyla.nlp.PortugueseOpenNLPAnalyzer;
 
 public class Analyzer {
-	
+	private static final Logger LOGGER = Logger.getLogger(Analyzer.class);
 	private Model model;
 	private NLPAnalyzer nlp;
 	private static final Model PORTUGUESE_PRODUCT_MODEL=new Model(Model.PRODUCT_MODEL_PORTUGUESE);
 	private static final BayesClassifier classifier = BayesClassifier.load();
+	static{
+		try {
+			DBEngine.init();
+		} catch (Exception e) {
+			LOGGER.error("Error initializing DBEngine",e);
+		}
+	}
 	
 	public  Analyzer(Language language, Type type) throws Exception{
 		

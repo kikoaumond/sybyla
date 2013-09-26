@@ -15,9 +15,11 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.NCSARequestLog;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.server.handler.RequestLogHandler;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 
@@ -28,6 +30,9 @@ public class SybylaServer {
 	private static final Logger LOGGER = Logger.getLogger(SybylaServer.class);
 	private static Server server;
 	public static final String PORT="port";
+	public static final String REQUEST_HEADER_SIZE_KEY="sybyla.request.header.size";
+	public static final String REQUEST_BUFFER_SIZE_KEY="sybyla.request.buffer.size";
+
 	
 	public static final int DEFAULT_PORT=80;
 	private static int port=DEFAULT_PORT;
@@ -57,7 +62,32 @@ public class SybylaServer {
 	        server = new Server(port);
 	        SelectChannelConnector connector = new SelectChannelConnector();
 	        connector.setPort(port);
-	        connector.setRequestHeaderSize(16384);
+	        int headerSize = 81920;
+	        int bufferSize = 81920;
+	        String hs =  System.getProperty(REQUEST_HEADER_SIZE_KEY);
+	        if (hs!=null){
+	        	try{
+	        		int hsize = Integer.parseInt(hs);
+	        		headerSize =  hsize;
+	        	} catch(NumberFormatException e){
+	        		LOGGER.error("Invalid request header size "+hs+"; using default value of "+headerSize);
+	        	}
+	        	
+	        }
+	        
+	        String bs =  System.getProperty(REQUEST_BUFFER_SIZE_KEY);
+	        if (hs!=null){
+	        	try{
+	        		int bsize = Integer.parseInt(hs);
+	        		bufferSize =  bsize;
+	        	} catch(NumberFormatException e){
+	        		LOGGER.error("Invalid request buffer size "+bs+"; using default value of "+bufferSize);
+	        	}
+	        	
+	        }
+	        connector.setRequestHeaderSize(headerSize);
+	        connector.setRequestBufferSize(bufferSize);
+
 	        server.setConnectors(new Connector[]{connector});
 	        
 	        if (graph){
@@ -100,10 +130,21 @@ public class SybylaServer {
 	        sybylaContext.setClassLoader(Thread.currentThread().getContextClassLoader());
 	        sybylaContext.setHandler(new SybylaHandler());
 	        
+	        RequestLogHandler requestLogHandler = new RequestLogHandler();
+
+	        
 	        ContextHandlerCollection handlers = new ContextHandlerCollection();
 	        handlers.addHandler(sybylaContext);
 	        handlers.addHandler(staticContext);
+	        handlers.addHandler(requestLogHandler);
 	        server.setHandler(handlers);
+	        
+	        NCSARequestLog requestLog = new NCSARequestLog("/mnt/logs/jetty-yyyy_mm_dd.request.log");
+	        requestLog.setRetainDays(60);
+	        requestLog.setAppend(true);
+	        requestLog.setExtended(false);
+	        requestLog.setLogTimeZone("GMT");
+	        requestLogHandler.setRequestLog(requestLog);
 	        
 	        server.start();
 	        if(!test){
