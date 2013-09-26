@@ -177,7 +177,7 @@ public class AnalyzerTest {
 		Result r =  analyzer.analyze(text);
 		double score = r.getResult(); 
 		System.out.println("Score: "+score);
-		assertTrue(score == 0);
+		assertTrue(score == -1);
 	}
 	
 	@Test

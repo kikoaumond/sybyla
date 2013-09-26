@@ -61,7 +61,7 @@ public class BayesClassifier {
 	private static final String NEGATIVE="Negativa";
 	private static final String NEUTRAL="Neutra";
 	private static final String EXCLUDED="Excluído";
-	private static final String MODEL_FILE="/sentimentModel.txt";
+	private static final String MODEL_FILE="/sentiment_model.txt";
 
 	public static BayesClassifier load() {
 		BayesClassifier classifier=null;
