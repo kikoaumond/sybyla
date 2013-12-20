@@ -147,9 +147,12 @@ public class SentimentHandlerTest {
 		String jsonContent = content.substring((callback+"(").length(), content.indexOf(");"));
 		JSONObject json2 = new JSONObject(jsonContent);
 		assertNotNull(json2);
-		JSONObject c =  json.getJSONObject("apiResponse").getJSONObject("Ok");
-		JSONObject c2 = json2.getJSONObject("apiResponse").getJSONObject("Ok");
+		JSONObject c =  json.getJSONObject("apiResponse").getJSONObject("ok");
+		JSONObject c2 = json2.getJSONObject("apiResponse").getJSONObject("ok");
 		assertEquals(c.toString(), c2.toString());
+		String m =  c.getString("message");
+		String m2 = c2.getString("message");
+		assertEquals(m,m2);
 		
 		String u =  json.getJSONObject("apiResponse").getString("requestURL");
 		String u2 = json2.getJSONObject("apiResponse").getString("requestURL");

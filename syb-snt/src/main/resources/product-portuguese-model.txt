@@ -157,6 +157,7 @@ QUAL_NEG	cobra*
 QUAL_NEG	cobra*
 QUAL_NEG	complica*
 QUAL_NEG	contrar*
+QUAL_NEG	conf*
 QUAL_NEG	decepc*
 QUAL_NEG	decepção
 QUAL_NEG	defeit*
@@ -174,6 +175,7 @@ QUAL_NEG	distorc*
 QUAL_NEG	descarreg*
 QUAL_NEG	distorcao
 QUAL_NEG	distorção
+QUAL_NEG	droga
 QUAL_NEG	enferruj*
 QUAL_NEG	engan*
 QUAL_NEG	excludente*
@@ -195,6 +197,7 @@ QUAL_NEG	inut*
 QUAL_NEG	inút*
 QUAL_NEG	lambanca
 QUAL_NEG	lambança
+QUAL_NEG	lent*
 QUAL_NEG	limita*
 QUAL_NEG	ma
 QUAL_NEG	mal

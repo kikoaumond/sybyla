@@ -57,10 +57,18 @@ public class BayesClassifier {
 	private BayesModel negativeModel = new BayesModel("negative",-1);
 	private BayesModel neutralModel = new BayesModel("neutral",0);
 	
-	private static final String POSITIVE="Positiva";
-	private static final String NEGATIVE="Negativa";
-	private static final String NEUTRAL="Neutra";
+	private static final String POSITIVA="Positiva";
+	private static final String POSITIVO="Positivo";
+
+	private static final String NEGATIVA="Negativa";
+	private static final String NEGATIVO="Negativo";
+
+	private static final String NEUTRA="Neutra";
+	private static final String NEUTRO="Neutro";
+	
 	private static final String EXCLUDED="Excluído";
+	private static final String LIXO="lixo";
+
 	private static final String MODEL_FILE="/sentiment_model.txt";
 
 	public static BayesClassifier load() {
@@ -321,17 +329,17 @@ public class BayesClassifier {
 			if ( line.trim().startsWith("#") || tokens.length<4){
 				continue;
 			}
-			String s = tokens[1];
+			String s = tokens[1].trim();
 			
-			if (s.equals(EXCLUDED)){
+			if (s.equalsIgnoreCase(EXCLUDED) || s.equalsIgnoreCase(LIXO)){
 				continue;
 			}
-			if (s.equals(POSITIVE)){
+			if (s.equalsIgnoreCase(POSITIVA) || s.equalsIgnoreCase(POSITIVO)){
 				sentiment = 1;
 			}
-			else if (s.equals(NEGATIVE)){
+			else if (s.equalsIgnoreCase(NEGATIVA) || s.equalsIgnoreCase(NEGATIVO)){
 				sentiment =-1;
-			} else if (s.trim().equals(NEUTRAL)){
+			} else if (s.equalsIgnoreCase(NEUTRA) || s.equalsIgnoreCase(NEUTRO)){
 				sentiment =0;
 			} else{
 				throw new Exception("Unknown label in test file: "+s+ " line: "+line);

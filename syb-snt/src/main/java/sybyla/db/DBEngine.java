@@ -51,6 +51,7 @@ public class DBEngine {
 			}
 		}
 	}
+	/*
 	public static Set<Long> insertExample(){
 		String query =  "INSERT INTO sybylaco_sentiment.sentiment_data \n" +
 				"(customer_key, sentiment,text,context) \n" +
@@ -58,4 +59,5 @@ public class DBEngine {
 				"(\"test\", \"-1\", \"não gostei do filme\",\"não gostei\")";
 		return pool.executeInsert(query);
 	}
+	*/
 }

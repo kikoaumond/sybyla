@@ -5,12 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class DBEngineTest {
-
+	/*
 	@Test
 	public void test() throws Exception {
 		DBEngine.init();
 		DBEngine.insertExample();
 	}
+	*/
 	
 	@Test
 	public void test2() throws Exception {
