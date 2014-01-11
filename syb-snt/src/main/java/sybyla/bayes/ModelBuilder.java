@@ -11,12 +11,13 @@ public class ModelBuilder {
 		String inputFile = args[0];
 		String outputFileName = args[1];
 		File file = new File(inputFile);
+		File[] files=new File[0];
 		try {
 			
 			BayesClassifier classifier = new BayesClassifier(Language.PORTUGUESE);
 
 			if (file.isDirectory()){
-				File[] files = file.listFiles();
+				files = file.listFiles();
 				classifier.train(files);
 				for (File f: files){
 					classifier.evaluateFile(f.getAbsolutePath());
@@ -26,11 +27,13 @@ public class ModelBuilder {
 				classifier.train(inputFile);
 				classifier.evaluateFile(inputFile);
 			}
-			classifier.writeModel(outputFileName,3);
+			classifier.writeModel(outputFileName,5);
 			BayesClassifier newClassifier = new BayesClassifier(Language.PORTUGUESE);
 
-			newClassifier.loadModel(outputFileName);
-			newClassifier.evaluateFile(inputFile);
+			newClassifier.loadModel(outputFileName);//-0.6731d);
+			for (File f: files){
+				newClassifier.evaluateFile(f.getCanonicalPath());
+			}
 			
 		} catch (Exception e) {
 			System.out.println(e);

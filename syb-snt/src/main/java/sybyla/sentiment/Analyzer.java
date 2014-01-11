@@ -80,17 +80,6 @@ public class Analyzer {
 		}
 		
 		double total = (double) sentences.length;//Math.abs(nNegative) + Math.abs(nPositive);
-		
-		if (total == 0) {
-			
-			return new Result(Model.NEUTRAL, 1.0);
-		}
-		
-		if (nPositive == 0 && nNegative == 0){
-			Result result  = classifier.evaluate(sentences);
-			return result;
-		}
-		
 		double score = (nPositive+nNegative)/total;
 		if (score > 0 && Math.abs(score) > 1){
 			score=1;
@@ -98,8 +87,34 @@ public class Analyzer {
 		if (score < 0 && Math.abs(score) > 1){
 			score=-1;
 		} 
-		return new Result(score,0.9);
 		
+		Result result  = classifier.evaluate(sentences);
+		double r = result.getResult();
+		if (r<0){
+			r=-1;
+		} else if (r>0){
+			r=1;
+		} else {
+			r=0;
+		}
+		if (r==score){
+			return new Result(r, 1.);
+		} else {
+			double certainty =  result.getCertainty();
+			if (score == 0){
+				if (certainty > 0.8){
+					return result;
+				} 
+			} else {
+				if (certainty > 0.99){
+					return result;
+				}
+			}
+			return new Result(score, 0.9);
+			//} else {
+			//	return result;
+			//}
+		}
 	}
 	
 	public void insert(String customerKey, String text, int sentiment, String context){

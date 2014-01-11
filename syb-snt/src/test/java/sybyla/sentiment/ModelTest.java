@@ -59,7 +59,23 @@ public class ModelTest {
 		assertTrue(score < 0);
 	}
 	
+	@Test
+	public void testEvaluate5() throws Exception{
+		Model model = new Model(Model.PRODUCT_MODEL_PORTUGUESE);
+		String sentence = "RT @americanascom: Puffs coloridos, estampados, fofinhos ou quadrados! Vários modelos p/ dar um toque diferente nos ambientes! Confira: htt?";
+		double score = model.evaluate(sentence);
+		System.out.println("Score: "+score);
+		assertTrue(score == 0);
+	}
 	
+	@Test
+	public void testEvaluate6() throws Exception{
+		Model model = new Model(Model.PRODUCT_MODEL_PORTUGUESE);
+		String sentence = "@moneyissosexy No centro tem uma, e no shopping tem a americanas que foi ontem eu comprei o Unbroken";
+		double score = model.evaluate(sentence);
+		System.out.println("Score: "+score);
+		assertTrue(score == 0);
+	}
 	@Test
 	public void testFeatures(){
 		String s =  "O que é isso ?? ?! Nem dá para acreditar, não é? Mas fazer o que: Nem adianta reclamar.  a Globo manda neste país...";

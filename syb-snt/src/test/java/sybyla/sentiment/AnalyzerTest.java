@@ -177,7 +177,7 @@ public class AnalyzerTest {
 		Result r =  analyzer.analyze(text);
 		double score = r.getResult(); 
 		System.out.println("Score: "+score);
-		assertTrue(score == -1);
+		assertTrue(score == 0);
 	}
 	
 	@Test
@@ -346,7 +346,7 @@ public class AnalyzerTest {
 		Result r =  analyzer.analyze(text);
 		double score = r.getResult(); 
 		System.out.println("Score: "+score);
-		assertTrue(score < 0);
+		assertTrue(score == 0);
 	}
 	
 	@Test
@@ -384,4 +384,30 @@ public class AnalyzerTest {
 		System.out.println("Score: "+score);
 		assertTrue(score > 0);
 	}
+	
+	@Test
+	public void testAnalyze28() throws Exception{
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = "@moneyissosexy No centro tem uma, e no shopping tem a americanas que foi ontem eu comprei o Unbroken";
+
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
+		System.out.println("Score: "+score);
+		assertTrue(score == 0);
+	}
+	
+	@Test
+	public void testAnalyze29() throws Exception{
+
+		Analyzer analyzer = new Analyzer(Language.PORTUGUESE, Type.PRODUCT);
+		
+		String text = 	"@malocasantana nas lojas americanas amor, e parabéns pelo seus 14 aninhos, tudo de melhor sempreeee ??";
+
+		Result r =  analyzer.analyze(text);
+		double score = r.getResult(); 
+		System.out.println("Score: "+score);
+		assertTrue(score == 0);
+	}
+	
 }

@@ -70,13 +70,14 @@ public class BayesClassifier {
 	private static final String LIXO="lixo";
 
 	private static final String MODEL_FILE="/sentiment_model.txt";
+	private static final double DEFAULT_ENTROPY_FILTER=-0.6731d;
 
 	public static BayesClassifier load() {
 		BayesClassifier classifier=null;
 		try {
 			classifier = new BayesClassifier(Language.PORTUGUESE);
 			InputStream in = BayesClassifier.class.getResourceAsStream(MODEL_FILE);
-			classifier.loadModel(in);
+			classifier.loadModel(in);//, DEFAULT_ENTROPY_FILTER);
 		} catch (Exception e) {
 			LOGGER.error("Error loading sentiment classifier ", e);
 		}
@@ -136,7 +137,7 @@ public class BayesClassifier {
 	
 	public void train(String file) throws Exception{
 		List<TestElement> train = read(file);
-		FeatureExtractor fe = new FeatureExtractor(4);
+		FeatureExtractor fe = new FeatureExtractor(5);
 		for(TestElement te: train){
 			String text = te.getText();
 			double sentiment = te.getSentiment();
@@ -152,7 +153,7 @@ public class BayesClassifier {
 	}
 	
 	public void train(File[] files) throws Exception{
-		FeatureExtractor fe =  new FeatureExtractor(4);
+		FeatureExtractor fe =  new FeatureExtractor(5);
 		for(File file: files){
 			String f =  file.getAbsolutePath();
 			if (!f.endsWith(".txt")){
@@ -326,10 +327,10 @@ public class BayesClassifier {
 			if (line.trim().length()==0) continue;
 			String[] tokens = line.split("\t");
 			int sentiment = 0;
-			if ( line.trim().startsWith("#") || tokens.length<4){
+			if ( line.trim().startsWith("#") || tokens.length<2){
 				continue;
 			}
-			String s = tokens[1].trim();
+			String s = tokens[0].trim();
 			
 			if (s.equalsIgnoreCase(EXCLUDED) || s.equalsIgnoreCase(LIXO)){
 				continue;
@@ -342,10 +343,11 @@ public class BayesClassifier {
 			} else if (s.equalsIgnoreCase(NEUTRA) || s.equalsIgnoreCase(NEUTRO)){
 				sentiment =0;
 			} else{
-				throw new Exception("Unknown label in test file: "+s+ " line: "+line);
+				//throw new Exception("Unknown label in test file: "+s+ " line: "+line);
+				continue;
 			}
 					
-			String text =  tokens[3];
+			String text =  tokens[1];
 			TestElement t =  new TestElement(text, sentiment);
 			elements.add(t);
 		}
@@ -359,14 +361,17 @@ public class BayesClassifier {
 	
 	public void writeModel(String filename, int length) throws IOException {
 		
+		Set<String> tt =  new HashSet<String>();
+
 		List<String> terms  = new ArrayList<String>();
 		
-		terms.addAll(negativeModel.getTerms());
-		terms.addAll(neutralModel.getTerms());
-		terms.addAll(positiveModel.getTerms());
+		tt.addAll(negativeModel.getTerms());
+		tt.addAll(neutralModel.getTerms());
+		tt.addAll(positiveModel.getTerms());
 		
-		Collections.sort(terms);
+		terms.addAll(tt);
 		
+		Collections.sort(terms);		
 		
 		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(filename)),"UTF-8"));
 		
@@ -375,11 +380,58 @@ public class BayesClassifier {
 		LOGGER.info("writing model file "+filename);
 		
 		for(String term: terms){
-			String[] tt  = term.split("\\s");
-			if (tt.length <= length){
-				negativeModel.write(term,writer);
-				neutralModel.write(term,writer);
-				positiveModel.write(term, writer);
+			String[] tokens  = term.split("\\s");
+			
+			LikelihoodEntropy pos =  positiveModel.get(term);
+			LikelihoodEntropy neg =  negativeModel.get(term);
+			LikelihoodEntropy ntr =  neutralModel.get(term);
+			
+			int posc = pos==null?0:pos.getOccurrences();
+			int negc = neg==null?0:neg.getOccurrences();
+			int ntrc = ntr==null?0:ntr.getOccurrences();
+			
+			int total = posc+negc+ntrc;
+			if (total == 0){
+				continue;
+			}
+			
+			double posf = (double) posc/((double) total);
+			double negf = (double) negc/((double) total);
+			double ntrf = (double) ntrc/((double) total);
+			
+			boolean writePos = true;
+			boolean writeNeg =  true;
+			boolean writeNtr =  true;
+			
+			double minNeg = 0.40d;
+			double minNtr = 0.75d;
+			double minPos = 0.40d;
+			
+			if (negf < minNeg || negc <= 0){
+				writeNeg = false;
+			}
+			
+			if (ntrf < minNtr || ntrc <= 1){
+				writeNtr =  false;
+			}
+			
+			if (posf < minPos || posc <= 0){
+				writePos = false;
+			}
+			
+			
+			if (tokens.length <= length){
+				if (writeNeg){
+					negativeModel.write(term,writer);
+				}
+				
+				if (writeNtr){
+					neutralModel.write(term,writer);
+				}
+				
+				if (writePos){
+					positiveModel.write(term, writer);
+				}
 			}
 		}	
 		writer.flush();
@@ -403,9 +455,22 @@ public class BayesClassifier {
 		loadModel(in);
 	}
 	
+	public void loadModel(String filename, double entropyFilter) throws NumberFormatException, IOException{
+		FileInputStream in  =  new FileInputStream(new File(filename));
+		loadModel(in, entropyFilter);
+	}
+	
 	public void loadModel(InputStream in) throws NumberFormatException, IOException{
 		
 		String line =  null;
+		int neg=0; 
+		double negP=0.d;
+		
+		int pos=0;
+		double posP=0.d;
+		
+		int ntr=0;
+		double ntrP=0;
 		try{
 		BufferedReader reader = new BufferedReader(
 									new InputStreamReader(in,"UTF-8"));
@@ -436,13 +501,19 @@ public class BayesClassifier {
 			double probability = Double.parseDouble(tokens[2]);
 			double entropy = Double.parseDouble(tokens[3]);
 			int occurrences  = Integer.parseInt(tokens[4]);
-
+			 
 			if (sentiment == -1){
 				negativeModel.add(term, probability, entropy, occurrences);
+				negP+=probability;
+				neg++;
 			} else if (sentiment == 1){
 				positiveModel.add(term, probability, entropy, occurrences);
+				posP+=probability;
+				pos++;
 			} else if (sentiment == 0){
 				neutralModel.add(term, probability, entropy, occurrences);
+				ntrP+=probability;
+				ntr++;
 			}
 		}
 		}catch(Exception e){
@@ -451,6 +522,7 @@ public class BayesClassifier {
 		} finally {
 			in.close();
 		}
+		LOGGER.info("\nNeg: "+neg+" negP: "+negP+"\nNtr: "+ntr+" ntrP: "+ntrP+"\nPos: "+pos+" posP: "+posP);
 	}
 	
 	
@@ -465,14 +537,14 @@ public class BayesClassifier {
 			double e = element.getSentiment();
 			int i=1,j=1;
 			if (s < 0){
-				i=0;
+				j=0;
 			} else if (s > 0){
-				i=2;
+				j=2;
 			}
 			if (e < 0){
-				j=0;
+				i=0;
 			} else if (e > 0){
-				j=2;
+				i=2;
 			}
 			confusionMatrix[i][j]++;
 			if (i!=j){
@@ -517,7 +589,7 @@ public class BayesClassifier {
 	
 	private double evaluate(String[] sentences, BayesModel model){
 		double score = 0;
-		FeatureExtractor fe =  new FeatureExtractor(1);
+		FeatureExtractor fe =  new FeatureExtractor(5);
 		if ((sentences==null) || (sentences.length==0)){
 			return score;
 		}
@@ -533,5 +605,73 @@ public class BayesClassifier {
 			score =  score/(double) n;
 		}
 		return score;
+	}
+
+	public void loadModel(InputStream in, double entropyFilter) throws NumberFormatException, IOException{
+		
+		String line =  null;
+		int elements = 0;
+		int discarded = 0;
+		try{
+		BufferedReader reader = new BufferedReader(
+									new InputStreamReader(in,"UTF-8"));
+	
+		line=reader.readLine();
+		
+		int vocabularySize =  Integer.parseInt(line);
+		
+		negativeModel.setVocabularySize(vocabularySize);
+		neutralModel.setVocabularySize(vocabularySize);
+		positiveModel.setVocabularySize(vocabularySize);
+		while((line=reader.readLine())!=null){
+			/*
+			 * 		
+		sb.append(sentiment).append("\t").
+			append(term).append("\t").
+			append(le.getProbability()).
+			append("\t").
+			append(le.getEntropy()).
+			append(le.getOccurrences()).
+			append("\n");
+			
+			 */
+			String[] tokens = line.split("\t");
+			int sentiment = Integer.parseInt(tokens[0]);
+			String term = tokens[1];
+			String[] words =  term.split("\\s");
+			
+			double probability = Double.parseDouble(tokens[2]);
+			double entropy = Double.parseDouble(tokens[3]);
+			int occurrences  = Integer.parseInt(tokens[4]);
+			
+			if (occurrences <= 1 && words.length > 1){
+				discarded++;
+				continue;
+			}
+			
+			if(entropy < entropyFilter){
+				discarded++;
+				continue;
+			}
+			if (sentiment == -1){
+				negativeModel.add(term, probability, entropy, occurrences);
+				elements++;
+			} else if (sentiment == 1){
+				positiveModel.add(term, probability, entropy, occurrences);
+				elements++;
+			} else if (sentiment == 0){
+				neutralModel.add(term, probability, entropy, occurrences);
+				elements++;
+			}
+			elements++;
+		}
+		}catch(Exception e){
+			LOGGER.error("Error reading line \n"+line,e);
+			System.out.println(e);
+		} finally {
+			in.close();
+		}
+		LOGGER.info("Loaded total of "+ elements + " markers from model file. "
+				+ discarded + " markers with low significance were not loaded. ");
 	}
 }

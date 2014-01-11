@@ -129,6 +129,7 @@ public class Model {
 					modelPhrases.put(label, phr);
 				}
 				phr.add(phrase);
+				n++;
 				continue;
 			}   
 			

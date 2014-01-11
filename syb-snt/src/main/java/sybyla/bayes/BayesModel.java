@@ -92,7 +92,11 @@ public class BayesModel {
 			writer.write("\n");
 		}
 	}
-
+	
+	public LikelihoodEntropy get(String term){
+		return model.get(term);
+	}
+	
 	public int getSize() {
 		return size;
 	}

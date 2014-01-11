@@ -157,7 +157,6 @@ QUAL_NEG	cobra*
 QUAL_NEG	cobra*
 QUAL_NEG	complica*
 QUAL_NEG	contrar*
-QUAL_NEG	conf*
 QUAL_NEG	decepc*
 QUAL_NEG	decepção
 QUAL_NEG	defeit*
@@ -380,7 +379,6 @@ QUAL_POS	lucr*
 QUAL_POS	melhor*
 QUAL_POS	multiplataforma
 QUAL_POS	novidade
-QUAL_POS	novo
 QUAL_POS	opcao
 QUAL_POS	opcion*
 QUAL_POS	opcoes
@@ -493,6 +491,7 @@ REV	num
 REV	naum
 REV	nunca
 REV	não
+REV	ñ
 REV	sem
 SIG_NEG	esper*
 SIG_NEG	custo
@@ -608,7 +607,6 @@ STR_NEG	medíocre*
 STR_NEG	mediocr*
 STR_NEG	viad*
 STR_NEG	vead*
-STR_NEG	caralho
 STR_NEG	puto
 STR_NEG	puta
 STR_NEG	putos
