@@ -5,18 +5,26 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Sybyla Classifier</name>
   
-  <properties>
-  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+  	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <avro.version>1.7.3</avro.version>
+        <hadoop.version>1.0.3</hadoop.version>
+        <cascading.version>2.1.0</cascading.version>
+    </properties>
   
   <build>
+      <resources>
+          <resource>
+              <directory>src/main/resources</directory>
+          </resource>
+      </resources>
 		<plugins>
 			<plugin>
    			<artifactId>maven-compiler-plugin</artifactId>
    			<version>2.0.2</version>
    			<configuration>
-       			<source>1.6</source>
-       			<target>1.6</target>
+       			<source>1.7</source>
+       			<target>1.7</target>
        			<encoding>UTF-8</encoding>
    			</configuration>
 			</plugin>
@@ -68,21 +76,64 @@
           			</excludes>
         		</configuration>
 			</plugin>
+
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+                <version>${avro.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/main/resources/avro/</sourceDirectory>
+                            <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
+                            <fieldVisibility>PRIVATE</fieldVisibility>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
-  
-  <dependencies>
+
+    <repositories>
+
+        <repository>
+            <id>Conjar</id>
+            <name>Cascading repository</name>
+            <url>http://conjars.org/repo/</url>
+        </repository>
+
+    </repositories>
+
+    <dependencies>
   		<dependency>
   			<groupId>sybyla</groupId>
   			<artifactId>syb-utils</artifactId>
   			<version>0.0.1-SNAPSHOT</version>
-  		</dependency>	
-  		<dependency>
+  		</dependency>
+
+      <dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+          <version>4.3.3</version>
+      </dependency>
+
+      <dependency>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+          <version>1.7.3</version>
+      </dependency>
+
+      <dependency>
   			<groupId>sybyla</groupId>
   			<artifactId>syb-nlp</artifactId>
   			<version>0.0.1-SNAPSHOT</version>
-  		</dependency>	
-  		<dependency>
+  		</dependency>
+
+  			<dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
@@ -94,6 +145,54 @@
             <version>4.7</version>
             <scope>test</scope>
         </dependency>
-        
-  </dependencies>
+
+      <dependency>
+          <groupId>org.json</groupId>
+          <artifactId>json</artifactId>
+          <version>20140107</version>
+      </dependency>
+
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro-maven-plugin</artifactId>
+            <version>${avro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro-compiler</artifactId>
+            <version>${avro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cascading</groupId>
+            <artifactId>cascading-core</artifactId>
+            <version>${cascading.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-core</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cascading.avro</groupId>
+            <artifactId>avro-scheme</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.scaleunlimited</groupId>
+            <artifactId>cascading.utils</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+
+    </dependencies>
 </project>

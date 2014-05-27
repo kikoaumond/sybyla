@@ -1,0 +1,21 @@
+[
+{
+  "namespace": "sybyla.generated.avro",
+  "type":"record",
+  "name":"CategoryWebPage",
+  "doc":"Avro representation of a web page to be used in category training",
+  "fields":
+  [
+    {"name":"url","type":"string"},
+    {"name":"topCategory", "type":"string"},
+    {"name":"bottomCategory", "type":"string"},
+    {"name":"fullCategory", "type":"string"},
+    {"name":"portugueseCategory", "type":"string"},
+    {"name":"categories", "type":{"type":"array", "items":"string"}},
+    {"name":"negativeCategories", "type":{"type":"array", "items":"string"}},
+    {"name":"level", "type":"int"},
+    {"name":"content", "type":"string"},
+    {"name":"features", "type":{"type":"array", "items":"string"}}
+  ]
+}
+]
