@@ -16,7 +16,7 @@ public class TrainingDataReaderTest
     @Test
     public void test() throws IOException
     {
-        TrainingDataReader reader = new TrainingDataReader();
+        DataReader reader = new DataReader();
         reader.read();
     }
 }

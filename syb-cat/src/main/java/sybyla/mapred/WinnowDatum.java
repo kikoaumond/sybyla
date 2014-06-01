@@ -5,7 +5,10 @@ import cascading.tuple.Tuple;
 import cascading.tuple.TupleEntry;
 import com.scaleunlimited.cascading.BaseDatum;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -47,6 +50,18 @@ public class WinnowDatum extends BaseDatum {
         setPositiveExamples(nPositiveExamples);
     }
 
+
+    public WinnowDatum(String category,Tuple termWeightsTuple,
+                       Integer nPositiveExamples, Integer nNegativeExamples) {
+        super(FIELDS);
+
+        setCategory(category);
+        setTermWeights(termWeightsTuple);
+        setNegativeExamples(nNegativeExamples);
+        setPositiveExamples(nPositiveExamples);
+    }
+
+
     public void setCategory(String category) {
         _tupleEntry.set(CATEGORY_FN,category);
     }
@@ -72,17 +87,47 @@ public class WinnowDatum extends BaseDatum {
     }
     
     public void setTermWeights(Map<String, Double> termWeights) {
-        Tuple t = new Tuple();
-        for (String term : termWeights.keySet()) {
-            t.add(term);
-            Double weight = termWeights.get(term);
-            t.add(weight);
-        }
+
+        Tuple t =getWeightTermsTuple(termWeights);
         _tupleEntry.set(TERM_WEIGHTS_FN, t);
     }
 
+    public void setTermWeights(Tuple termWeightsTuple){
+
+        _tupleEntry.set(TERM_WEIGHTS_FN,termWeightsTuple);
+    }
+
+    public Tuple getWeightTermsTuple(Map<String, Double> termWeights) {
+
+        List<TermWeight>  termWeightList= new ArrayList<>();
+        Tuple tuple = new Tuple();
+
+
+        for (String term: termWeights.keySet()) {
+
+            Double weight = termWeights.get(term);
+            TermWeight tw =  new TermWeight(term,weight);
+            termWeightList.add(tw);
+        }
+
+        Collections.sort(termWeightList, Collections.reverseOrder());
+
+        for (int i = 0; i<termWeights.size(); i++){
+
+            TermWeight tw =  termWeightList.get(i);
+            String term = tw.term;
+            double weight = tw.weight;
+            tuple.addString(term);
+            tuple.addDouble(weight);
+        }
+
+        return tuple;
+    }
+
     public Map<String, Double> getWeightTerms() {
+
         Map<String, Double> weightTerms = new HashMap<String, Double>();
+
 
         Tuple t = (Tuple)_tupleEntry.get(TERM_WEIGHTS_FN);
 
@@ -94,6 +139,32 @@ public class WinnowDatum extends BaseDatum {
         }
 
         return weightTerms;
+    }
+
+
+    private class TermWeight implements Comparable<TermWeight>{
+
+        private String term;
+        private double weight;
+
+        public TermWeight(String term, double weight){
+
+            this.term = term;
+            this.weight =  weight;
+        }
+
+        @Override
+        public int compareTo(TermWeight o)
+        {
+              if (this.weight > o.weight){
+                  return 1;
+              } else if (this.weight < o.weight){
+                return -1;
+              }  else {
+                  return this.term.compareTo(o.term);
+              }
+
+        }
     }
     
 }

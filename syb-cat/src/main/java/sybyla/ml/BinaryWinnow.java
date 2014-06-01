@@ -456,10 +456,13 @@ public class BinaryWinnow {
                 }
                 
                 if (!_weights.containsKey(binaryTerm) && !_restrictTerms) {
+
                     double initialWeight = initialWeight(nTerms);
                     double pValue = entry.get_pValue();
                     short type = entry.get_type();
-                    WinnowTermEntry newEntry = new WinnowTermEntry(initialWeight, 0, 0, pValue, type);
+
+                    WinnowTermEntry newEntry =
+                            new WinnowTermEntry(initialWeight, 0, 0, pValue, type);
                     _weights.put(binaryTerm, newEntry);
                     _nTermBytes += binaryTerm._byteArray.length;
                 }
@@ -726,6 +729,8 @@ public class BinaryWinnow {
         _nTerms = _weights.size();
         LOGGER.debug("Model pruned from " + n + " terms to " + _weights.size() + " terms with differencial coverage of "+ threshold);
     }
+
+
     
     public int excludeMostNegativeTerms(double topPercentile) {
         
@@ -845,6 +850,81 @@ public class BinaryWinnow {
         }
         
         _nTerms = _weights.size(); 
+        int end = _excludedTerms.size();
+        return end - start;
+    }
+
+    /**
+     * Keeps nTermsToKeep terms with the lowest pValues in the Winnow model, removing the rest.
+     * @param weightPercentage
+     */
+    public int pruneByCummulativeWeight(double weightPercentage) {
+
+        if (weightPercentage >= 1 || weightPercentage<0) {
+            return 0;
+        }
+
+        if (weightPercentage >= _weights.size() -  _restrictedTerms.size()) {
+            return 0;
+        }
+
+        int start = _excludedTerms.size();
+        BinaryTermWeight[] termWeights = new BinaryTermWeight[_weights.size() - _restrictedTerms.size()];
+        double weightSum = 0;
+
+        int i=0;
+
+        for(ByteArray term : _weights.keySet()) {
+
+            double weight = _weights.get(term).get_weight();
+            weightSum += weight;
+
+
+            if (_restrictedTerms.contains(term)) {
+                continue;
+            }
+
+            BinaryTermWeight t =  new BinaryTermWeight(term, weight);
+            termWeights[i] = t;
+            i++;
+        }
+
+        // fill the remaining empty spots of the array;  we do this so we don't have
+        // to trim the array, which would require the creation of a second array,
+        // which would increase memory usage
+
+        Quick.sort(termWeights);
+
+        double cummulativeWeight = 0;
+        double previousWeight = termWeights[termWeights.length-1].get_weight();
+
+        int index = termWeights.length-1;
+
+        while ( index >= 0 ) {
+
+            double w = termWeights[index].get_weight();
+            assert(w <= previousWeight);
+
+            cummulativeWeight += w;
+
+            double ratio =  cummulativeWeight/weightSum;
+
+            if (ratio <= weightPercentage){
+                index--;
+                continue;
+
+            }  else {
+
+                ByteArray term = termWeights[index].get_term();
+                _weights.remove(term);
+                _excludedTerms.add(term.hashCode());
+            }
+
+            index--;
+            previousWeight = w;
+        }
+
+        _nTerms = _weights.size();
         int end = _excludedTerms.size();
         return end - start;
     }
@@ -1218,7 +1298,7 @@ public class BinaryWinnow {
              _type = type;
         }
     }
-    
+
     public static  class BinaryTermFrequency implements Comparable<BinaryTermFrequency>{
 
         private ByteArray _term;
@@ -1272,6 +1352,7 @@ public class BinaryWinnow {
             return true;
         }
     }
+
     public static  class BinaryTermPValue implements Comparable<BinaryTermPValue>{
     
         private ByteArray _term;
@@ -1341,5 +1422,59 @@ public class BinaryWinnow {
             
             return true;
         }
-    }    
+    }
+
+    public static  class BinaryTermWeight implements Comparable<BinaryTermWeight>{
+
+        private ByteArray _term;
+
+        private double _weight = 0d;
+
+
+        public BinaryTermWeight(ByteArray term, double weight) {
+
+            _term= term;
+            _weight = weight;
+        }
+
+        public ByteArray get_term() {
+            return _term;
+        }
+
+        public double get_weight() {
+            return _weight;
+        }
+
+
+
+        @Override
+        public int compareTo(BinaryTermWeight btw) {
+
+            if (btw == null) {
+                return 1;
+            }
+
+            if (this._weight > btw._weight) {
+                return 1;
+            }
+
+            if (this._weight < btw._weight) {
+                return -1;
+            }
+
+            return 0;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if(! (o instanceof BinaryTermWeight)) return false;
+
+            BinaryTermWeight btw = (BinaryTermWeight) o;
+
+            if (!this._term.equals(btw._term)) return false;
+            if(this._weight != btw._weight) return false;
+
+            return true;
+        }
+    }
 }

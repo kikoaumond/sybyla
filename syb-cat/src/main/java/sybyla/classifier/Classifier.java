@@ -16,6 +16,7 @@ import sybyla.ml.BinaryWinnow.ByteArray;
 import sybyla.ml.ModelTerm;
 import sybyla.nlp.OpenNLPAnalyzer3;
 import sybyla.classifier.TermExtractor;
+import sybyla.simbiose.DataReader;
 
 public class Classifier {
     private static final Logger LOGGER = Logger.getLogger(Classifier.class);
@@ -111,13 +112,112 @@ public class Classifier {
 
     public List<Category> classify(String text)   {
                    
-            List<Category> categories=getCategoryModelScores(text);
-            return categories;
+        List<Category> categories=getCategoryModelScores(text);
+        return categories;
                            
     }
-    
-    	
-	private static void indexModels(int nTopTerms) {
+
+
+    public List<Category> classifyURL(String text)   {
+
+        try {
+            DataReader dataReader = new DataReader();
+            String content = dataReader.getContent(url);
+            List<String> features = dataReader.getFeatures(content);
+        } catch (Exception e) {
+            LOGGER.error("Error generating features",e);
+        }
+
+
+
+        List<Category> categories=getCategoryModelScores(text);
+        return categories;
+
+    }
+
+
+   private List<Category> classify(List<String> features) {
+
+    if (text ==  null) return new ArrayList<Category>();
+
+    List<Category> categoryResultList = new ArrayList<Category>();
+
+    Map<String, Integer> termCounts=null;
+
+
+    for (String feature: features){
+
+        Integer count = termCounts.get(feature);
+        if (count  == null){
+            count = new Integer(0);
+            termCounts.put(feature,count);
+        }
+
+        count += 1;
+        termCounts.put(feature, count);
+    }
+
+    Set<BinaryWinnow> models = categoryModels;
+    if (useIndex) {
+
+        Map<String,Integer> indexLookup = termCounts;
+
+        models = modelIndexLookup(nTopModelsIndexLookup,indexLookup);
+    }
+
+    List<Category> scores = new ArrayList<Category>();
+
+    Map<ByteArray, Integer> binaryTermCounts =  null;
+    Set<ByteArray> binaryTerms = null;
+
+
+    binaryTermCounts =  new HashMap<ByteArray,Integer>();
+
+    for(String term: termCounts.keySet()) {
+        ByteArray binaryTerm = BinaryWinnow.binarize(term);
+        binaryTerm.set_term(term);
+        Integer count = termCounts.get(term);
+        binaryTermCounts.put(binaryTerm,count);
+    }
+
+
+    for(BinaryWinnow winnow : models) {
+        String category = winnow.get_label();
+        double score = 0;
+
+        score = winnow.predictBinaryWithCounts(binaryTermCounts);
+
+        String[] topTerms=null;
+        try {
+            if (score >= winnow.get_threshold()) {
+                if (nTopTerms > 0) {
+                    topTerms = winnow.getTopBinaryTermListWithCounts(binaryTermCounts, nTopTerms);
+                }
+                Category scoredCategory = new Category(category,score);
+                //scoredCategory.getTermList().addAll(Arrays.asList(topTerms));
+                scores.add(scoredCategory);
+            }
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.error(e);
+        }
+    }
+
+    //compares scores in reverse order
+    orderScoresInReverse(scores);
+
+    int i = scores.size()-1;
+    while( i > 0 && scores.size() > nTopModelsReturned) {
+        scores.remove(i);
+        i--;
+    }
+
+    categoryResultList.addAll(scores);
+
+    return categoryResultList;
+}
+
+
+    private static void indexModels(int nTopTerms) {
 		
 		termModelIndex = new HashMap<String, Set<BinaryWinnow>>();
 	   
@@ -237,13 +337,7 @@ public class Classifier {
    }
    
    
-   /**
-    * returns the nTopScores category models with the highest scores 
-    * @param doc
-    * @param nTopScores
-    * @return
- * @throws Exception 
-    */
+
    private List<Category> getCategoryModelScores(String text) {
        
        
@@ -382,13 +476,7 @@ public class Classifier {
 	   return categories;
    }
    	
-   /**
-    * returns the nTopScores category models with the highest scores 
-    * @param doc
-    * @param nTopScores
-    * @return
- * @throws Exception 
-    */
+
    private List<Category> getCategoryModelScoresOriginal(String content, int nTopScores, 
                                                           int nModels, int nTopTerms, 
                                                           boolean useIndex, boolean useTermCounts, 

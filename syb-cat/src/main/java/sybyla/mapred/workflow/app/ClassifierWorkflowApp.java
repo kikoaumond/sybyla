@@ -36,13 +36,17 @@ public class ClassifierWorkflowApp
          options.put(ClassifierFlow.WORKING_DIR_OPTION, workingDir);
          options.put(ClassifierFlow.INPUT_PATH_OPTION, inputFilesDir);
          options.put(ClassifierFlow.N_ITERATIONS,"10");
+         options.put(ClassifierFlow.CUMMULATIVE_WEIGHT_PERCENTAGE,"0.7");
+         options.put(ClassifierFlow.RELEVANCE_FACTOR,"5");
 
          Properties properties = new Properties();
-         AppProps.setApplicationJarClass(properties,sybyla.mapred.workflow.app.ClassifierWorkflowApp.class);
          properties.put("io.sort.mb", "1000");
          properties.put("io.sort.record.percent","0.20");
-         properties.put("mapred.map.child.java.opts","-Xmx512m");
-         properties.put("mapred.reduce.child.java.opts","-Xmx1024m");
+         properties.put("mapred.map.child.java.opts","-Xmx1024m");
+         properties.put("mapred.reduce.child.java.opts","-Xmx2048m");
+         properties.put( "mapred.child.java.opts", "-Xms2048m -Xmx2048m XX:+UseConcMarkSweepGC");
+         AppProps.setApplicationJarClass(properties,sybyla.mapred.workflow.app.ClassifierWorkflowApp.class);
+
 
          try{
              // Create & run the workflow

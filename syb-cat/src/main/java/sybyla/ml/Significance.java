@@ -208,4 +208,19 @@ public class Significance {
         }
         return p;
     }
+
+    public static double pValue(long featureCategoryCount, long featureTotalCount, long categorySize, long totalSize){
+
+        double categoryRatio = (double)(categorySize)/(double)(totalSize);
+
+        if (categoryRatio == 0 || categoryRatio == 1){
+            return 0;
+        }
+
+        double logN = featureCategoryCount*Math.log10(categoryRatio);
+
+        double logD = featureCategoryCount*Math.log10(categoryRatio) + (featureTotalCount - featureCategoryCount)*Math.log10(1-categoryRatio);
+
+        return Math.pow(logN - logD,10);
+    }
 }

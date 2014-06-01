@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 
 public class FeatureExtractor {
 
-    private static  int neighborhood=5;
+    private static  int neighborhood=4;
 
     public FeatureExtractor(){}
 

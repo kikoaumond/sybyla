@@ -6,6 +6,7 @@ import cascading.pipe.GroupBy;
 import cascading.pipe.Every;
 import cascading.pipe.assembly.Discard;
 import cascading.pipe.assembly.SumBy;
+import cascading.pipe.assembly.Unique;
 import cascading.tuple.Tuple;
 import cascading.tuple.collect.SpillableTupleList;
 import cascading.tuple.hadoop.collect.HadoopSpillableTupleList;
@@ -39,7 +40,6 @@ import com.scaleunlimited.cascading.FsUtils;
 import com.scaleunlimited.cascading.NullContext;
 import com.scaleunlimited.cascading.hadoop.HadoopUtils;
 import sybyla.mapred.CategoryWebPageDatum;
-import sybyla.mapred.StringSetDatum;
 import sybyla.mapred.WinnowDatum;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -49,14 +49,18 @@ import org.slf4j.LoggerFactory;
 import sybyla.ml.BinaryWinnow;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,6 +79,8 @@ public class ClassifierFlow {
     public static final String FEATURES_DIR_NAME="features";
     public static final String MODELS_DIR_NAME="models";
     public static final String N_ITERATIONS="nIterations";
+    public static final String CUMMULATIVE_WEIGHT_PERCENTAGE ="weightPercentage";
+    public static final String RELEVANCE_FACTOR="relevanceFactor";
 
 
     public static final String URL_FN ="url";
@@ -89,12 +95,15 @@ public class ClassifierFlow {
     public static final String N_TERMS_FN ="nTerms";
     public static final String FEATURES_SIZE_FN="featuresSize";
     public static final String FEATURES_FN="features";
+    public static final String N_POSITIVE_EXAMPLES_FN = "nPositiveExamples";
+    public static final String N_NEGATIVE_EXAMPLES_FN = "nNegativeExamples";
+    public static final String TERM_WEIGHTS_FN = "termWeights";
 
     public static final String LHS = "_lhs";
     public static final String RHS = "_rhs";
 
-    public static final String FEATURE_CATEGORY_COUNT = "featureCategoryCount";
-    public static final String FEATURE_TOTAL_COUNT = "featureTotalCount";
+    public static final String FEATURE_CATEGORY_COUNT_FN = "featureCategoryCount";
+    public static final String FEATURE_TOTAL_COUNT_FN = "featureTotalCount";
     public static final String CATEGORY_SIZE_FN = "categorySize";
     public static final String TOTAL_SIZE_FN = "totalSize";
 
@@ -116,7 +125,6 @@ public class ClassifierFlow {
 
       super.prepare(flowProcess, operationCall);
 
-      super.prepare(flowProcess, operationCall);
       this.flowProcess = new LoggingFlowProcess((HadoopFlowProcess) flowProcess);
       this.flowProcess.addReporter(new LoggingFlowReporter());
     }
@@ -187,50 +195,218 @@ public class ClassifierFlow {
 
   }
 
-    private static class FeatureCountBuffer extends BaseOperation<NullContext> implements Buffer<NullContext>
-    {
 
-        private Comparable targetFieldname;
+    private static class ParentCategoryBuffer extends BaseOperation<NullContext> implements Buffer<NullContext>{
 
-        public FeatureCountBuffer(Comparable targetFieldname, Comparable countFieldname, Comparable uniqueCountFieldname) {
+        private int spillThreshold = 1000000;
+        private static final int LOGGING_EVERY = 1000;
+        private static AtomicInteger invocations = new AtomicInteger(0);
 
-            super(new Fields(countFieldname, uniqueCountFieldname));
+        private static final int FEATURE_CATEGORY_COUNT=0;
+        private static final int CATEGORY_SIZE=1;
+        private transient LoggingFlowProcess flowProcess;
+        private SpillableTupleList tupleListIn;
 
-            this.targetFieldname = targetFieldname;
+
+        public static final Fields FIELDS = new Fields(DUMMY_FN, URL_FN,FULL_CATEGORY_FN,FEATURE_FN, PORTUGUESE_CATEGORY_FN,
+                                                        NEGATIVE_CATEGORIES_FN, FEATURE_CATEGORY_COUNT_FN, CATEGORY_SIZE_FN,
+                                                            TOTAL_SIZE_FN, FEATURE_TOTAL_COUNT_FN);
+
+        public ParentCategoryBuffer() {
+
+            super(FIELDS);
+        }
+
+        public boolean isSafe(){
+            return true;
+        }
+
+        @Override
+        public void prepare(FlowProcess flowProcess, OperationCall<NullContext> operationCall) {
+
+            super.prepare(flowProcess, operationCall);
+
+            this.flowProcess = new LoggingFlowProcess((HadoopFlowProcess) flowProcess);
+            this.flowProcess.addReporter(new LoggingFlowReporter());
+
         }
 
         @Override
         public void operate(FlowProcess flowProcess, BufferCall<NullContext> bufferCall) {
+
+
             Iterator<TupleEntry> iter = bufferCall.getArgumentsIterator();
+            TupleEntry groupTupleEntry = bufferCall.getGroup();
 
-            int count = 0;
-            int uniqueCount = 0;
-            Object curValue = null;
-            while (iter.hasNext()) {
-                count +=1;
-
-                Object newValue = iter.next().getObject(targetFieldname);
-                if ((curValue == null) || !curValue.equals(newValue)) {
-                    uniqueCount += 1;
-                    curValue = newValue;
-                }
+            String groupFeature = groupTupleEntry.getString(FEATURE_FN);
+            DateFormat df = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+            int n = invocations.incrementAndGet();
+            if ( n % LOGGING_EVERY == 0){
+                System.out.println(n+" ParentCategoryBuffer Feature: "+ groupFeature+" "+df.format(new Date()));
             }
 
-            bufferCall.getOutputCollector().add(new Tuple(count, uniqueCount));
+            try{
+                tupleListIn = new HadoopSpillableTupleList(spillThreshold, new GzipCodec(),HadoopUtils.getDefaultJobConf());
+            } catch(Exception e){
+                LOGGER.error("Error getting default job configuration",e);
+            }
+
+            Set<String> categories = new HashSet<>();
+
+            Map<String, long[]> categoryCounts=null;
+            Map<String, long[]> parentCategoryCounts=null;
+            Map<String, Set<String>> parentCategories=null;
+
+            Fields fields = null;
+
+            while (iter.hasNext()) {
+
+                TupleEntry te = iter.next();
+                Tuple t = te.getTuple();
+
+                if (fields == null )  {
+                    fields = te.getFields();
+                }
+
+                String category = te.getString(FULL_CATEGORY_FN);
+
+                String feature = te.getString(FEATURE_FN);
+                assert(feature.equals(groupFeature));
+
+                long featureTotalCount = te.getLong(FEATURE_TOTAL_COUNT_FN);
+                if (featureTotalCount == 1){
+                    continue;
+                }
+
+                tupleListIn.add(t);
+                bufferCall.getOutputCollector().add(t);
+
+                if (categories.contains(category)){
+                    continue;
+                }
+
+                if (categoryCounts ==  null){
+                   categoryCounts =  new HashMap<>();
+                   parentCategoryCounts = new HashMap<>();
+                   parentCategories = new HashMap<>();
+                }
+
+                categories.add(category);
+
+                Set<String> parentCategorySet =  getAllParentCategories(category);
+                parentCategories.put(category, parentCategorySet);
+
+                long featureCategoryCount = te.getLong(FEATURE_CATEGORY_COUNT_FN);
+                long categorySize = te.getLong(CATEGORY_SIZE_FN);
+                long[] counts = new long[2];
+
+                counts[FEATURE_CATEGORY_COUNT] = featureCategoryCount;
+                counts[CATEGORY_SIZE] = categorySize;
+
+                categoryCounts.put(category, counts);
+
+                for(String parentCategory: parentCategorySet){
+
+                    if (categories.contains(parentCategory)){
+                        continue;
+                    }
+
+                    long[] parentCounts =  parentCategoryCounts.get(parentCategory);
+
+                    if (parentCounts  ==  null){
+
+                        parentCounts = new long[2];
+                        parentCounts[FEATURE_CATEGORY_COUNT] = 0;
+                        parentCounts[CATEGORY_SIZE] = 0;
+                        parentCategoryCounts.put(parentCategory, parentCounts);
+                    }
+
+                    parentCounts[FEATURE_CATEGORY_COUNT] += featureCategoryCount;
+                    parentCounts[CATEGORY_SIZE] += categorySize;
+
+                }
+
+            }
+
+            Iterator listIterator = tupleListIn.iterator();
+            TupleEntry out=  new TupleEntry(FIELDS);
+
+            while (listIterator.hasNext()){
+
+                Tuple t =  (Tuple) listIterator.next();
+                out.setTuple(t);
+
+                String category =  out.getString(FULL_CATEGORY_FN);
+
+                Set<String> parentCategorySet = parentCategories.get(category);
+                if (parentCategorySet ==  null){
+                    continue;
+                }
+
+                for(String parentCategory: parentCategorySet){
+
+                     if (categories.contains(parentCategory)){
+                         continue;
+                     }
+                    long[] counts = parentCategoryCounts.get(parentCategory);
+                    if (counts == null){
+                        continue;
+                    }
+
+                    out.setTuple(new Tuple(t));
+                    out.set(FULL_CATEGORY_FN, parentCategory);
+                    out.set(FEATURE_CATEGORY_COUNT_FN,counts[FEATURE_CATEGORY_COUNT]);
+                    out.set(CATEGORY_SIZE_FN, counts[CATEGORY_SIZE]);
+                    bufferCall.getOutputCollector().add(out.getTuple());
+                }
+            }
+        }
+
+        @Override
+        public void cleanup(FlowProcess flowProcess, OperationCall<NullContext> operationCall) {
+
+            super.cleanup(flowProcess, operationCall);
+            tupleListIn.clear();
+
         }
     }
 
+    private static String getParentCategory(String fullCategory){
 
+        String result = null;
+        int pos = fullCategory.lastIndexOf(">");
+        if (pos == -1) {
+            return null;
+        }
+
+        result = fullCategory.substring(0,pos).trim().toLowerCase();
+
+        return result;
+    }
+
+    private static Set<String> getAllParentCategories(String fullCategory){
+
+        Set<String> result = new HashSet<>();
+        String parentCategory = getParentCategory(fullCategory);
+
+        while(parentCategory != null) {
+            result.add(parentCategory);
+            parentCategory = getParentCategory(parentCategory);
+        }
+
+        return result;
+    }
 
     public static class RelevanceFilter extends BaseOperation implements Filter
     {
-        private int minSignificance = 2;
+
+        private double relevanceFactor = 1.5d;
 
         public RelevanceFilter(){}
 
-        public RelevanceFilter(int minSignificance)
+        public RelevanceFilter(double relevanceFactor)
         {
-            this.minSignificance = minSignificance;
+            this.relevanceFactor = relevanceFactor;
         }
 
         @Override
@@ -238,8 +414,8 @@ public class ClassifierFlow {
         {
             // get the arguments TupleEntry
             TupleEntry arguments = call.getArguments();
-            long featureCategoryCount = arguments.getLong(FEATURE_CATEGORY_COUNT);
-            long featureTotalCount =  arguments.getLong(FEATURE_TOTAL_COUNT);
+            long featureCategoryCount = arguments.getLong(FEATURE_CATEGORY_COUNT_FN);
+            long featureTotalCount =  arguments.getLong(FEATURE_TOTAL_COUNT_FN);
             long categorySize =  arguments.getLong(CATEGORY_SIZE_FN);
             long totalSize = arguments.getLong(TOTAL_SIZE_FN);
             String fullCategory = arguments.getString(FULL_CATEGORY_FN);
@@ -262,14 +438,20 @@ public class ClassifierFlow {
             }
 
             double categoryRatio = (double) featureCategoryCount/(double)categorySize;
+            double notCategoryRatio = (double) (featureTotalCount - featureCategoryCount)/(double)(totalSize- categorySize);
             double totalRatio =  (double) featureTotalCount/(double)totalSize;
-            double ratio = categoryRatio/totalRatio;
+            //double ratio = categoryRatio/totalRatio;
+            double ratio = 0;
 
-
+            if (notCategoryRatio == 0){
+                ratio =  Double.MAX_VALUE;
+            }  else {
+                ratio = categoryRatio/notCategoryRatio;
+            }
 
             boolean remove = ((featureTotalCount <= 1)
-                            || (featureCategoryCount <= 2)
-                            || (ratio < 3));
+                            || (featureCategoryCount <= 3)
+                            || (ratio < relevanceFactor));
 
             if (!remove){
 
@@ -331,6 +513,7 @@ public class ClassifierFlow {
             positiveTuple.add(true);
             positiveTuple.add(features.size());
             positiveTuple.add(featuresTuple);
+            System.out.println("POSITIVE: "+category);
 
             bufferCall.getOutputCollector().add(positiveTuple);
 
@@ -342,6 +525,8 @@ public class ClassifierFlow {
                 negativeTuple.add(false);
                 negativeTuple.add(features.size());
                 negativeTuple.add(featuresTuple);
+                System.out.println("NEGATIVE: "+negativeCategory);
+
 
                 bufferCall.getOutputCollector().add(negativeTuple);
             }
@@ -349,7 +534,7 @@ public class ClassifierFlow {
     }
 
     /**
-     * receives  [url][category][is_category_member][title][n_terms][nounSet][entitySet]
+     * receives  [url][category][is_category_member][n_terms][features]
      *
      * emits     [category][WinnowDatum.CATEGORY_FN][WinnowDatum.TERM_WEIGHTS_FN]
      *
@@ -370,10 +555,12 @@ public class ClassifierFlow {
 
         private int capacity = 2500000;
         private double percentagePruning = 0.1;
+        private double weightPercentage = 0;
 
-        public WinnowBuffer(int nIterations){
-            super(WinnowDatum.FIELDS);
+        public WinnowBuffer(int nIterations, double weightPercentage){
+            super(new Fields(CATEGORY_FN, N_POSITIVE_EXAMPLES_FN,N_NEGATIVE_EXAMPLES_FN, TERM_WEIGHTS_FN));
             this.nIterations = nIterations;
+            this.weightPercentage = weightPercentage;
         }
 
         public WinnowBuffer(int nIterations, int nTermsToKeep){
@@ -392,8 +579,8 @@ public class ClassifierFlow {
         public void operate(FlowProcess flowProceess, BufferCall<NullContext> bufferCall) {
 
             TupleEntry group  = bufferCall.getGroup();
-            String category = group.getString(FULL_CATEGORY_FN);
-            BinaryWinnow winnow = new BinaryWinnow(category);
+            String modelCategory = group.getString(FULL_CATEGORY_FN);
+            BinaryWinnow winnow = new BinaryWinnow(modelCategory);
 
             try{
                 tupleList = new HadoopSpillableTupleList(spillThreshold, new GzipCodec(),HadoopUtils.getDefaultJobConf());
@@ -418,11 +605,11 @@ public class ClassifierFlow {
 
                 counter++;
                 Tuple arguments = listIterator.next();
-                category = arguments.getString(1);
+                String tupleCategory = arguments.getString(1);
                 boolean isCategoryMember = arguments.getBoolean(2);
 
                 if (!isCategoryMember) {
-                    category = "NOT-"+category;
+                    tupleCategory = "NOT-"+modelCategory;
                 }
                 int nTerms =arguments.getInteger(3);
 
@@ -441,10 +628,14 @@ public class ClassifierFlow {
 
                 }
 
-                if(isCategoryMember){
-                    winnow.train(category, features);
-                    flowProcess.increment(WorkflowCounters.NUMBER_OF_TRAINING_EXAMPLES_FIRST_PASS, 1);
+                if (isCategoryMember){
+                  winnow.set_restrict(false);
+                } else {
+                   winnow.set_restrict(true);
                 }
+
+                winnow.train(tupleCategory, features);
+                flowProcess.increment(WorkflowCounters.NUMBER_OF_TRAINING_EXAMPLES_FIRST_PASS, 1);
                 monitorMemory(flowProcess);
                 monitorWinnowMemory(flowProcess, winnow);
             }
@@ -454,7 +645,8 @@ public class ClassifierFlow {
             winnow.set_updateCounts(false);//turn off counting
             //now prune the winnow
 
-            winnow.pruneBySignificance(threshold);
+            //winnow.pruneBySignificance(threshold);
+            int nPruned = winnow.pruneByCummulativeWeight(weightPercentage);
             //do not add any more terms to the winnow
 
             winnow.set_restrict(true);
@@ -470,11 +662,11 @@ public class ClassifierFlow {
                 while (listIterator.hasNext()) {
 
                     Tuple arguments = listIterator.next();
-                    category = arguments.getString(1);
+                    String tupleCategory = arguments.getString(1);
                     boolean isCategoryMember = arguments.getBoolean(2);
 
                     if (!isCategoryMember) {
-                        category = "NOT-"+category;
+                        tupleCategory = "NOT-"+modelCategory;
                     }
 
 
@@ -488,7 +680,7 @@ public class ClassifierFlow {
                         features.add(feature);
                     }
 
-                    winnow.train(category, features);
+                    winnow.train(tupleCategory, features);
                     monitorMemory(flowProcess);
                     monitorWinnowMemory(flowProcess, winnow);
                     flowProcess.increment(WorkflowCounters.NUMBER_OF_TRAINING_EXAMPLES_POST_AUTO_PRUNING, 1);
@@ -580,6 +772,8 @@ public class ClassifierFlow {
 
     // Find working directory
     JobConf conf = HadoopUtils.getDefaultJobConf();
+    conf.setMemoryForMapTask(1024);
+    conf.setMemoryForReduceTask(2048);
     Path workingDirPath = new Path(options.get(WORKING_DIR_OPTION));
     FileSystem workingFs = workingDirPath.getFileSystem(conf);
 
@@ -602,59 +796,69 @@ public class ClassifierFlow {
 
     Pipe assembly = new Pipe("Assembly");
     //read the avro files
-    assembly = new Each(assembly, new ExtractFeatures());
+    assembly = new Each(assembly, new ExtractFeatures());            //1
     //out: [url][fullCategory][feature][dummy]
 
-        Pipe dcf = new SumBy("DCF",assembly, new Fields(DUMMY_FN, FULL_CATEGORY_FN, FEATURE_FN),
-                                    new Fields(DUMMY_FN), new Fields(FEATURE_CATEGORY_COUNT), long.class);
+        Pipe dcf = new SumBy("DCF",assembly, new Fields(DUMMY_FN, FULL_CATEGORY_FN, FEATURE_FN),           //2
+                                    new Fields(DUMMY_FN), new Fields(FEATURE_CATEGORY_COUNT_FN), long.class);
 
-        Pipe dc = new SumBy("DC",dcf, new Fields(DUMMY_FN, FULL_CATEGORY_FN),
-                                new Fields(FEATURE_CATEGORY_COUNT), new Fields(CATEGORY_SIZE_FN), long.class);
+        Pipe dc = new SumBy("DC",dcf, new Fields(DUMMY_FN, FULL_CATEGORY_FN),       //3
+                                new Fields(FEATURE_CATEGORY_COUNT_FN), new Fields(CATEGORY_SIZE_FN), long.class);
 
-        Pipe d = new SumBy ("D",dc, new Fields(DUMMY_FN), new Fields(CATEGORY_SIZE_FN), new Fields(TOTAL_SIZE_FN), long.class);
+        Pipe d = new SumBy ("D",dc, new Fields(DUMMY_FN), new Fields(CATEGORY_SIZE_FN), new Fields(TOTAL_SIZE_FN), long.class);   //3
 
         Fields dcDeclared = new Fields(DUMMY_FN, FULL_CATEGORY_FN, CATEGORY_SIZE_FN, DUMMY_FN+RHS, TOTAL_SIZE_FN);
 
-        dc = new CoGroup(dc, new Fields(DUMMY_FN), d, new Fields(DUMMY_FN),dcDeclared);
+        dc = new CoGroup(dc, new Fields(DUMMY_FN), d, new Fields(DUMMY_FN),dcDeclared);          //5
 
         dc = new Discard(dc,new Fields(DUMMY_FN+RHS));
 
         Pipe df  = new SumBy("DF",dcf, new Fields(DUMMY_FN, FEATURE_FN),
-                                new Fields(FEATURE_CATEGORY_COUNT), new Fields(FEATURE_TOTAL_COUNT), long.class);
+                                new Fields(FEATURE_CATEGORY_COUNT_FN), new Fields(FEATURE_TOTAL_COUNT_FN), long.class);      //6
 
-        Fields dcfDeclared = new Fields(DUMMY_FN,FULL_CATEGORY_FN,FEATURE_FN,FEATURE_CATEGORY_COUNT,DUMMY_FN+RHS,
+        Fields dcfDeclared = new Fields(DUMMY_FN,FULL_CATEGORY_FN,FEATURE_FN, FEATURE_CATEGORY_COUNT_FN,DUMMY_FN+RHS,
                                         FULL_CATEGORY_FN+RHS,CATEGORY_SIZE_FN,TOTAL_SIZE_FN);
 
-        dcf = new CoGroup(dcf, new Fields(DUMMY_FN,FULL_CATEGORY_FN), dc, new Fields(DUMMY_FN,FULL_CATEGORY_FN),dcfDeclared);
+        dcf = new CoGroup(dcf, new Fields(DUMMY_FN,FULL_CATEGORY_FN), dc, new Fields(DUMMY_FN,FULL_CATEGORY_FN),dcfDeclared);      //7
 
         dcf = new Discard(dcf, new Fields(DUMMY_FN+RHS,FULL_CATEGORY_FN+RHS));
-        Fields dcfDeclared2 =  new Fields(DUMMY_FN,FULL_CATEGORY_FN,FEATURE_FN,FEATURE_CATEGORY_COUNT,CATEGORY_SIZE_FN,
-                                            TOTAL_SIZE_FN, DUMMY_FN+RHS,FEATURE_FN+RHS,FEATURE_TOTAL_COUNT);
+        Fields dcfDeclared2 =  new Fields(DUMMY_FN,FULL_CATEGORY_FN,FEATURE_FN, FEATURE_CATEGORY_COUNT_FN,CATEGORY_SIZE_FN,
+                                            TOTAL_SIZE_FN, DUMMY_FN+RHS,FEATURE_FN+RHS, FEATURE_TOTAL_COUNT_FN);
 
-        dcf = new CoGroup(dcf, new Fields(DUMMY_FN, FEATURE_FN),df, new Fields(DUMMY_FN,FEATURE_FN), dcfDeclared2);
+        dcf = new CoGroup(dcf, new Fields(DUMMY_FN, FEATURE_FN),df, new Fields(DUMMY_FN,FEATURE_FN), dcfDeclared2);         //8
 
         dcf = new Discard(dcf, new Fields(DUMMY_FN+RHS, FEATURE_FN+RHS));
 
         Fields assemblyDeclared = new Fields(DUMMY_FN, URL_FN,FULL_CATEGORY_FN,FEATURE_FN, PORTUGUESE_CATEGORY_FN, NEGATIVE_CATEGORIES_FN,DUMMY_FN+RHS, FULL_CATEGORY_FN+RHS,
-            FEATURE_FN+RHS,FEATURE_CATEGORY_COUNT, CATEGORY_SIZE_FN, TOTAL_SIZE_FN, FEATURE_TOTAL_COUNT);
+            FEATURE_FN+RHS, FEATURE_CATEGORY_COUNT_FN, CATEGORY_SIZE_FN, TOTAL_SIZE_FN, FEATURE_TOTAL_COUNT_FN);
 
-    assembly = new CoGroup(assembly, new Fields(DUMMY_FN, FULL_CATEGORY_FN, FEATURE_FN),
+    assembly = new CoGroup(assembly, new Fields(DUMMY_FN, FULL_CATEGORY_FN, FEATURE_FN),                           //9
                                 dcf, new Fields(DUMMY_FN,FULL_CATEGORY_FN, FEATURE_FN), assemblyDeclared);
 
     assembly =  new Discard(assembly, new Fields(DUMMY_FN+RHS,FULL_CATEGORY_FN+RHS, FEATURE_FN+RHS));
 
-    assembly = new Each(assembly, new RelevanceFilter());
+    assembly = new Unique( "Dedupe Features", assembly, new Fields(FULL_CATEGORY_FN, URL_FN, FEATURE_FN) );    //10
+
+    assembly = new GroupBy("Parent Category Buffer",assembly, new Fields(FEATURE_FN));
+    assembly = new Every(assembly, new ParentCategoryBuffer(), Fields.RESULTS);       //11
+
+    String relevanceFactorStr =  options.get(RELEVANCE_FACTOR);
+    double relevanceFactor = Double.parseDouble(relevanceFactorStr);
+
+   assembly = new Each(assembly, new RelevanceFilter(relevanceFactor));               //12
 
     Pipe modelPipe = new Pipe("models", assembly);
-    modelPipe = new GroupBy(modelPipe, new Fields(URL_FN, FULL_CATEGORY_FN));
+    modelPipe = new GroupBy("Document Buffer",modelPipe, new Fields(URL_FN, FULL_CATEGORY_FN));
 
-    modelPipe = new Every(modelPipe, new DocumentBuffer(), Fields.SWAP);
+    modelPipe = new Every(modelPipe, new DocumentBuffer(), Fields.SWAP);      //13
 
     String  nIterationsStr = options.get(N_ITERATIONS);
     int nIterations = Integer.parseInt(nIterationsStr);
-    modelPipe = new GroupBy(modelPipe, new Fields(FULL_CATEGORY_FN));
+    modelPipe = new GroupBy("Winnow Buffer", modelPipe, new Fields(FULL_CATEGORY_FN));
 
-    modelPipe = new Every(modelPipe, new WinnowBuffer(nIterations));
+    String weightPercentageStr =  options.get(CUMMULATIVE_WEIGHT_PERCENTAGE);
+    double weightPercentage = Double.parseDouble(weightPercentageStr);
+    modelPipe = new Every(modelPipe, new WinnowBuffer(nIterations, weightPercentage), Fields.RESULTS);    //14
 
     Path modelsPath = new Path(workingDirPath, MODELS_DIR_NAME);
 
