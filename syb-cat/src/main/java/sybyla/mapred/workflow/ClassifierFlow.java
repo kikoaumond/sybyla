@@ -199,7 +199,7 @@ public class ClassifierFlow {
     private static class ParentCategoryBuffer extends BaseOperation<NullContext> implements Buffer<NullContext>{
 
         private int spillThreshold = 1000000;
-        private static final int LOGGING_EVERY = 1000;
+        private static final int LOGGING_EVERY = 5000;
         private static AtomicInteger invocations = new AtomicInteger(0);
 
         private static final int FEATURE_CATEGORY_COUNT=0;
@@ -274,7 +274,7 @@ public class ClassifierFlow {
                 assert(feature.equals(groupFeature));
 
                 long featureTotalCount = te.getLong(FEATURE_TOTAL_COUNT_FN);
-                if (featureTotalCount == 1){
+                if (featureTotalCount <= 2){
                     continue;
                 }
 
