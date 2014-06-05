@@ -9,6 +9,7 @@ import sybyla.feature.FeatureExtractor;
 import sybyla.feature.Normalizer;
 import sybyla.generated.avro.CategoryWebPage;
 import sybyla.http.SimplePageParser;
+import sybyla.mapred.workflow.ClassifierFlow;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class DataReader
 {
     private static Logger LOG = Logger.getLogger(DataReader.class);
     private static String trainingDataFile = "/simbiose/trainingData.txt";
-    private static int FEATURE_EXTRACTOR_LENGTH= 3;
+    private static int FEATURE_EXTRACTOR_LENGTH= 2;
     private static String avroOutputDirectory = "/Users/kiko/sybyla/simbiose/input/prod/";
     private static String avroFileRoot = "simbioseCategoryPages";
     private static CategoryWebPageToAvro cwpa;
@@ -44,8 +45,9 @@ public class DataReader
     private int nLines=0;
     private int nPages =0;
     private Map<String, Set<String>> topCategoriesMap = new HashMap<>();
-    private List<String> negativeCategories = new ArrayList<>();
-    private int negativeCategoriesCursor = 0;
+    private Map<String, Set<String>> urlCategoriesMap = new HashMap<>();
+    private List<String> allCategories = new ArrayList<>();
+    private int categoriesCursor = 0;
 
     private Map<String, String> portugueseEnglishCategories = new HashMap<>();
     private Map<String, Integer> categoryCounts = new HashMap<>();
@@ -77,7 +79,10 @@ public class DataReader
     public void readCategories() throws IOException
     {
         String line = null;
-        nPages = 0;
+        int nLines = 0;
+
+        Set<String> allCategoriesSet = new HashSet<>();
+
         while((line = reader.readLine()) != null)
         {
             List<Map<String, String>> maps  = parseLine(line);
@@ -92,25 +97,8 @@ public class DataReader
 
             String fullCategory = maps.get(0).get(FULL_CATEGORY);
 
-            String topCategory = maps.get(0).get(TOP_CATEGORY);
             String category = maps.get(0).get(CATEGORY);
             String portugueseCategory = maps.get(0).get(PORTUGUESE_CATEGORY);
-
-            if (topCategory.equals("")){
-
-                LOG.error("no top category in line \n"+line);
-            } else {
-
-                Set<String> childrenCategories = topCategoriesMap.get(topCategory);
-
-                if (childrenCategories == null) {
-                    childrenCategories = new HashSet<>();
-                    topCategoriesMap.put(topCategory, childrenCategories);
-                }
-
-                childrenCategories.add(fullCategory);
-            }
-
             portugueseEnglishCategories.put(fullCategory, portugueseCategory);
             if (portugueseCategory.equals("")){
                 LOG.error("No portuguese category in line \n"+line);
@@ -120,8 +108,29 @@ public class DataReader
                 LOG.error("No category in line\n"+line);
             }
 
-            nPages++;
-            if (nRecords > 0 && nPages == nRecords){
+            Set<String> parentCategories = ClassifierFlow.getAllParentCategories(fullCategory);
+
+            allCategoriesSet.add(fullCategory);
+            allCategoriesSet.addAll(parentCategories);
+
+            for (Map<String,String> map: maps){
+
+                String url = map.get(URL);
+                Set<String> allURLCategories = urlCategoriesMap.get(url);
+
+                if (allURLCategories ==  null){
+
+                    allURLCategories =  new HashSet<>();
+                    urlCategoriesMap.put(url,allURLCategories);
+                }
+                allURLCategories.add(fullCategory);
+                allURLCategories.addAll(parentCategories);
+
+            }
+
+            nLines++;
+
+            if (nRecords > 0 && nLines == nRecords){
                 break;
             }
         }
@@ -130,17 +139,13 @@ public class DataReader
         InputStream is = DataReader.class.getResourceAsStream(trainingDataFile);
         reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
 
+        allCategories.addAll(allCategoriesSet);
+        Collections.sort(allCategories);
+
         System.out.println("Categories Read");
 
-        for (String topCategory: topCategoriesMap.keySet()) {
-
-            Set<String> categories = topCategoriesMap.get(topCategory);
-            negativeCategories.addAll(categories);
-
-            for(String category: categories){
-                String portugueseCategory = portugueseEnglishCategories.get(category);
-                System.out.println("Top Category: "+topCategory+ "  Category: "+category+ "  Portuguese Category: "+portugueseCategory);
-            }
+        for (String category: allCategories){
+            System.out.println(category);
         }
     }
 
@@ -203,65 +208,38 @@ public class DataReader
         return maps;
     }
 
-    private String getImmediateParentCategory(String fullCategory){
 
-        String result = null;
-        int pos = fullCategory.lastIndexOf(">");
-        if (pos == -1) {
-            return null;
-        }
 
-        result = fullCategory.substring(0,pos).trim().toLowerCase();
+    private Set<String> getNegativeCategories(String url, int n)
+    {
+       Set<String> negativeCategories = new HashSet<>();
+       int count = 0;
+       int previousCursorPosition =  categoriesCursor;
 
-        return result;
-    }
+       Set<String> urlCategories = urlCategoriesMap.get(url);
 
-   private List<String> getParentCategories(String fullCategory){
+       while (count < n){
 
-       List<String> result = new ArrayList<>();
-       String[] categories = fullCategory.split(">");
+           String c = allCategories.get(categoriesCursor);
 
-       String topCategory =  categories[0].trim().toLowerCase();
+           if (urlCategories.contains(c) == false){
+                negativeCategories.add(c);
+                count++;
+           }
 
-       Set<String> relatedCategories = topCategoriesMap.get(topCategory);
+           categoriesCursor++;
 
-       if (relatedCategories != null){
-           for (String relatedCategory: relatedCategories) {
-                if (relatedCategory.startsWith(fullCategory)){
-                    result.add(relatedCategory);
-                }
+           if (categoriesCursor == allCategories.size()){
+               categoriesCursor = 0;
+           }
+
+           if (categoriesCursor == previousCursorPosition){
+               break;
            }
        }
 
-       return result;
-   }
+        return negativeCategories;
 
-
-    private List<String> getNegativeCategories(String topCategory, int n)
-    {
-        List<String> result = new ArrayList<>();
-        int previousCursorPosition = negativeCategoriesCursor;
-
-        while (result.size() < n){
-
-            String category = negativeCategories.get(negativeCategoriesCursor);
-
-            negativeCategoriesCursor++;
-
-            if (!category.startsWith(topCategory)){
-                result.add(category);
-            }
-
-            if (negativeCategoriesCursor == previousCursorPosition){
-                break;
-            }
-
-            if (negativeCategoriesCursor == negativeCategories.size()){
-                negativeCategoriesCursor = 0;
-            }
-        }
-
-        return result;
     }
 
     public void read() throws IOException
@@ -345,15 +323,14 @@ public class DataReader
                         continue;
                     }
 
-                    List<String> nc = getNegativeCategories(topCategory, level+1);
-                    Set<CharSequence>  ncs = new HashSet<>();
+                    Set<String> nc = getNegativeCategories(url,level);
+                    List<CharSequence>  negativeCategories = new ArrayList<>();
 
                     for(String negativeCategory: nc){
 
-                        ncs.add(negativeCategory);
+                        negativeCategories.add(negativeCategory);
                     }
 
-                    List<CharSequence> negativeCategories = new ArrayList<>(ncs);
 
                     CategoryWebPage categoryWebPage =  new CategoryWebPage();
                     categoryWebPage.setUrl(url);

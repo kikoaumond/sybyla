@@ -1,1 +1,1 @@
-sudo java -Dfile.encoding=UTF-8 -server -Xss4096k -Xmx4G  -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -jar ../../target/syb-web-api-0.0.1-SNAPSHOT-jar-with-dependencies.jar -graph -tag -category -why -sentiment
+sudo java -Dfile.encoding=UTF-8 -server -Dcategory.models.path=/Users/kiko/sybyla/simbiose/models -Xss4096k -Xmx4G  -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -jar ../../target/syb-web-api-0.0.1-SNAPSHOT-jar-with-dependencies.jar -graph -tag -category -why -sentiment

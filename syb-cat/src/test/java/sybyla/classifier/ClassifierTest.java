@@ -19,7 +19,22 @@ public class ClassifierTest {
 	public static void setup() throws IOException{
 		Classifier.init();
 	}
-	
+
+    @Test
+    public void testClassifyURL1() {
+        String url="http://economia.uol.com.br/listas/saiba-como-comprar-um-imovel.htm/";
+
+        Classifier classifier = new Classifier();
+        List<Category> categories = classifier.classifyURL(url);
+        for(int i=0;i<categories.size();i++){
+            Category scoredCategory =  categories.get(i);
+            String category = scoredCategory.getName();
+            System.out.println(category+" => score: "+scoredCategory.getScore());
+
+        }
+        System.out.println("#######################################");
+        //assertTrue(expectedCategories.size()==0);
+    }
 	@Test
 	public void test() throws Exception {
 		String text =  loadFile("src/test/resources/Bill_Clinton.txt");

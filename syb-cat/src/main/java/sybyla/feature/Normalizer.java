@@ -26,6 +26,9 @@ public class Normalizer {
     public static final String ISOLATED_PUNCTUATIONS1= "[!?,.\\-_;:<>=*&$#@]{1,}\\s";
     public static final String ISOLATED_PUNCTUATIONS2= "\\s[!?,.\\-_;:<>=*&$#@]{1,}";
     public static final Pattern NON_WORD_CHARACTERS= Pattern.compile("[\\s][^\\w][\\s]",Pattern.UNICODE_CHARACTER_CLASS);
+    public static final Pattern PLURAL = Pattern.compile("(^[^\\s]{4,})[s]{1,1}$");
+    public static final Pattern SPACE = Pattern.compile("[\\s]");
+
 
 
     public static String normalize(String sentence){
@@ -45,6 +48,22 @@ public class Normalizer {
         s =  s.toLowerCase().trim();
 
         return s;
+    }
+
+    public static String getSingular(String sentence){
+
+        Matcher m = SPACE.matcher(sentence);
+        if (m.find()){
+            return null;
+        }
+
+        Matcher m2 = PLURAL.matcher(sentence);
+
+        if(m.matches()){
+            return m.group(1);
+        }
+
+        return null;
     }
 
     public static String normalizeEllipsis(String sentence){

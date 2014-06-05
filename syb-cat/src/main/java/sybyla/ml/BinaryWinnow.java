@@ -370,6 +370,22 @@ public class BinaryWinnow {
         train(termSet,trainingLabel);
     }
 
+    public void train(String trainingLabel, Map<String, Double> terms)  {
+        Set termSet = new HashSet<Term>();
+        for (String term: terms.keySet()) {
+            Double w = terms.get(term);
+            if (w == null){
+                w=1.0d;
+            }
+            if (w < 0){
+                w=0.d;
+            }
+            Term t =  new Term(term,w);
+            termSet.add(t);
+        }
+        train(termSet,trainingLabel);
+    }
+
     public void train(String trainingLabel, Set<String> terms, int nTerms)  {
         
         if(_doNotTrain) return;
@@ -443,7 +459,12 @@ public class BinaryWinnow {
         int nTerms = entries.size();
         
         Set<ByteArray> binaryTerms = new HashSet<ByteArray>();
-        
+        double sumWeights = 0;
+
+        for(Term entry:entries) {
+            sumWeights += entry.get_pValue();
+        }
+
         try{
             double sum = 0;
             for (Term entry: entries) {
@@ -457,7 +478,9 @@ public class BinaryWinnow {
                 
                 if (!_weights.containsKey(binaryTerm) && !_restrictTerms) {
 
-                    double initialWeight = initialWeight(nTerms);
+                    double initialWeight = entry.get_pValue()/sumWeights;
+                    //double initialWeight = initialWeight(nTerms);
+
                     double pValue = entry.get_pValue();
                     short type = entry.get_type();
 

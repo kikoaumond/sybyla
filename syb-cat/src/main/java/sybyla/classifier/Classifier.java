@@ -62,7 +62,7 @@ public class Classifier {
     //use entities only for categorization
     private static final boolean DEFAULT_USE_ENTITIES_ONLY=false;
     //Location of category models
-    private static final String DEFAULT_CATEGORY_MODELS_LOCATION="/mnt/data/current/category-models/";
+    private static final String DEFAULT_CATEGORY_MODELS_LOCATION="src/main/resources/simbiose/models/";
    
     private TermExtractor termExtractor= new TermExtractor();
 
@@ -118,19 +118,21 @@ public class Classifier {
     }
 
 
-    public List<Category> classifyURL(String text)   {
+    public List<Category> classifyURL(String url)   {
+
+        List<Category> categories = new ArrayList<>();
 
         try {
+
             DataReader dataReader = new DataReader();
             String content = dataReader.getContent(url);
             List<String> features = dataReader.getFeatures(content);
+            categories=classify(features);
+
         } catch (Exception e) {
-            LOGGER.error("Error generating features",e);
+            LOGGER.error("Error classifying URL",e);
         }
 
-
-
-        List<Category> categories=getCategoryModelScores(text);
         return categories;
 
     }
@@ -138,11 +140,11 @@ public class Classifier {
 
    private List<Category> classify(List<String> features) {
 
-    if (text ==  null) return new ArrayList<Category>();
+    if (features ==  null) return new ArrayList<Category>();
 
     List<Category> categoryResultList = new ArrayList<Category>();
 
-    Map<String, Integer> termCounts=null;
+    Map<String, Integer> termCounts=new HashMap<>();
 
 
     for (String feature: features){
@@ -155,6 +157,9 @@ public class Classifier {
 
         count += 1;
         termCounts.put(feature, count);
+        if (count > 3){
+            System.out.println(feature);
+        }
     }
 
     Set<BinaryWinnow> models = categoryModels;

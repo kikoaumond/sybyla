@@ -21,7 +21,9 @@ public class ModelLoader {
 	private final static Logger LOGGER = Logger.getLogger(ModelLoader.class);
 	
     private static boolean caseSensitive = false;   
-    private static boolean useCategoryMap = true;
+    private static boolean useCategoryMap = false;
+    private static boolean firstLineIsHeader =  true;
+    private static boolean loadManualModels =  false;
     private static final String MANUAL_MODEL_FILE="/manualCategoryModels.txt";
     private static final String MANUAL_MODEL_FILE_PORTUGUESE="/manualCategoryModelsPortuguese.txt";
 
@@ -60,7 +62,11 @@ public class ModelLoader {
 			InputStream is = ModelLoader.class.getResourceAsStream(fileName);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
 			String line="";
-			
+
+            if(firstLineIsHeader){
+                line = reader.readLine();
+                LOGGER.info("File Headers:\n"+line);
+            }
 			 while ((line = reader.readLine()) != null) {
                 if (line.trim().startsWith("#")){
                 	continue;
@@ -104,9 +110,11 @@ public class ModelLoader {
     protected static Set<BinaryWinnow> loadCategoryModels(String categoryModelsPath, String categoryListFile) throws IOException {
         
     	Set<BinaryWinnow> categoryModels = new HashSet<BinaryWinnow>();
-        Set<BinaryWinnow> manualModels = loadManualModels();
-        
-        categoryModels.addAll(manualModels);
+
+        if (loadManualModels){
+            Set<BinaryWinnow> manualModels = loadManualModels();
+            categoryModels.addAll(manualModels);
+        }
         
 		BufferedWriter out =null;
 		
@@ -128,7 +136,7 @@ public class ModelLoader {
         File[] categoryModelFiles = categoryModelsDir.listFiles();
         Set<File> files =  new HashSet<File>();
         for (File file : categoryModelFiles) {
-            if (file.getName().startsWith("part-")) {
+            if (file.getName().contains("part-")) {
                 files.add(file);
             }
             if (file.isDirectory()) {
@@ -157,7 +165,11 @@ public class ModelLoader {
                 LOGGER.info("Opened file "+file);
                 try {
                 	String line =null ;
-                	
+
+                    if (firstLineIsHeader) {
+                        line = reader.readLine();
+                        LOGGER.info("File headers:\n"+line);
+                    }
                     while ((line = reader.readLine()) != null) {
                         
                     	String[] terms = line.split("\t");
@@ -178,19 +190,13 @@ public class ModelLoader {
                         	final BinaryWinnow winnow = BinaryWinnow.load(line);
 
                             
-                            if (winnow != null && winnow.get_label().trim().length() > 1 
-                                && !winnow.get_label().startsWith("*")
-                                && (!winnow.get_label().toLowerCase().contains("people"))
-                                && (!winnow.get_label().toLowerCase().contains("article"))
-                                && (!winnow.get_label().toLowerCase().contains("alumni"))
-                                && (!winnow.get_label().toLowerCase().contains("births"))
-                                && (!winnow.get_label().toLowerCase().contains("deaths"))){
+                            if (winnow != null && winnow.get_label().trim().length() > 1 ){
                             	
                                     categoryModels.add(winnow);
                                 
                                 nModels++;
                                 nBytes+=winnow.get_nTermBytes();
-                                LOGGER.trace("Loaded category model "+ winnow.get_label());
+                                LOGGER.info("Loaded category model "+ winnow.get_label());
                                 LOGGER.trace("Loaded "+ nBytes+" bytes");
                                 if (nModels%100==0){
                                 	LOGGER.debug("Loaded "+nModels+" models, "+nBytes/1000000+" Mb");

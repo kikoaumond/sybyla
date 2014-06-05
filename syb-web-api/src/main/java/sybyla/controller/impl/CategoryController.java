@@ -1,5 +1,6 @@
 package sybyla.controller.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -41,7 +42,7 @@ public class CategoryController extends Controller{
 		String url = HTTPUtils.getParam(URL, params);
 		
 		if ( text== null && url == null){
-			throw new IllegalArgumentException("The "+TEXT+" parameter must be specified in a call");
+			throw new IllegalArgumentException("Either "+TEXT+" or "+ URL +"  parameter must be specified in a call");
 		}
 	}	
 	
@@ -49,8 +50,18 @@ public class CategoryController extends Controller{
 	public void process(Map<String, String[]> params, ApiResponse response) {
 		
 		String text = HTTPUtils.getParam(TEXT, params);
+        String url =  HTTPUtils.getParam(URL, params);
+
 		Classifier classifier = new Classifier();
-		List<Category> categories = classifier.classify(text);
+        List<Category> categories = new ArrayList<>();
+
+        if (url != null){
+            categories = classifier.classifyURL(url);
+        }
+        else if (text != null){
+		     categories = classifier.classify(text);
+        }
+
 		Set<String> unique = new HashSet<String>();
 
 		int nCats=0;
@@ -63,6 +74,12 @@ public class CategoryController extends Controller{
 			Category category = categories.get(i);
 			double score = category.getScore();
 			String categoryName = category.getName();
+            CategoryResult sybylaCat = factory.createCategoryResult();
+            sybylaCat.setCategory(categoryName);
+            sybylaCat.setType(CategoryMap.SYBYLA);
+            sybylaCat.setRelevance(score);
+            response.getCategories().add(sybylaCat);
+            /*
 			Set<CategoryMapEntry>  entries= CategoryMap.getCategoryEntry(categoryName);
 			if (entries != null && entries.size()>0){
 				nCats++;
@@ -100,7 +117,7 @@ public class CategoryController extends Controller{
 					
 				} 
 				
-			}
+			} */
 		}
 		Comparator<CategoryResult> reverseScoreComparator = new Comparator<CategoryResult>(){
 

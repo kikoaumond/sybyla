@@ -35,6 +35,8 @@ import sybyla.jaxb.CategoryResult;
 public class CategoryHandlerTest {
 	private static int port =8081;
 	private static String text;
+    private static String url;
+
 	@Before
 	public void setUp() throws IOException {
 		SybylaServer.setPort(port);
@@ -44,7 +46,7 @@ public class CategoryHandlerTest {
 		
 	}
 	
-	@After
+    @After
 	public void tearDown() {
 		try {
 			SybylaServer.stop();
@@ -52,7 +54,57 @@ public class CategoryHandlerTest {
 			e.printStackTrace();
 		}
 	}
-	
+
+    @Test
+    public void testCategoryURL() throws JSONException, IOException {
+
+        BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/abbottabad.txt"));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while((line=reader.readLine())!=null){
+            sb.append(line).append("\n");
+        }
+        url = "http://g1.globo.com/economia/mercados/";
+
+        Map<String, String> params =  new HashMap<String, String>();
+        params.put(TagController.URL, url);
+        Client httpClient = new Client("http://localhost:"+port+"/category/json", params, sybyla.http.Constants.POST);
+        httpClient.run();
+        String content = httpClient.getResponseContent();
+        assertNotNull(content);
+        String contentType = httpClient.getResponseType();
+        JSONObject json = new JSONObject(content);
+        JSONTokener tokener = new JSONTokener(json.toString()); //tokenize the ugly JSON string
+        JSONObject finalResult = new JSONObject(tokener); // convert it to JSON object
+        System.out.println(finalResult.toString(4));
+        assertNotNull(json);
+        String expectedContentType =sybyla.http.Constants.JSON_MIME_TYPE+";"+sybyla.http.Constants.CHARSET_UTF8;
+        assertTrue(expectedContentType.equalsIgnoreCase(contentType));
+
+        String callback =  "callback";
+        params.put(Constants.CALLBACK_PARAM, callback);
+        httpClient.setParams(params);
+        httpClient.run();
+        content = httpClient.getResponseContent();
+        assertNotNull(content);
+        contentType = httpClient.getResponseType();
+
+        expectedContentType =sybyla.http.Constants.JSONP_MIME_TYPE+";"+sybyla.http.Constants.CHARSET_UTF8;
+        assertTrue(expectedContentType.equalsIgnoreCase(contentType));
+
+        String jsonContent = content.substring((callback+"(").length(), content.indexOf(");"));
+        JSONObject json2 = new JSONObject(jsonContent);
+        assertNotNull(json2);
+        JSONArray c =  json.getJSONObject("apiResponse").getJSONArray("categories");
+        JSONArray c2 = json2.getJSONObject("apiResponse").getJSONArray("categories");
+        assertEquals(c.toString(), c2.toString());
+
+        String u =  json.getJSONObject("apiResponse").getString("requestURL");
+        String u2 = json2.getJSONObject("apiResponse").getString("requestURL");
+        assertEquals(u, u2);
+
+    }
+
 	@Test
 	public void testCategory() throws JSONException, IOException {
 		
