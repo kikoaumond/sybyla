@@ -7,6 +7,7 @@
   "fields":
   [
     {"name":"url","type":"string"},
+    {"name":"id","type":"integer"},
     {"name":"topCategory", "type":"string"},
     {"name":"bottomCategory", "type":"string"},
     {"name":"fullCategory", "type":"string"},

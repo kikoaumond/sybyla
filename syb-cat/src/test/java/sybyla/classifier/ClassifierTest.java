@@ -22,7 +22,7 @@ public class ClassifierTest {
 
     @Test
     public void testClassifyURL1() {
-        String url="http://economia.uol.com.br/listas/saiba-como-comprar-um-imovel.htm/";
+        String url="http://www.americanas.com.br/sublinha/262871/tv-e-home-theater/tv/tvs-de-plasma";
 
         Classifier classifier = new Classifier();
         List<Category> categories = classifier.classifyURL(url);

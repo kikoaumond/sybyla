@@ -136,7 +136,7 @@ public class ModelLoader {
         File[] categoryModelFiles = categoryModelsDir.listFiles();
         Set<File> files =  new HashSet<File>();
         for (File file : categoryModelFiles) {
-            if (file.getName().contains("part-")) {
+            if (file.getName().contains("part-") && !file.getName().endsWith(".crc")) {
                 files.add(file);
             }
             if (file.isDirectory()) {

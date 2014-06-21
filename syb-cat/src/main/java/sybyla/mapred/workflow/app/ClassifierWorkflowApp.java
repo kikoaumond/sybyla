@@ -36,7 +36,7 @@ public class ClassifierWorkflowApp
          options.put(ClassifierFlow.WORKING_DIR_OPTION, workingDir);
          options.put(ClassifierFlow.INPUT_PATH_OPTION, inputFilesDir);
          options.put(ClassifierFlow.N_ITERATIONS,"10");
-         options.put(ClassifierFlow.CUMMULATIVE_WEIGHT_PERCENTAGE,"0.8");
+         options.put(ClassifierFlow.CUMMULATIVE_WEIGHT_PERCENTAGE,"1");
          options.put(ClassifierFlow.RELEVANCE_FACTOR,"5");
          options.put(ClassifierFlow.TOP_FEATURES_PER_DOCUMENT, "200");
 

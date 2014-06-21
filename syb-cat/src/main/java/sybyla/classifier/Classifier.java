@@ -52,7 +52,7 @@ public class Classifier {
     //maximum number of top ranked terms in weight in a model to use when building the index
     private static final int DEFAULT_TOP_MODEL_TERMS_RETURNED = 200;
     //maximum number of high scoring models to be returned per text cluster
-    private static final int DEFAULT_TOP_MODELS=3;
+    private static final int DEFAULT_TOP_MODELS=5;
     //use the index or do a full scan of all models
     private static final boolean DEFAULT_USE_INDEX=true;
     //use the term counts when computing the model scores
@@ -216,7 +216,28 @@ public class Classifier {
         i--;
     }
 
-    categoryResultList.addAll(scores);
+    List<Category> adjustedScores =  new ArrayList<>(scores);
+    for(Category c1: scores){
+
+        String c1Name=  c1.getName();
+
+        for (Category c2: adjustedScores){
+
+            String c2Name = c2.getName();
+
+            if (!c1Name.equals(c2Name)) {
+
+                if (c2Name.contains(c1Name)) {
+                    double newScore =  c2.getScore()+ c1.getScore();
+                    c2.setScore(newScore);
+                }
+            }
+        }
+    }
+
+    orderScoresInReverse(adjustedScores);
+
+    categoryResultList.add(adjustedScores.get(0));
 
     return categoryResultList;
 }
@@ -605,7 +626,8 @@ public class Classifier {
                     LOGGER.error(e);
                 }
            }
-           
+
+
            //compares scores in reverse order
            orderScoresInReverse(scores);
            
@@ -614,11 +636,29 @@ public class Classifier {
                scores.remove(i);
                i--;
            }
-           categoryResultList.addAll(scores);
-           
 
-       
-       
+           List<Category> adjustedScores =  new ArrayList<>(scores);
+           for(Category c1: scores){
+
+               String c1Name=  c1.getName();
+
+               for (Category c2: adjustedScores){
+
+                   String c2Name = c2.getName();
+
+                   if (!c1Name.equals(c2Name)) {
+
+                       if (c2Name.contains(c1Name)) {
+                           double newScore =  c2.getScore()+ c1.getScore();
+                           c2.setScore(newScore);
+                       }
+                   }
+               }
+           }
+       orderScoresInReverse(adjustedScores);
+
+       categoryResultList.addAll(adjustedScores);
+
        return categoryResultList;
    }
    

@@ -377,8 +377,8 @@ public class BinaryWinnow {
             if (w == null){
                 w=1.0d;
             }
-            if (w < 0){
-                w=0.d;
+            if (w <= 0){
+                continue;
             }
             Term t =  new Term(term,w);
             termSet.add(t);
@@ -1073,8 +1073,15 @@ public class BinaryWinnow {
         Map<String,Double> weights = new HashMap<String,Double>();
         
         for(ByteArray binaryTerm :_weights.keySet()) {
+
             WinnowTermEntry entry = _weights.get(binaryTerm);
             Double weight = entry.get_weight();
+
+            if (weight ==  null || weight == 0.d) {
+
+                continue;
+            }
+
             String term = toString(binaryTerm);
             weights.put(term, weight);
         }

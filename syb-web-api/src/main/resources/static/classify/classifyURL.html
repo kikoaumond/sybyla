@@ -1,0 +1,78 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>Sybyla Classification API</title>
+
+<!-- jQuery File -->
+<script src="../js/jquery-1.7.1.js" charset="UTF-8"></script>
+
+<script>
+var BASE_URL='http://localhost/category/jsonp/';
+
+function classify(url) {
+	$('#result').html('');
+	var dest = BASE_URL;
+	var data={};
+	data.url=url
+	var postRequest = $.post(dest, 
+	                         data, 
+	                         function(responseData) {
+	                             displayResponse(responseData);
+	                         });
+}
+
+function displayResponse(responseData){
+	$('#result').html('');
+	if (responseData.apiResponse.categories){
+		var categoryArray  = responseData.apiResponse.categories;
+		var output='';
+
+			for ( var i in categoryArray) {
+
+			var category = categoryArray[i];
+			output += '<p> ' + category.category + ' <b>' + category.relevance + '</b> ' ;
+			
+			if (category.categoryDetail && category.categoryDetail != ''){		
+				output += ': '+category.categoryDetail;
+			}
+			
+			output += ' </p>';
+
+		}
+		$('#result').html(output);
+	}
+}
+</script>
+</head>
+
+<body>
+		Enter some text in the form below.  The Sybyla Classifier API will return all of the possible classifications it finds for it.
+	<div id="form">
+    	<form>
+    		URL:<textarea id="text" rows="1" cols="80"></textarea>
+    				
+    		<input type="button" id="class_button" value="Classify this URL"/>
+    	</form>
+    	<script>
+    		$(document).ready(function() {
+    			$("#text").keydown(function() {
+        			if (event.keyCode == 13) {
+            			$("form").submit();
+         			}
+    			});
+			});
+    		$("#class_button").click( function() {
+    			 $('#form').submit();
+            });
+            $('#form').submit(function() {
+  				var url = $("#text").val();
+  				classify(url);
+  				return false;
+			});
+    	</script>
+    </div>
+    <div id="result"></div>
+</body>
+</html>

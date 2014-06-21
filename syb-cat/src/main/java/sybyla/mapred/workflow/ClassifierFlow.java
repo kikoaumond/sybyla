@@ -62,6 +62,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -215,6 +216,8 @@ public class ClassifierFlow {
     private static class DistinctDocumentBuffer extends BaseOperation<NullContext> implements Buffer<NullContext>{
 
         private int spillThreshold = 1000000;
+        private AtomicLong tuplesProcessed = new AtomicLong(0);
+        private static final long LOGGING_EVERY = 10000l;
 
         private transient LoggingFlowProcess flowProcess;
         private SpillableTupleList tupleListIn;
@@ -252,12 +255,12 @@ public class ClassifierFlow {
             String groupFeature = groupTupleEntry.getString(FEATURE_FN);
             String groupCategory =  groupTupleEntry.getString(FULL_CATEGORY_FN);
             TupleEntry in = null;
-            /*
+
             DateFormat df = new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
-            int n = invocations.incrementAndGet();
+            long n = tuplesProcessed.incrementAndGet();
             if ( n % LOGGING_EVERY == 0){
-                System.out.println(n+" ParentCategoryBuffer Feature: "+ groupFeature+" "+df.format(new Date()));
-            } */
+                System.out.println(n+" DistinctDocumentBuffer Feature "+ n+": "+ groupFeature+" "+df.format(new Date()));
+            }
 
             try{
                 tupleListIn = new HadoopSpillableTupleList(spillThreshold, new GzipCodec(),HadoopUtils.getDefaultJobConf());
@@ -718,7 +721,7 @@ public class ClassifierFlow {
         extends BaseOperation<NullContext> implements Buffer<NullContext>{
 
         private transient SpillableTupleList tupleList;
-        private int spillThreshold = 500;
+        private int spillThreshold = 2000;
 
         private int nIterations = 1;
         private transient LoggingFlowProcess flowProcess;
@@ -758,6 +761,9 @@ public class ClassifierFlow {
                 tupleList = new HadoopSpillableTupleList(spillThreshold, new GzipCodec(),HadoopUtils.getDefaultJobConf());
             } catch(Exception e){
                 LOGGER.error("Error getting default job configuration",e);
+                System.out.println("Error getting default job configuration"+e.getMessage()+" Category: "+modelCategory);
+                return;
+
             }
 
             Iterator<TupleEntry> iterator = bufferCall.getArgumentsIterator();
@@ -827,8 +833,8 @@ public class ClassifierFlow {
 
             //winnow.pruneBySignificance(threshold);
             int nPruned = winnow.pruneByCummulativeWeight(weightPercentage);
-            //do not add any more terms to the winnow
 
+            //do not add any more terms to the winnow
             winnow.set_restrict(true);
             //dump the list of excluded terms, which can be potentially be very large
             //and is not needed anymore, now that the winnow is restricted, i.e., no more
@@ -862,9 +868,10 @@ public class ClassifierFlow {
 
                         String feature = featureRelevanceTuple.getString(0);
                         double relevance = featureRelevanceTuple.getDouble(1);
+                        if (relevance > 0) {
+                            features.put(feature,relevance);
 
-                        features.put(feature,relevance);
-
+                        }
                     }
 
                     winnow.train(tupleCategory, features);

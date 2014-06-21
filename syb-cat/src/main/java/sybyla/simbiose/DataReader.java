@@ -12,6 +12,9 @@ import sybyla.http.SimplePageParser;
 import sybyla.mapred.workflow.ClassifierFlow;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,7 +37,7 @@ import java.util.regex.Pattern;
 public class DataReader
 {
     private static Logger LOG = Logger.getLogger(DataReader.class);
-    private static String trainingDataFile = "/simbiose/trainingData.txt";
+    private static String trainingDataFile = "/Users/kiko/sybyla//simbiose/trainingData06202014.txt";
     private static int FEATURE_EXTRACTOR_LENGTH= 2;
     private static String avroOutputDirectory = "/Users/kiko/sybyla/simbiose/input/prod/";
     private static String avroFileRoot = "simbioseCategoryPages";
@@ -61,12 +64,32 @@ public class DataReader
     public static final String URL = "url";
     public static final String LEVEL = "level";
 
-    public DataReader() throws UnsupportedEncodingException
+    public static void main(String[] args){
+
+        try{
+
+            DataReader reader = new DataReader();
+            reader.read();
+
+        }catch(Exception e){
+
+            LOG.error("error reading urls",e);
+        }
+    }
+
+    public DataReader() throws UnsupportedEncodingException, FileNotFoundException
     {
-        InputStream is = DataReader.class.getResourceAsStream(trainingDataFile);
-        reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+       // InputStream is = DataReader.class.getResourceAsStream(trainingDataFile);
+        //reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+        initializeInputReader();
         featureExtractor = new FeatureExtractor(FEATURE_EXTRACTOR_LENGTH);
         cwpa = new CategoryWebPageToAvro(avroOutputDirectory, avroFileRoot);
+    }
+
+    public void initializeInputReader() throws FileNotFoundException, UnsupportedEncodingException
+    {
+        InputStream is = new FileInputStream(new File(trainingDataFile));
+        reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
     }
 
     public String normalize(String line)
@@ -136,8 +159,8 @@ public class DataReader
         }
 
         reader.close();
-        InputStream is = DataReader.class.getResourceAsStream(trainingDataFile);
-        reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+
+        initializeInputReader();
 
         allCategories.addAll(allCategoriesSet);
         Collections.sort(allCategories);
@@ -421,7 +444,11 @@ public class DataReader
     public String getContent(String url)
     {
         try{
-            Connection connection = Jsoup.connect(url).userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:10.0) Gecko/20100101 Firefox/10.0").referrer("http://www.google.com");
+            Connection connection = Jsoup.connect(url).
+                userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:10.0) Gecko/20100101 Firefox/10.0").
+                referrer("http://www.google.com").
+                timeout(10*1000);
+
             Document document = connection.get();
             String text = document.toString();
             return text;
