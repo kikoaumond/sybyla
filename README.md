@@ -1,4 +1,4 @@
-sybyla
+Sybyla
 ======
 
 Sybyla is a semantic graph containing 100 million entities and their relationships, extracted and analyzed using NLP.
